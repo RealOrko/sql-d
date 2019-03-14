@@ -30,6 +30,7 @@ rem SET StartWinX64ProjectPath=./src/sql-d.start.win-x64/SqlD.Start.win-x64.cspr
 rem dotnet publish %StartWinX64ProjectPath% -r win-x64 --self-contained || EXIT /B 1
 rem dotnet pack %StartWinX64ProjectPath% -o ../../build --include-symbols || EXIT /B 1
 rem 
+
 SET UIWinX64ProjectPath=./src/sql-d.ui/SqlD.UI.csproj
 dotnet publish %UIWinX64ProjectPath% -r win-x64 --self-contained || EXIT /B 1
 dotnet pack %UIWinX64ProjectPath% -o ../../build || EXIT /B 1
