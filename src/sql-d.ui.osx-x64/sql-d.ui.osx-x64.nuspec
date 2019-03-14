@@ -16,8 +16,6 @@
 			<group targetFramework=".NETCoreApp2.2">
 				<dependency id="sql-d" version="$version$" />
 				<dependency id="sql-d.start.osx-x64" version="$version$" />
-				<dependency id="sql-d.start.linux-x64" version="$version$" />
-				<dependency id="sql-d.start.osx-x64" version="$version$" />
 			</group>
 		</dependencies>
 	</metadata>
