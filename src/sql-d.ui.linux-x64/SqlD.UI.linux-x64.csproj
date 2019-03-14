@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<IsPackable>true</IsPackable>
+		<TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+		<RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+		<TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<RuntimeFrameworkVersion>2.2.2</RuntimeFrameworkVersion>
+		<PlatformTarget>x64</PlatformTarget>
+		<NuSpecFile>sql-d.ui.linux-x64.nuspec</NuSpecFile>
+		<NuSpecBasePath>bin/$(Configuration)/netcoreapp2.2/linux-x64/publish/</NuSpecBasePath>
+		<AssemblyName>SqlD.UI.linux-x64</AssemblyName>
+		<StartupObject>SqlD.UI.Program</StartupObject>
+		<RootNamespace>SqlD.UI</RootNamespace>
+		<NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
+	</PropertyGroup>
+
+	<Import Project="../../version.props" />
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.9.20" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
+		<PackageReference Include="NSwag.AspNetCore" Version="12.0.15" />
+		<PackageReference Include="sql-d" Version="1.0.4" />
+		<PackageReference Include="sql-d.start.linux-x64" Version="1.0.4" />
+		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.110" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="*.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Views\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<None Update="sql-d.ui.linux-x64.nuspec">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>
