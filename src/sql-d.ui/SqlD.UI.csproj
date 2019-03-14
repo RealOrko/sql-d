@@ -3,21 +3,26 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFrameworks>netcoreapp2.2</TargetFrameworks>
-		<RuntimeIdentifiers>linux-x64;osx-x64;win-x64</RuntimeIdentifiers>
+		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
 		<TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<RuntimeFrameworkVersion>2.2.2</RuntimeFrameworkVersion>
 		<PlatformTarget>x64</PlatformTarget>
-		<NuSpecFile>sql-d.start.win-x64.nuspec</NuSpecFile>
-		<NuSpecBasePath>bin/$(Configuration)/netcoreapp2.2/$(RuntimeIdentifier)/publish/</NuSpecBasePath>
-		<AssemblyName>sqld.ui</AssemblyName>
+		<NuSpecFile>sql-d.ui.win-x64.nuspec</NuSpecFile>
+		<NuSpecBasePath>bin/$(Configuration)/netcoreapp2.2/win-x64/publish/</NuSpecBasePath>
+		<AssemblyName>SqlD.UI.win-x64</AssemblyName>
+		<StartupObject>SqlD.UI.Program</StartupObject>
+		<RootNamespace>SqlD.UI</RootNamespace>
+		<NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
 	</PropertyGroup>
 
+	<Import Project="../../version.props" />
+
 	<ItemGroup>
+		<None Remove="wwwroot\lib\ace\demo\**" />
 		<Compile Remove="wwwroot\lib\ace\demo\**" />
 		<Content Remove="wwwroot\lib\ace\demo\**" />
 		<EmbeddedResource Remove="wwwroot\lib\ace\demo\**" />
-		<None Remove="wwwroot\lib\ace\demo\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,12 +34,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.9.20" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.2">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
 		<PackageReference Include="NSwag.AspNetCore" Version="12.0.15" />
@@ -51,15 +50,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="Views\Service\Edit.cshtml">
-	    <Pack>$(IncludeRazorContentInPack)</Pack>
-	  </Content>
-	  <Content Update="Views\Service\Launch.cshtml">
-	    <Pack>$(IncludeRazorContentInPack)</Pack>
-	  </Content>
+		<Content Update="*.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Views\**\*.cshtml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="sql-d.ui.win-x64.nuspec">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 </Project>
