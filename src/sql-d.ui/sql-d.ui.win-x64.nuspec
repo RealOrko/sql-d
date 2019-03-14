@@ -15,10 +15,15 @@
 		<dependencies>
 			<group targetFramework=".NETCoreApp2.2">
 				<dependency id="sql-d" version="$version$" />
+				<dependency id="sql-d.start.osx-x64" version="$version$" />
+				<dependency id="sql-d.start.linux-x64" version="$version$" />
+				<dependency id="sql-d.start.win-x64" version="$version$" />
 			</group>
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="**" target="contentFiles/any/any/sql-d.ui/win-x64" />
+		<file src="*" exclude="sql-d.start/**" target="contentFiles/any/any/sql-d.ui/win-x64" />
+		<file src="wwwroot/**" exclude="sql-d.start/**" target="contentFiles/any/any/sql-d.ui/win-x64" />
+		<file src="Views/**" exclude="sql-d.start/**" target="contentFiles/any/any/sql-d.ui/win-x64" />
 	</files>
 </package>

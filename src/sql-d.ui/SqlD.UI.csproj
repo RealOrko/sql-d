@@ -20,13 +20,6 @@
 	<Import Project="../../version.props" />
 
 	<ItemGroup>
-		<None Remove="wwwroot\lib\ace\demo\**" />
-		<Compile Remove="wwwroot\lib\ace\demo\**" />
-		<Content Remove="wwwroot\lib\ace\demo\**" />
-		<EmbeddedResource Remove="wwwroot\lib\ace\demo\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
@@ -54,7 +47,7 @@
 		<Content Update="*.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		<Content Update="Views\**\*.cshtml">
+		<Content Update="Views\**">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Update="wwwroot\**">
