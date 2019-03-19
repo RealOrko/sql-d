@@ -47,40 +47,41 @@
 		<UIServices Include="Services\**\*.cs" />
 		<UIViewComponents Include="ViewComponents\**\*.cs" />
 		<UIViews Include="Views\**\*.*" />
-		<UIWwwroot Include="Views\**\*.*" />
+		<UIWwwroot Include="wwwroot\**\*.*" />
 	</ItemGroup>
 
-	<Target Name="CopyLinux" AfterTargets="Build">
+	<Target Name="UICopyFiles">
+		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\" />
+		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Controllers\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Models\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Services\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\ViewComponents\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Views\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\wwwroot\%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="UICopyLinux" AfterTargets="Build">
+		<PropertyGroup>
+			<ProjectRuntimeTarget>linux-x64</ProjectRuntimeTarget>
+		</PropertyGroup>
 		<Message Text="Copying files to linux-x64 UI" />
-		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.linux-x64\" />
-		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.linux-x64\Controllers\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.linux-x64\Models\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.linux-x64\Services\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.linux-x64\ViewComponents\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.linux-x64\Views\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.linux-x64\wwwroot\%(RecursiveDir)" />
+		<CallTarget Targets="UICopyFiles" />
 	</Target>
 
-	<Target Name="CopyOSX" AfterTargets="Build">
+	<Target Name="UICopyOSX" AfterTargets="Build">
+		<PropertyGroup>
+			<ProjectRuntimeTarget>osx-x64</ProjectRuntimeTarget>
+		</PropertyGroup>
 		<Message Text="Copying files to osx-x64 UI" />
-		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.osx-x64\" />
-		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.osx-x64\Controllers\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.osx-x64\Models\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.osx-x64\Services\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.osx-x64\ViewComponents\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.osx-x64\Views\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.osx-x64\wwwroot\%(RecursiveDir)" />
+		<CallTarget Targets="UICopyFiles" />
 	</Target>
 
-	<Target Name="CopyWin" AfterTargets="Build">
+	<Target Name="UICopyWin" AfterTargets="Build">
+		<PropertyGroup>
+			<ProjectRuntimeTarget>win-x64</ProjectRuntimeTarget>
+		</PropertyGroup>
 		<Message Text="Copying files to win-x64 UI" />
-		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.win-x64\" />
-		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.win-x64\Controllers\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.win-x64\Models\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.win-x64\Services\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.win-x64\ViewComponents\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.win-x64\Views\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.win-x64\wwwroot\%(RecursiveDir)" />
+		<CallTarget Targets="UICopyFiles" />
 	</Target>
 
 </Project>
