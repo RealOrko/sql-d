@@ -42,6 +42,7 @@
 
 	<ItemGroup>
 		<UIJsonFiles Include="*.json" />
+		<UICSharpFiles Include="*.cs" />
 		<UIControllers Include="Controllers\**\*.cs" />
 		<UIModels Include="Models\**\*.cs" />
 		<UIServices Include="Services\**\*.cs" />
@@ -52,6 +53,7 @@
 
 	<Target Name="UICopyFiles">
 		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\" />
+		<Copy SourceFiles="@(UICSharpFiles)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\" />
 		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Controllers\%(RecursiveDir)" />
 		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Models\%(RecursiveDir)" />
 		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Services\%(RecursiveDir)" />
