@@ -1,0 +1,24 @@
+﻿@model SqlD.UI.Models.Query.CommandResultViewModel
+
+@if (Model != null && string.IsNullOrEmpty(Model.Error))
+{
+	if (!string.IsNullOrEmpty(Model.Error))
+	{
+		<div class="alert alert-danger" role="alert">
+			@Model.Status.ToString() - @Model.Error
+		</div>
+	}
+	else
+	{
+		<div class="alert alert-success" role="alert">
+			@Model.Status.ToString()
+		</div>
+	}
+}
+else if (Model != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@Model.Error
+	</div>
+}
+

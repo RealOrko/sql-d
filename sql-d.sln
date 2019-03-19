@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql-d.start", "sql-d.start"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql-d.ui", "sql-d.ui", "{817BB950-F4B4-4F79-BE19-BB0E2BFC4852}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlD.UI", "src\sql-d.ui\SqlD.UI.csproj", "{78F2BAB9-FEC2-4BC5-94FF-1D6FFE5A276C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{CD22B55D-7710-490A-93A9-09C8BCC79E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD22B55D-7710-490A-93A9-09C8BCC79E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD22B55D-7710-490A-93A9-09C8BCC79E9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78F2BAB9-FEC2-4BC5-94FF-1D6FFE5A276C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F2BAB9-FEC2-4BC5-94FF-1D6FFE5A276C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78F2BAB9-FEC2-4BC5-94FF-1D6FFE5A276C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78F2BAB9-FEC2-4BC5-94FF-1D6FFE5A276C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{CD22B55D-7710-490A-93A9-09C8BCC79E9B} = {817BB950-F4B4-4F79-BE19-BB0E2BFC4852}
 		{31D971C2-A572-4D53-91FF-0DF3F1304C03} = {243695E0-61E0-4CB5-B032-54167EB126A7}
 		{817BB950-F4B4-4F79-BE19-BB0E2BFC4852} = {243695E0-61E0-4CB5-B032-54167EB126A7}
+		{78F2BAB9-FEC2-4BC5-94FF-1D6FFE5A276C} = {817BB950-F4B4-4F79-BE19-BB0E2BFC4852}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A6FCA73-005F-41E0-A9A4-74F58DA42160}

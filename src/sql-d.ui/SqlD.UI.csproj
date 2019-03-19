@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<IsPackable>true</IsPackable>
+		<TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+		<TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<RuntimeFrameworkVersion>2.2.2</RuntimeFrameworkVersion>
+		<PlatformTarget>x64</PlatformTarget>
+		<AssemblyName>SqlD.UI</AssemblyName>
+		<StartupObject>SqlD.UI.Program</StartupObject>
+		<RootNamespace>SqlD.UI</RootNamespace>
+		<NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
+	</PropertyGroup>
+
+	<Import Project="../../version.props" />
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.9.20" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
+		<PackageReference Include="NSwag.AspNetCore" Version="12.0.15" />
+		<PackageReference Include="sql-d" Version="1.0.4" />
+		<PackageReference Include="sql-d.start.linux-x64" Version="1.0.4" />
+		<PackageReference Include="sql-d.start.osx-x64" Version="1.0.4" />
+		<PackageReference Include="sql-d.start.win-x64" Version="1.0.4" />
+		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.110" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<UIJsonFiles Include="*.json" />
+		<UIControllers Include="Controllers\**\*.cs" />
+		<UIModels Include="Models\**\*.cs" />
+		<UIServices Include="Services\**\*.cs" />
+		<UIViewComponents Include="ViewComponents\**\*.cs" />
+		<UIViews Include="Views\**\*.*" />
+		<UIWwwroot Include="Views\**\*.*" />
+	</ItemGroup>
+
+	<Target Name="CopyLinux" AfterTargets="Build">
+		<Message Text="Copying files to linux-x64 UI" />
+		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.linux-x64\" />
+		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.linux-x64\Controllers\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.linux-x64\Models\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.linux-x64\Services\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.linux-x64\ViewComponents\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.linux-x64\Views\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.linux-x64\wwwroot\%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="CopyOSX" AfterTargets="Build">
+		<Message Text="Copying files to osx-x64 UI" />
+		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.osx-x64\" />
+		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.osx-x64\Controllers\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.osx-x64\Models\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.osx-x64\Services\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.osx-x64\ViewComponents\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.osx-x64\Views\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.osx-x64\wwwroot\%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="CopyWin" AfterTargets="Build">
+		<Message Text="Copying files to win-x64 UI" />
+		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.win-x64\" />
+		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.win-x64\Controllers\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.win-x64\Models\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.win-x64\Services\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.win-x64\ViewComponents\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.win-x64\Views\%(RecursiveDir)" />
+		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.win-x64\wwwroot\%(RecursiveDir)" />
+	</Target>
+
+</Project>

@@ -1,0 +1,35 @@
+﻿@model object
+
+<input type="text" id="registryUrl" placeholder="Registry URL" name="registryUrl">
+
+<style>
+	input#registryUrl { width: 100%; }
+</style>
+
+<script>
+	$(() => {
+		const registryUrlId = '#registryUrl';
+		const registryUrlEventName = 'registry.url';
+		const registryUrlLocalStorageKey = 'registry.registryUrl';
+
+		const previousRegistryUrl = (localStorage.getItem(registryUrlLocalStorageKey) || 'http://localhost:50100');
+		radio(registryUrlEventName).broadcast(previousRegistryUrl);
+		$(registryUrlId).val(previousRegistryUrl);
+
+		radio(registryUrlEventName).subscribe((data) => {
+			const currentRegistryUrl = $(registryUrlId).val();
+			if (typeof (data) !== "undefined" && data !== currentRegistryUrl) {
+				$(registryUrlId).val(data);
+				localStorage.setItem(registryUrlLocalStorageKey, data);
+			} else {
+				$(registryUrlId).val(currentRegistryUrl);
+			}
+		});
+
+		$(registryUrlId).on('change', () => {
+			const currentRegistryUrl = $(registryUrlId).val();
+			radio(registryUrlEventName).broadcast(currentRegistryUrl);
+			localStorage.setItem(registryUrlLocalStorageKey, currentRegistryUrl);
+		});
+	});
+</script>
