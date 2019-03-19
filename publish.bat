@@ -28,6 +28,9 @@ SET StartWinX64ProjectPath=./src/sql-d.start.win-x64/SqlD.Start.win-x64.csproj
 dotnet publish %StartWinX64ProjectPath% -r win-x64 --self-contained || EXIT /B 1
 dotnet pack %StartWinX64ProjectPath% -o ../../build --include-symbols || EXIT /B 1
 
+SET UIProjectPath=./src/sql-d.ui/SqlD.UI.csproj
+dotnet build %UILinuxX64ProjectPath% -c Release
+
 SET UILinuxX64ProjectPath=./src/sql-d.ui.linux-x64/SqlD.UI.linux-x64.csproj
 dotnet publish %UILinuxX64ProjectPath% -r linux-x64 --self-contained
 xcopy /E /F /Y /S src\sql-d.ui.linux-x64\bin\Release\netcoreapp2.2\Views src\sql-d.ui.linux-x64\bin\Release\netcoreapp2.2\linux-x64\publish\Views\
