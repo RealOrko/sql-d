@@ -63,27 +63,24 @@
 	</Target>
 
 	<Target Name="UICopyLinux" AfterTargets="Build">
-		<PropertyGroup>
-			<ProjectRuntimeTarget>linux-x64</ProjectRuntimeTarget>
-		</PropertyGroup>
 		<Message Text="Copying files to linux-x64 UI" />
-		<CallTarget Targets="UICopyFiles" />
+		<MSBuild Projects ="$(MSBuildProjectFullPath)"
+		         Properties="ProjectRuntimeTarget=linux-x64"
+		         Targets="UICopyFiles" />	
 	</Target>
 
 	<Target Name="UICopyOSX" AfterTargets="Build">
-		<PropertyGroup>
-			<ProjectRuntimeTarget>osx-x64</ProjectRuntimeTarget>
-		</PropertyGroup>
 		<Message Text="Copying files to osx-x64 UI" />
-		<CallTarget Targets="UICopyFiles" />
+		<MSBuild Projects ="$(MSBuildProjectFullPath)"
+		         Properties="ProjectRuntimeTarget=osx-x64"
+		         Targets="UICopyFiles" />
 	</Target>
 
 	<Target Name="UICopyWin" AfterTargets="Build">
-		<PropertyGroup>
-			<ProjectRuntimeTarget>win-x64</ProjectRuntimeTarget>
-		</PropertyGroup>
 		<Message Text="Copying files to win-x64 UI" />
-		<CallTarget Targets="UICopyFiles" />
+		<MSBuild Projects ="$(MSBuildProjectFullPath)"
+		         Properties="ProjectRuntimeTarget=win-x64"
+		         Targets="UICopyFiles" />
 	</Target>
 
 </Project>
