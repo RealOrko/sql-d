@@ -25,12 +25,12 @@ dotnet build $LibProjectPath
 dotnet pack $LibProjectPath -o ../../build
 	
 export StartLinuxX64ProjectPath=./src/sql-d.start.linux-x64/SqlD.Start.linux-x64.csproj
-dotnet publish $StartLinuxX64ProjectPath -r linux-x64 -f $TargetFramework --self-contained
-dotnet pack $StartLinuxX64ProjectPath -o ../../build --include-symbols
+dotnet publish $StartLinuxX64ProjectPath -c $Configuration -r linux-x64 -f $TargetFramework --self-contained
+dotnet pack $StartLinuxX64ProjectPath -c $Configuration -o ../../build --include-symbols
 	
 export StartOsxX64ProjectPath=./src/sql-d.start.osx-x64/SqlD.Start.osx-x64.csproj
-dotnet publish $StartOsxX64ProjectPath -r osx-x64 -f $TargetFramework --self-contained
-dotnet pack $StartOsxX64ProjectPath -o ../../build --include-symbols
+dotnet publish $StartOsxX64ProjectPath -c $Configuration -r osx-x64 -f $TargetFramework --self-contained
+dotnet pack $StartOsxX64ProjectPath -c $Configuration -o ../../build --include-symbols
 
 export StartWinX64ProjectPath=./src/sql-d.start.win-x64/SqlD.Start.win-x64.csproj
 dotnet publish $StartWinX64ProjectPath -r win-x64 -f $TargetFramework --self-contained
