@@ -26,7 +26,7 @@ namespace SqlD.UI.Blazor
             services.AddServices();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationService service)
         {
             if (env.IsDevelopment())
             {
@@ -47,6 +47,8 @@ namespace SqlD.UI.Blazor
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+            
+            service.StartServices();
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using SqlD.UI.Blazor.Shared.Components.RegistryList;
 using SqlD.UI.Services;
 using SqlD.UI.Models.Registry;
@@ -10,6 +10,9 @@ namespace SqlD.UI.Blazor.Pages
 {
     public class QueryBase : ComponentBase
     {
+        [Inject] 
+        private IJSRuntime JavaScript { get; set; }
+
         [Inject]
         private RegistryService RegistryService { get; set; }
         
@@ -34,12 +37,12 @@ namespace SqlD.UI.Blazor.Pages
         
         protected void RegistryList_ServiceIdentityClick(RegistryListEventArgs args)
         {
-            Console.WriteLine($"Service Identity Clicked! {args.Service}");
+            JavaScript.InvokeAsync<object>("open", args.Service.EndPoint.ToUrl("api/id"),"_blank");
         }
 
         protected void RegistryList_ServiceSwaggerClick(RegistryListEventArgs args)
         {
-            Console.WriteLine($"Service Swagger Clicked! {args.Service}");
+            JavaScript.InvokeAsync<object>("open", args.Service.EndPoint.ToUrl("swagger"),"_blank");
         }
 
         protected void RegistryList_ServiceConnectClick(RegistryListEventArgs args)

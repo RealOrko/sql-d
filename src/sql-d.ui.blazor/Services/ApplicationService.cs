@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using SqlD.Configuration.Model;
 using SqlD.Logging;
 using SqlD.Network;
 using SqlD.Network.Server.Api.Registry;
-using SqlD.UI.Models.Registry;
 using SqlD.UI.Models.Services;
 
 namespace SqlD.UI.Services
 {
-	public class ServiceService
+	public class ApplicationService
 	{
 		private readonly ConfigService config;
 		private readonly RegistryService registry;
 
-		public ServiceService(ConfigService configService, RegistryService registryService)
+		public ApplicationService(ConfigService configService, RegistryService registryService)
 		{
 			this.config = configService;
 			this.registry = registryService;
 		}
 
-		public async Task<RegistryViewModel> GetRegistry()
+		public void StartServices()
 		{
-			return await registry.GetServices();
+			var config = this.config.Get();
+			SqlDStart.SqlDGo(typeof(ApplicationService).Assembly, config);
 		}
 
 		public void AddServiceToConfigAndStart(ServiceFormViewModel service)
@@ -54,7 +53,7 @@ namespace SqlD.UI.Services
 
 			this.config.Set(config);
 
-			SqlDStart.SqlDGo(typeof(ServiceService).Assembly, config);
+			SqlDStart.SqlDGo(typeof(ApplicationService).Assembly, config);
 		}
 
 		public void UpdateServiceAndRestart(ServiceFormViewModel service)
@@ -78,7 +77,7 @@ namespace SqlD.UI.Services
 
 			KillService(sqlDServiceModel.Host, sqlDServiceModel.Port, removeFromConfig:false);
 
-			SqlDStart.SqlDGo(typeof(ServiceService).Assembly, config);
+			SqlDStart.SqlDGo(typeof(ApplicationService).Assembly, config);
 		}
 
 		public void KillService(string host, int port, bool removeFromConfig)
@@ -122,11 +121,6 @@ namespace SqlD.UI.Services
 					Log.Out.Error(err.StackTrace);
 				}
 			}
-		}
-
-		public SqlDConfiguration GetConfig()
-		{
-			return config.Get();
 		}
 	}
 }

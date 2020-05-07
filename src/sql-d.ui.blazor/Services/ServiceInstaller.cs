@@ -14,7 +14,7 @@ namespace SqlD.UI.Services
             services.AddTransient<ContextService>();
             services.AddTransient<QueryService>();
             services.AddTransient<RegistryService>();
-            services.AddTransient<ServiceService>();
+            services.AddTransient<ApplicationService>();
             services.AddTransient<SurfaceService>();
             services.AddTransient<StorageService>();
             services.AddSingleton<EventService>();
