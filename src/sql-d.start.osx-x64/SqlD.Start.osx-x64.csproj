@@ -4,7 +4,6 @@
 		<OutputType>Exe</OutputType>
 		<IsPackable>true</IsPackable>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<RuntimeFrameworkVersion>3.1.0</RuntimeFrameworkVersion>
 		<RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
 		<StartupObject>SqlD.Start.osx_x64.Program</StartupObject>
 		<AssemblyName>SqlD.Start.osx-x64</AssemblyName>

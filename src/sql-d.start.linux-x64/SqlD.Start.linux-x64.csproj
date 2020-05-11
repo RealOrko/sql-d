@@ -4,7 +4,6 @@
 		<OutputType>Exe</OutputType>
 		<IsPackable>true</IsPackable>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<RuntimeFrameworkVersion>3.1.0</RuntimeFrameworkVersion>
 		<RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
 		<StartupObject>SqlD.Start.linux_x64.Program</StartupObject>
 		<AssemblyName>SqlD.Start.linux-x64</AssemblyName>
