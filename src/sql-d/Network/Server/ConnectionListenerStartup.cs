@@ -53,7 +53,7 @@ namespace SqlD.Network.Server
             });
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi();
         }
     }
 }
