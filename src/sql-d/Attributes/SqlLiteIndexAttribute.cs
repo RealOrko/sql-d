@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SqlD.Attributes
+﻿namespace SqlD.Attributes
 {
 	public class SqlLiteIndexAttribute : Attribute
 	{
