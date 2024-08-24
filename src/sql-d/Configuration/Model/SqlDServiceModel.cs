@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SqlD.Network.Server;
+﻿using SqlD.Network.Server;
 
 namespace SqlD.Configuration.Model
 {

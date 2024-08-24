@@ -1,7 +1,3 @@
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
 namespace SqlD.Network.Client.Json
 {
     public interface IAsyncJsonService : IDisposable

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SqlD.Network
+﻿namespace SqlD.Network
 {
 	public class EndPoint
 	{

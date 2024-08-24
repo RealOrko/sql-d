@@ -1,6 +1,4 @@
 using System.Reflection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using SqlD.Configuration;
 using SqlD.Configuration.Model;
 using SqlD.Network.Server.Middleware;

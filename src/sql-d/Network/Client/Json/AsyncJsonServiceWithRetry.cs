@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using SqlD.Network.Diagnostics;
+﻿using SqlD.Network.Diagnostics;
 
 namespace SqlD.Network.Client.Json
 {

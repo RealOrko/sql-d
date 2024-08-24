@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SqlD.Network
+﻿namespace SqlD.Network
 {
 	public static class Constants
     {

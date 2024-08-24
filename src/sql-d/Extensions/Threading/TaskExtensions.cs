@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace SqlD.Extensions.Threading
+﻿namespace SqlD.Extensions.Threading
 {
 	public static class TaskExtensions
 	{

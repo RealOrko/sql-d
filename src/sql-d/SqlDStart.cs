@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using SqlD.Builders;
 using SqlD.Configuration.Model;
 using SqlD.Logging;

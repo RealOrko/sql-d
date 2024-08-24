@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SqlD.Network.Server.Api.Registry.Model
+﻿namespace SqlD.Network.Server.Api.Registry.Model
 {
 	public class RegistrationResponse
 	{

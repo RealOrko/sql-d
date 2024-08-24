@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SqlD.Network.Server.Api.Kill.Model
+﻿namespace SqlD.Network.Server.Api.Kill.Model
 {
 	public class KillResponse
 	{

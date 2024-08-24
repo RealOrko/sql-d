@@ -1,4 +1,3 @@
-using System;
 using SqlD.Attributes;
 
 namespace SqlD.Network.Server.Api.Registry.Model

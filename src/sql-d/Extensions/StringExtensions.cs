@@ -1,5 +1,3 @@
-using System;
-
 namespace SqlD.Extensions
 {
 	public static class StringExtensions
