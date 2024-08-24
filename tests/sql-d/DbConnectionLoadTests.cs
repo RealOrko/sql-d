@@ -92,7 +92,6 @@ namespace SqlD.Tests
 			});
 
 			// Reads
-
 			var task4 = Task.Factory.StartNew(() =>
 			{
 				try

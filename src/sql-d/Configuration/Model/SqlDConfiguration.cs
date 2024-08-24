@@ -7,10 +7,10 @@ namespace SqlD.Configuration.Model
         public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
         {
             Enabled = true,
-            ProcessModel = new SqlDProcessModel()
-            {
-                Distributed = false
-            },
+            // ProcessModel = new SqlDProcessModel()
+            // {
+            //     Distributed = false
+            // },
             Registries = new List<SqlDRegistryModel>()
             {
                 new SqlDRegistryModel()
@@ -34,7 +34,7 @@ namespace SqlD.Configuration.Model
 
         public bool Enabled { get; set; } = true;
 		public string Authority { get; set; }
-		public SqlDProcessModel ProcessModel { get; set; }
+		// public SqlDProcessModel ProcessModel { get; set; }
 		public List<SqlDServiceModel> Services { get; set; } = new List<SqlDServiceModel>();
 		public List<SqlDRegistryModel> Registries { get; set; } = new List<SqlDRegistryModel>();
 

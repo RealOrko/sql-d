@@ -9,7 +9,6 @@ namespace SqlD.Tests.Framework.Network
 	public class NetworkTestCase
 	{
 		protected static readonly object Synchronise = new object();
-
 		protected static readonly List<ConnectionClient> Clients = new List<ConnectionClient>();
 		protected static readonly List<ConnectionListener> Listeners = new List<ConnectionListener>();
 

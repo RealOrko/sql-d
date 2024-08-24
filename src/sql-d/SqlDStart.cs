@@ -78,18 +78,18 @@ namespace SqlD
 						continue;
 					}
 
-					if (cfg.ProcessModel.Distributed)
-					{
-						ChildProcesses.Add(Process.Service.Start(startAssembly, service));
-						EndPointMonitor.WaitUntil(service.ToEndPoint(), EndPointIs.Up);
-					}
-					else
-					{
+					// if (cfg.ProcessModel.Distributed)
+					// {
+					// 	ChildProcesses.Add(Process.Service.Start(startAssembly, service));
+					// 	EndPointMonitor.WaitUntil(service.ToEndPoint(), EndPointIs.Up);
+					// }
+					// else
+					// {
 						var listener = NewListener().Hosting(startAssembly, service.Name, service.Database, service.Pragma, service.ToEndPoint(), service.ForwardingTo.Select(x => x.ToEndPoint()).ToArray());
 						service.AddListener(listener);
 						EndPointMonitor.WaitUntil(service.ToEndPoint(), EndPointIs.Up);
 						Registry.Register(listener, string.Join(",", service.Tags));
-					}
+					// }
 				}
 				catch (Exception err)
 				{
@@ -109,16 +109,16 @@ namespace SqlD
 						continue;
 					}
 
-					if (cfg.ProcessModel.Distributed)
-					{
-						ChildProcesses.Add(Process.Service.Start(startAssembly, service));
-					}
-					else
-					{
+					// if (cfg.ProcessModel.Distributed)
+					// {
+					// 	ChildProcesses.Add(Process.Service.Start(startAssembly, service));
+					// }
+					// else
+					// {
 						var listener = NewListener().Hosting(startAssembly, service.Name, service.Database, service.Pragma, service.ToEndPoint(), service.ForwardingTo.Select(x => x.ToEndPoint()).ToArray());
 						service.AddListener(listener);
 						Registry.Register(listener, string.Join(",", service.Tags));
-					}
+					// }
 				}
 				catch (Exception err)
 				{

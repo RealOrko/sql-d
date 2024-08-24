@@ -3,10 +3,9 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<IsPackable>true</IsPackable>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<RuntimeFrameworkVersion>3.1.0</RuntimeFrameworkVersion>
-		<PlatformTarget>x64</PlatformTarget>
 		<AssemblyName>SqlD.UI</AssemblyName>
 		<StartupObject>SqlD.UI.Program</StartupObject>
 		<RootNamespace>SqlD.UI</RootNamespace>
@@ -25,47 +24,10 @@
 		<PackageReference Include="System.Data.SQLite" Version="1.0.111" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.111" />
 		<PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
-		<PackageReference Include="sql-d" Version="1.0.15" />
-		<PackageReference Include="sql-d.start.linux-x64" Version="1.0.15" />
-		<PackageReference Include="sql-d.start.osx-x64" Version="1.0.15" />
-		<PackageReference Include="sql-d.start.win-x64" Version="1.0.15" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<UIJsonFiles Include="*.json" />
-		<UICSharpFiles Include="*.cs" />
-		<UIControllers Include="Controllers\**\*.cs" />
-		<UIModels Include="Models\**\*.cs" />
-		<UIServices Include="Services\**\*.cs" />
-		<UIViewComponents Include="ViewComponents\**\*.cs" />
-		<UIViews Include="Views\**\*.*" />
-		<UIWwwroot Include="wwwroot\**\*.*" />
+	  <ProjectReference Include="..\sql-d\SqlD.csproj" />
 	</ItemGroup>
-
-	<Target Name="UICopyFiles">
-		<Copy SourceFiles="@(UIJsonFiles)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\" />
-		<Copy SourceFiles="@(UICSharpFiles)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\" />
-		<Copy SourceFiles="@(UIControllers)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Controllers\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIModels)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Models\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIServices)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Services\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViewComponents)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\ViewComponents\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIViews)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\Views\%(RecursiveDir)" />
-		<Copy SourceFiles="@(UIWwwroot)" DestinationFolder="..\sql-d.ui.$(ProjectRuntimeTarget)\wwwroot\%(RecursiveDir)" />
-	</Target>
-
-	<Target Name="UICopyLinux" AfterTargets="Build">
-		<Message Text="Copying files to linux-x64 UI" />
-		<MSBuild Projects="$(MSBuildProjectFullPath)" Properties="ProjectRuntimeTarget=linux-x64" Targets="UICopyFiles" />
-	</Target>
-
-	<Target Name="UICopyOSX" AfterTargets="Build">
-		<Message Text="Copying files to osx-x64 UI" />
-		<MSBuild Projects="$(MSBuildProjectFullPath)" Properties="ProjectRuntimeTarget=osx-x64" Targets="UICopyFiles" />
-	</Target>
-
-	<Target Name="UICopyWin" AfterTargets="Build">
-		<Message Text="Copying files to win-x64 UI" />
-		<MSBuild Projects="$(MSBuildProjectFullPath)" Properties="ProjectRuntimeTarget=win-x64" Targets="UICopyFiles" />
-	</Target>
-
+	
 </Project>
