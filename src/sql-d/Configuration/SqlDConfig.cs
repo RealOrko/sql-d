@@ -14,7 +14,7 @@ namespace SqlD.Configuration
 		{
 			lock (Synchronise)
             {
-                var assemblyCodeBase = new Uri(entryAssembly.CodeBase);
+                var assemblyCodeBase = new Uri(entryAssembly.Location);
 				var workingDirectory = Path.GetDirectoryName(assemblyCodeBase.LocalPath);
 
                 var builder = new ConfigurationBuilder()

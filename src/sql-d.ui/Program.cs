@@ -10,7 +10,7 @@ namespace SqlD.UI
 {
     public class Program
     {
-        private static readonly Uri EntryAssemblyCodeBase = new Uri(Assembly.GetEntryAssembly().CodeBase);
+        private static readonly Uri EntryAssemblyCodeBase = new Uri(Assembly.GetEntryAssembly().Location);
         private static readonly string RootDirectoryPath = Path.GetDirectoryName(EntryAssemblyCodeBase.LocalPath);
 
         public static void Main(string[] args)
@@ -30,7 +30,6 @@ namespace SqlD.UI
 	    {
 		    try
 		    {
-
                 Log.Out.Info($"Entry assembly: {EntryAssemblyCodeBase}");
                 Log.Out.Info($"Content Root: {RootDirectoryPath}");
                 Log.Out.Info($"Current directory: {Environment.CurrentDirectory}");
