@@ -16,7 +16,7 @@ namespace SqlD.Network.Server
 	        return null;
 	    }
 
-		internal static ConnectionListener Get(Assembly startAssembly, DbConnection dbConnection, EndPoint listenerEndPoint, EndPoint[] forwardEndPoints) => Listeners.GetOrAdd(listenerEndPoint, (e) =>
+		internal static ConnectionListener Create(Assembly startAssembly, DbConnection dbConnection, EndPoint listenerEndPoint, EndPoint[] forwardEndPoints) => Listeners.GetOrAdd(listenerEndPoint, (e) =>
 		{
 			var connectionListener = new ConnectionListener();
 			connectionListener.Listen(startAssembly, dbConnection, listenerEndPoint, forwardEndPoints);
@@ -24,10 +24,16 @@ namespace SqlD.Network.Server
 			return connectionListener;
 		});
 
-		internal static void Remove(ConnectionListener listener)
+		internal static void Dispose(ConnectionListener listener)
 		{
 			Events.RaiseListenerDisposed(listener);
-			Listeners.TryRemove(listener.EndPoint, out var c);
+			Listeners.TryRemove(listener.EndPoint, out var l);
+			listener.Dispose();
+		}
+
+		internal static void DisposeAll()
+		{
+			Listeners.Values.ToList().ForEach(Dispose);
 		}
 	}
 }

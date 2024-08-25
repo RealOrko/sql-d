@@ -27,11 +27,13 @@ namespace SqlD.Network.Server.Api.Kill.Controllers
 			    var connectionListener = ConnectionListenerFactory.Find(request.EndPoint);
 			    if (connectionListener != null)
 			    {
-			        ConnectionListenerFactory.Remove(connectionListener);
-			        connectionListener.Dispose();
+			        ConnectionListenerFactory.Dispose(connectionListener);
+			        Log.Out.Info($"Successfully killed list for endpoint {request.EndPoint.ToUrl()}");
 			    }
-
-			    Environment.Exit(0);
+			    else
+			    {
+				    Log.Out.Warn($"Could not find listener for {request.EndPoint.ToUrl()}");
+			    }
 
                 return Ok(new KillResponse(authorityAddress));
 			});

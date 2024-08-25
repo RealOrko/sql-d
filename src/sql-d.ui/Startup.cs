@@ -29,7 +29,8 @@ namespace SqlD.UI
             services.AddSingleton(EndPoint.FromUri("http://localhost:5000"));
             services.AddSingleton(x => SqlDStart.NewDb().ConnectedTo("sql-d/ui", "sql-d.ui.db", SqlDPragmaModel.Default));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+            services.AddResponseCompression();
             
             services.AddOpenApiDocument(settings =>
             {

@@ -79,7 +79,6 @@ namespace SqlD.Network.Server
 
 		public virtual void Dispose()
 		{
-			ConnectionListenerFactory.Remove(this);
 			host.StopAsync().Wait();
 			Log.Out.Info($"Disposed listener on {EndPoint.ToUrl()}");
 		}

@@ -22,7 +22,7 @@ namespace SqlD.UI
 	        }
 	        finally
 	        {
-				SqlDStart.SqlDStop(config);
+				SqlDStart.SqlDStop();
 	        }
 		}
 
