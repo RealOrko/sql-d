@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.Network.Server.Api.Id.Model;
 
 namespace SqlD.Network.Server.Api.Id.Controllers

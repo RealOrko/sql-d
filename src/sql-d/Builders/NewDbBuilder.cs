@@ -1,4 +1,4 @@
-﻿using SqlD.Configuration.Model;
+﻿using SqlD.Configs.Model;
 
 namespace SqlD.Builders
 {

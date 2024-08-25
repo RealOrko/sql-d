@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using System.Data.SQLite;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.Exceptions;
 using SqlD.Extensions;
 using SqlD.Extensions.Discovery;

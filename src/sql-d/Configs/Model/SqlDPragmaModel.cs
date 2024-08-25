@@ -1,4 +1,4 @@
-﻿namespace SqlD.Configuration.Model
+﻿namespace SqlD.Configs.Model
 {
 	public class SqlDPragmaModel
 	{

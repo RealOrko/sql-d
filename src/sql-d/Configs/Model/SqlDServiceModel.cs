@@ -1,6 +1,6 @@
 ﻿using SqlD.Network.Server;
 
-namespace SqlD.Configuration.Model
+namespace SqlD.Configs.Model
 {
 	public class SqlDServiceModel : SqlDEndPointModel
 	{

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.UI.Models.Registry;
 
 namespace SqlD.UI.Models.Services

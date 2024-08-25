@@ -1,4 +1,4 @@
-﻿using SqlD.Configuration.Model;
+﻿using SqlD.Configs.Model;
 using SqlD.Network;
 using SqlD.Network.Client;
 using SqlD.Network.Server;

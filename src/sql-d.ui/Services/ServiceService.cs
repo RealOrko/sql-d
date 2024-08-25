@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.Logging;
 using SqlD.Network;
 using SqlD.Network.Server.Api.Registry;

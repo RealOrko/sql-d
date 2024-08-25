@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.Tests.Framework.Models;
 
 namespace SqlD.Tests
