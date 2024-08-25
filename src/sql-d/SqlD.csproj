@@ -10,6 +10,10 @@
 		<!--NuSpecBasePath>bin/$(Configuration)/netcoreapp3.1/</NuSpecBasePath-->
 		<NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
 		<!--EnableDefaultContentItems>false</EnableDefaultContentItems-->
+		<ContentSQLiteInteropFiles>true</ContentSQLiteInteropFiles>
+    <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
+    <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
+    <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
 	</PropertyGroup>
 
 	<Import Project="../../version.props" />
