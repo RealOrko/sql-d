@@ -26,13 +26,14 @@ jobs:
         run: .\scripts\build.bat
         shell: cmd
 
-  build-osx-x64:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 8.0.401
-      - name: Build with osx-x64
-        run: ./scripts/build.sh
+  # Dont really care about this right now, it will never host on this anyway ... :)
+  # build-osx-x64:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - name: Setup .NET Core
+  #       uses: actions/setup-dotnet@v1
+  #       with:
+  #         dotnet-version: 8.0.401
+  #     - name: Build with osx-x64
+  #       run: ./scripts/build.sh
