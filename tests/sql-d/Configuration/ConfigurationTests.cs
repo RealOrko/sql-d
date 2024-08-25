@@ -12,7 +12,7 @@ namespace SqlD.Tests.Configuration
 		[Test]
 		public void ShouldBeAbleToStartASqlDConfiguration()
 		{
-			var sqlD = GetType().Assembly.SqlDGo(@"./Configuration/appsettings.tests.json");
+			var sqlD = GetType().Assembly.Start(@"./Configuration/appsettings.tests.json");
 			ClassicAssert.NotNull(sqlD);
 
 			var registry = sqlD.Services.First(x => x.Name.Equals("sql-d-registry-1"));

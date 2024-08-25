@@ -8,43 +8,22 @@ using SqlD.Network.Server.Api.Registry;
 
 namespace SqlD
 {
-	public static class SqlDStart
+	public static class Interface
 	{
-		public static string NewId()
+		public static void Start(this Assembly startAssembly, SqlDConfiguration config = null)
 		{
-			return Guid.NewGuid().ToString("N");
+			var cfg = config ?? Configs.Configuration.Load(startAssembly);
+			Start(cfg, startAssembly);
 		}
 
-		public static NewDbBuilder NewDb()
+		public static SqlDConfiguration Start(this Assembly startAssembly, string settingsFile)
 		{
-			return new NewDbBuilder();
-		}
-
-		public static NewClientBuilder NewClient(bool withRetries = true, int retryLimit = 5, int httpClientTimeoutMilliseconds = 5000)
-		{
-			return new NewClientBuilder(withRetries, retryLimit, httpClientTimeoutMilliseconds);
-		}
-
-		public static NewListenerBuilder NewListener()
-		{
-			return new NewListenerBuilder();
-		}
-
-		public static SqlDConfiguration SqlDGo(this Assembly startAssembly, SqlDConfiguration config = null)
-		{
-			var cfg = config ?? Configuration.SqlDConfig.Get(startAssembly);
-			SqlD(cfg, startAssembly);
+			var cfg = Configs.Configuration.Load(startAssembly, settingsFile);
+			Start(cfg, startAssembly);
 			return cfg;
 		}
 
-		public static SqlDConfiguration SqlDGo(this Assembly startAssembly, string settingsFile)
-		{
-			var cfg = Configuration.SqlDConfig.Get(startAssembly, settingsFile);
-			SqlD(cfg, startAssembly);
-			return cfg;
-		}
-
-		private static void SqlD(SqlDConfiguration cfg, Assembly startAssembly)
+		private static void Start(SqlDConfiguration cfg, Assembly startAssembly)
 		{
 			if (cfg == null)
 			{
@@ -107,9 +86,33 @@ namespace SqlD
 			}
 		}
 
-		public static void SqlDStop()
+		public static void Stop()
 		{
 			ConnectionListenerFactory.DisposeAll();
 		}
+		
+		#region Factory Methods
+
+		public static string NewId()
+		{
+			return Guid.NewGuid().ToString("N");
+		}
+
+		public static NewDbBuilder NewDb()
+		{
+			return new NewDbBuilder();
+		}
+
+		public static NewClientBuilder NewClient(bool withRetries = true, int retryLimit = 5, int httpClientTimeoutMilliseconds = 5000)
+		{
+			return new NewClientBuilder(withRetries, retryLimit, httpClientTimeoutMilliseconds);
+		}
+
+		public static NewListenerBuilder NewListener()
+		{
+			return new NewListenerBuilder();
+		}
+
+		#endregion
 	}
 }

@@ -6,7 +6,7 @@ namespace SqlD.Network.Server
 {
 	public class ConnectionListener : IDisposable
 	{
-		private static readonly object Synchronise = new object();
+		private static readonly object Sync = new();
 
 		private IHost host;
 
@@ -24,20 +24,16 @@ namespace SqlD.Network.Server
 			ServicePointManager.UseNagleAlgorithm = true;
 		}
 
-		internal virtual ConnectionListener Listen(Assembly startAssembly, DbConnection listenerDbConnection, EndPoint listenerEndPoint, EndPoint[] forwardEndPoints = null)
+		internal virtual void Listen(DbConnection listenerDbConnection, EndPoint listenerEndPoint)
 		{
 			listenerDbConnection = listenerDbConnection ?? throw new ArgumentNullException(nameof(listenerDbConnection));
 			listenerEndPoint = listenerEndPoint ?? throw new ArgumentNullException(nameof(listenerEndPoint));
-
-			lock (Synchronise)
+			
+			lock (Sync)
 			{
 				EndPoint = listenerEndPoint;
 				DbConnection = listenerDbConnection;
-
-			    ConnectionListenerStartup.StartAssembly = startAssembly;
-			    ConnectionListenerStartup.DbConnection = listenerDbConnection;
-                ConnectionListenerStartup.ListenerAddress = listenerEndPoint;
-				ConnectionListenerStartup.ForwardAddresses = forwardEndPoints;
+				ConnectionListenerStartup.Listener = this;
 
 				try
 				{
@@ -73,8 +69,6 @@ namespace SqlD.Network.Server
 					throw err;
 				}
 			}
-
-			return this;
 		}
 
 		public virtual void Dispose()

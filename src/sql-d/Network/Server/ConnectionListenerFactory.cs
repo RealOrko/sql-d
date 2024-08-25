@@ -5,7 +5,7 @@ namespace SqlD.Network.Server
 {
 	internal class ConnectionListenerFactory
 	{
-		private static readonly ConcurrentDictionary<EndPoint, ConnectionListener> Listeners = new ConcurrentDictionary<EndPoint, ConnectionListener>();
+		private static readonly ConcurrentDictionary<EndPoint, ConnectionListener> Listeners = new();
 
 	    internal static ConnectionListener Find(EndPoint listenerEndPoint)
 	    {
@@ -19,7 +19,7 @@ namespace SqlD.Network.Server
 		internal static ConnectionListener Create(Assembly startAssembly, DbConnection dbConnection, EndPoint listenerEndPoint, EndPoint[] forwardEndPoints) => Listeners.GetOrAdd(listenerEndPoint, (e) =>
 		{
 			var connectionListener = new ConnectionListener();
-			connectionListener.Listen(startAssembly, dbConnection, listenerEndPoint, forwardEndPoints);
+			connectionListener.Listen(dbConnection, listenerEndPoint);
 			Events.RaiseListenerCreated(connectionListener);
 			return connectionListener;
 		});

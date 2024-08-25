@@ -15,14 +15,14 @@ namespace SqlD.UI
 
         public static void Main(string[] args)
         {
-	        var config = typeof(Program).Assembly.SqlDGo("appsettings.json");
+	        var config = typeof(Program).Assembly.Start("appsettings.json");
 	        try
 	        {
 		        BuildWebHost(args)?.Build().Run();
 	        }
 	        finally
 	        {
-				SqlDStart.SqlDStop();
+				Interface.Stop();
 	        }
 		}
 
@@ -40,7 +40,6 @@ namespace SqlD.UI
 		    catch (Exception err)
 		    {
 				Log.Out.Error(err.ToString());
-				Log.Out.Info("Press any key to continue....");
 			    return null;
 		    }
 	    }

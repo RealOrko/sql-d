@@ -23,12 +23,6 @@ namespace SqlD.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configuration = SqlDConfig.Get(typeof(Startup).Assembly);
-
-            services.AddSingleton(configuration);
-            services.AddSingleton(EndPoint.FromUri("http://localhost:5000"));
-            services.AddSingleton(x => SqlDStart.NewDb().ConnectedTo("sql-d/ui", "sql-d.ui.db", SqlDPragmaModel.Default));
-
             services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
             services.AddResponseCompression();
             

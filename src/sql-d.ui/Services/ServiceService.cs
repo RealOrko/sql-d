@@ -58,7 +58,7 @@ namespace SqlD.UI.Services
 
 			this.config.Set(config);
 
-			SqlDStart.SqlDGo(typeof(ServiceService).Assembly, config);
+			Interface.Start(typeof(ServiceService).Assembly, config);
 		}
 
 		public void UpdateServiceAndRestart(ServiceFormViewModel service)
@@ -82,7 +82,7 @@ namespace SqlD.UI.Services
 
 			KillService(sqlDServiceModel.Host, sqlDServiceModel.Port, removeFromConfig:false);
 
-			SqlDStart.SqlDGo(typeof(ServiceService).Assembly, config);
+			Interface.Start(typeof(ServiceService).Assembly, config);
 		}
 
 		public void KillService(string host, int port, bool removeFromConfig)
@@ -92,7 +92,7 @@ namespace SqlD.UI.Services
 			try
 			{
 				Log.Out.Info($"Sending remote kill command to {hostToKill.ToUrl()}");
-				SqlDStart.NewClient(withRetries: false).ConnectedTo(hostToKill).Kill();
+				Interface.NewClient(withRetries: false).ConnectedTo(hostToKill).Kill();
 			}
 			catch (Exception err)
 			{

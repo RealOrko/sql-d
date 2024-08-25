@@ -75,12 +75,12 @@ namespace SqlD.Network.Server.Api.Registry.Controllers
 
 			if (registration == null) 
 			{
-				SqlD.Logging.Log.Out.Warn("Registration is null, the registration client is broken ... ");
+				global::SqlD.Logging.Log.Out.Warn("Registration is null, the registration client is broken ... ");
 			}
 			
 			if (registration.Source == null) 
 			{
-				SqlD.Logging.Log.Out.Warn("Registration.Source is null, garbage is building up in the registry ... ");
+				global::SqlD.Logging.Log.Out.Warn("Registration.Source is null, garbage is building up in the registry ... ");
 			}
 			
 			UnregisterOrDeleteEntry(registration);
@@ -102,12 +102,12 @@ namespace SqlD.Network.Server.Api.Registry.Controllers
 
 			if (registration == null) 
 			{
-				SqlD.Logging.Log.Out.Warn("Registration is null, the registration client is broken ... ");
+				global::SqlD.Logging.Log.Out.Warn("Registration is null, the registration client is broken ... ");
 			}
 			
 			if (registration.Source == null) 
 			{
-				SqlD.Logging.Log.Out.Warn("Registration.Source is null, garbage is building up in the registry ... ");
+				global::SqlD.Logging.Log.Out.Warn("Registration.Source is null, garbage is building up in the registry ... ");
 			}
 			
             var entries = dbConnection.Query<RegistryEntry>($"WHERE Uri = '{registration.Source.ToUrl()}'").ToList();

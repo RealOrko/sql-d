@@ -14,7 +14,7 @@ namespace SqlD.Tests.Framework
 		[SetUp]
 		public virtual async Task SetUp()
 		{
-			Connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+			Connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 
 			var createTable = typeof(AnyTableA).GetCreateTable();
 			await Connection.ExecuteCommandAsync(createTable);
