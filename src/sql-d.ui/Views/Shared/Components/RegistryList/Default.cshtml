@@ -63,8 +63,7 @@
 		// Registry url event
 		$('#registryList button').on('click', (e) => {
 			const registryUrlEventName = 'registry.url';
-			var serviceElement = e.toElement.tagName.toUpperCase() == "I" ? e.toElement.parentElement : e.toElement;
-			let serviceUri = $(serviceElement).attr('service-uri');
+			let serviceUri = $(e.currentTarget).attr('service-uri');
 			radio(registryUrlEventName).broadcast(serviceUri);
 			$('#registryList .panel-body').collapse('toggle');
 		});
