@@ -5,7 +5,7 @@ namespace SqlD.Network.Diagnostics
 {
 	public class EndPointRegistry
 	{
-		private static readonly ConcurrentDictionary<EndPoint, EndPoint> EndPoints = new ConcurrentDictionary<EndPoint, EndPoint>();
+		internal static readonly ConcurrentDictionary<EndPoint, EndPoint> EndPoints = new();
 
 		public static ImmutableArray<EndPoint> Get()
 		{
@@ -17,9 +17,9 @@ namespace SqlD.Network.Diagnostics
 			EndPoints.GetOrAdd(endPoint, endPoint);
 		}
 
-		public static void TryRemove(EndPoint endPoint)
+		public static void Reset()
 		{
-			EndPoints.TryRemove(endPoint, out var e);
+			EndPoints.Clear();
 		}
 	}
 }

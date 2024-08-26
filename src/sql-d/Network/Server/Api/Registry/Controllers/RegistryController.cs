@@ -11,11 +11,11 @@ namespace SqlD.Network.Server.Api.Registry.Controllers
 		private readonly EndPoint authorityAddress;
 		private readonly DbConnection dbConnection;
 
-		public RegistryController(DbConnection dbConnection, EndPoint serverAddress, SqlDConfiguration configuration)
+		public RegistryController(DbConnection dbConnection, EndPoint serverAddress)
 		{
 			this.dbConnection = dbConnection;
 			this.dbConnection.CreateTable<RegistryEntry>();
-			this.authorityAddress = new EndPoint(configuration.Authority, serverAddress.Port);
+			this.authorityAddress = serverAddress;
 		}
 
 	    [HttpGet]

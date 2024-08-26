@@ -10,9 +10,9 @@ namespace SqlD.Network.Server.Api.Id.Controllers
 	{
 		private readonly EndPoint authorityAddress;
 
-		public IdController(EndPoint serverAddress, SqlDConfiguration configuration)
+		public IdController(EndPoint serverAddress)
 		{
-			authorityAddress = new EndPoint(configuration.Authority, serverAddress.Port);
+			authorityAddress = serverAddress;
 		}
 
 		[HttpGet]

@@ -10,24 +10,20 @@ namespace SqlD.Configs
 		private static Assembly _assembly;
 		private static string _settingsFile;
 		private static SqlDConfiguration _instance;
-		private static readonly object Sync = new();
+		private static readonly object Synchronise = new();
 		private static string _assemblyDirectory => Path.GetDirectoryName(new Uri(_assembly.Location).LocalPath);
-
-		internal static ManualResetEvent ConfigReady { get; } = new(false);
 
 		static Configuration()
 		{
-			_instance = SqlDConfiguration.Default;
-			ConfigReady.Set();
+			_instance = SqlDConfiguration.Default();
 		}
 		
 		public static SqlDConfiguration Instance
 		{
 			get
 			{
-				lock (Sync)
+				lock (Synchronise)
 				{
-					ConfigReady.WaitOne();
 					return _instance;
 				}
 			}
@@ -35,7 +31,7 @@ namespace SqlD.Configs
 
 		public static SqlDConfiguration Load(Assembly entryAssembly, string settingsFile = "appsettings.json")
 		{
-			lock (Sync)
+			lock (Synchronise)
             {
 	            _assembly = entryAssembly;
 	            _settingsFile = settingsFile;
@@ -43,25 +39,21 @@ namespace SqlD.Configs
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(_assemblyDirectory);
 
-                if (File.Exists(_settingsFile))
+                if (File.Exists(Path.Combine(_assemblyDirectory, _settingsFile)))
                 {
                     builder.AddJsonFile(settingsFile);
                     var configuration = builder.Build();
                     var section = configuration.GetSection("SqlD");
                     _instance = section.Get<SqlDConfiguration>();
-                    ConfigReady.Set();
-                    return _instance;
                 }
-
-                _instance = SqlDConfiguration.Default;
-                ConfigReady.Set();
+                
                 return _instance;
             }
 		}
 
 		public static void Update(Assembly entryAssembly, SqlDConfiguration config, string settingsFile = "appsettings.json")
 		{
-			lock (Sync)
+			lock (Synchronise)
 			{
 				_instance = config;
 				_assembly = entryAssembly;
@@ -74,6 +66,14 @@ namespace SqlD.Configs
 
 				json = JsonConvert.SerializeObject(jsonInstance, Formatting.Indented);
 				File.WriteAllText(settingsFilePath, json);
+			}
+		}
+
+		public static void Reset()
+		{
+			lock (Synchronise)
+			{
+				_instance = SqlDConfiguration.Default();
 			}
 		}
 	}

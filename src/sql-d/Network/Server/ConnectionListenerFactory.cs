@@ -1,5 +1,5 @@
 using System.Collections.Concurrent;
-using System.Reflection;
+using SqlD.Configs.Model;
 
 namespace SqlD.Network.Server
 {
@@ -16,10 +16,10 @@ namespace SqlD.Network.Server
 	        return null;
 	    }
 
-		internal static ConnectionListener Create(Assembly startAssembly, DbConnection dbConnection, EndPoint listenerEndPoint, EndPoint[] forwardEndPoints) => Listeners.GetOrAdd(listenerEndPoint, (e) =>
+		internal static ConnectionListener Create(SqlDServiceModel serviceModel, DbConnection dbConnection) => Listeners.GetOrAdd(serviceModel.ToEndPoint(), (e) =>
 		{
 			var connectionListener = new ConnectionListener();
-			connectionListener.Listen(dbConnection, listenerEndPoint);
+			connectionListener.Listen(serviceModel, dbConnection);
 			Events.RaiseListenerCreated(connectionListener);
 			return connectionListener;
 		});
@@ -34,6 +34,7 @@ namespace SqlD.Network.Server
 		internal static void DisposeAll()
 		{
 			Listeners.Values.ToList().ForEach(Dispose);
+			Listeners.Clear();
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System.Data;
+using SqlD.Logging;
 
 namespace SqlD.Extensions
 {

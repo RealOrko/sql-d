@@ -11,9 +11,9 @@ namespace SqlD.Network.Server.Api.Kill.Controllers
 	{
 		private readonly EndPoint authorityAddress;
 
-		public KillController(EndPoint serverAddress, SqlDConfiguration configuration)
+		public KillController(EndPoint serverAddress)
 		{
-			this.authorityAddress = new EndPoint(configuration.Authority, serverAddress.Port); ;
+			this.authorityAddress = serverAddress;
 		} 
 
 		[HttpPost]

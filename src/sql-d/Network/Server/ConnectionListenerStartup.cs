@@ -1,3 +1,4 @@
+using SqlD.Configs;
 using SqlD.Network.Server.Middleware;
 
 namespace SqlD.Network.Server
@@ -8,6 +9,10 @@ namespace SqlD.Network.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Listener.EndPoint);
+            services.AddSingleton(Listener.ServiceModel);
+            services.AddSingleton(Listener.DbConnection);
+            
             services.AddCors();
             services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();
             services.AddResponseCompression();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SqlD.Builders;
 using SqlD.Configs.Model;
 using SqlD.Logging;
 using SqlD.Network;
@@ -92,7 +93,7 @@ namespace SqlD.UI.Services
 			try
 			{
 				Log.Out.Info($"Sending remote kill command to {hostToKill.ToUrl()}");
-				Interface.NewClient(withRetries: false).ConnectedTo(hostToKill).Kill();
+				new NewClientBuilder(withRetries: false).ConnectedTo(hostToKill).Kill();
 			}
 			catch (Exception err)
 			{

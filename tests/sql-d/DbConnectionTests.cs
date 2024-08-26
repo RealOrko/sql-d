@@ -8,7 +8,7 @@ using SqlD.Tests.Framework;
 namespace SqlD.Tests
 {
 	[TestFixture]
-	public class DbConnectionTests : DbConnectionTestCase<AnyTableA>
+	public class DbConnectionTests : DatabaseTestCase<AnyTableA>
 	{
 		[Test]
 		public async Task ShouldBeAbleToQuery()

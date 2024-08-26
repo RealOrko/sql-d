@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
+using SqlD.Tests.Framework;
 using SqlD.Tests.Framework.Models;
-using SqlD.Tests.Framework.Network;
 
 namespace SqlD.Tests.Network.Client
 {
@@ -11,38 +11,38 @@ namespace SqlD.Tests.Network.Client
 		[Test]
 		public async Task ShouldBeAbleToInsertUpdateAndDeleteWithSingle()
 		{
-			await WellKnown.Clients.AlphaClient.CreateTableAsync<AnyTableB>();
+			await MasterClient.CreateTableAsync<AnyTableB>();
 
 			var instances = GenFu.GenFu.New<AnyTableB>();
 
-			await WellKnown.Clients.AlphaClient.InsertAsync(instances);
-			await WellKnown.Clients.AlphaClient.UpdateAsync(instances);
+			await MasterClient.InsertAsync(instances);
+			await MasterClient.UpdateAsync(instances);
 
-			var results = await WellKnown.Clients.AlphaClient.QueryAsync<AnyTableB>();
-			Assert.That(results.Count, Is.GreaterThan(0));
+			var results = await MasterClient.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(1));
 
-			await WellKnown.Clients.AlphaClient.DeleteAsync(instances);
+			await MasterClient.DeleteAsync(instances);
 
-			results = await WellKnown.Clients.AlphaClient.QueryAsync<AnyTableB>();
+			results = await MasterClient.QueryAsync<AnyTableB>();
 			Assert.That(results.Count, Is.EqualTo(0));
 		}
 
 		[Test]
 		public async Task ShouldBeAbleToInsertUpdateAndDeleteWithMany()
 		{
-			await WellKnown.Clients.AlphaClient.CreateTableAsync<AnyTableB>();
+			await MasterClient.CreateTableAsync<AnyTableB>();
 
 			var instances = GenFu.GenFu.ListOf<AnyTableB>(25);
 
-			await WellKnown.Clients.AlphaClient.InsertManyAsync(instances);
-			await WellKnown.Clients.AlphaClient.UpdateManyAsync(instances);
+			await MasterClient.InsertManyAsync(instances);
+			await MasterClient.UpdateManyAsync(instances);
 
-			var results = await WellKnown.Clients.AlphaClient.QueryAsync<AnyTableB>();
-			Assert.That(results.Count, Is.GreaterThan(0));
+			var results = await MasterClient.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(25));
 
-			await WellKnown.Clients.AlphaClient.DeleteManyAsync(instances);
+			await MasterClient.DeleteManyAsync(instances);
 
-			results = await WellKnown.Clients.AlphaClient.QueryAsync<AnyTableB>();
+			results = await MasterClient.QueryAsync<AnyTableB>();
 			Assert.That(results.Count, Is.EqualTo(0));
 		}
 	}

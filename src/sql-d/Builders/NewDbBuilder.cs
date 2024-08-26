@@ -2,7 +2,7 @@
 
 namespace SqlD.Builders
 {
-	public class NewDbBuilder
+	internal class NewDbBuilder
 	{
 		internal NewDbBuilder()
 		{

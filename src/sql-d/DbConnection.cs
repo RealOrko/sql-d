@@ -212,6 +212,7 @@ namespace SqlD
 		{
 			if (!File.Exists(DatabaseName) && DatabaseName != ":memory:")
 			{
+				Log.Out.Info($"File does not exist, creating '{DatabaseName}' ... ");
 				SQLiteConnection.CreateFile(DatabaseName);
 			}
 
