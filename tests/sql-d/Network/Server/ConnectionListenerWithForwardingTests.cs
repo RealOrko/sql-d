@@ -9,7 +9,7 @@ namespace SqlD.Tests.Network.Server
 	public class ConnectionListenerWithForwardingTests : NetworkTestCase
 	{
 		[Test]
-		public async Task ShouldBeAbleToInsertUpdateAndDeleteWithSingle()
+		public async Task ShouldBeAbleToValidateSingleInsertUpdateAndDeleteWithAllForwards()
 		{
 			await MasterClient.CreateTableAsync<AnyTableB>();
 
@@ -18,17 +18,29 @@ namespace SqlD.Tests.Network.Server
 			await MasterClient.InsertAsync(instances);
 			await MasterClient.UpdateAsync(instances);
 
-			var results = await MasterClient.QueryAsync<AnyTableB>();
+			var results = await Slave1Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(1));
+
+			results = await Slave2Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(1));
+
+			results = await Slave3Client.QueryAsync<AnyTableB>();
 			Assert.That(results.Count, Is.EqualTo(1));
 
 			await MasterClient.DeleteAsync(instances);
 
-			results = await MasterClient.QueryAsync<AnyTableB>();
+			results = await Slave1Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(0));
+			
+			results = await Slave2Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(0));
+
+			results = await Slave3Client.QueryAsync<AnyTableB>();
 			Assert.That(results.Count, Is.EqualTo(0));
 		}
 
 		[Test]
-		public async Task ShouldBeAbleToInsertUpdateAndDeleteWithMany()
+		public async Task ShouldBeAbleToValidateMultipleInsertUpdateAndDeleteWithAllForwards()
 		{
 			await MasterClient.CreateTableAsync<AnyTableB>();
 
@@ -37,12 +49,24 @@ namespace SqlD.Tests.Network.Server
 			await MasterClient.InsertManyAsync(instances);
 			await MasterClient.UpdateManyAsync(instances);
 
-			var results = await MasterClient.QueryAsync<AnyTableB>();
+			var results = await Slave1Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(25));
+
+			results = await Slave2Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(25));
+
+			results = await Slave3Client.QueryAsync<AnyTableB>();
 			Assert.That(results.Count, Is.EqualTo(25));
 
 			await MasterClient.DeleteManyAsync(instances);
 
-			results = await MasterClient.QueryAsync<AnyTableB>();
+			results = await Slave1Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(0));
+			
+			results = await Slave2Client.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(0));
+
+			results = await Slave3Client.QueryAsync<AnyTableB>();
 			Assert.That(results.Count, Is.EqualTo(0));
 		}
 	}
