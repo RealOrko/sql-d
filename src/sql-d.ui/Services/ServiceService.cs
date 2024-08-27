@@ -6,7 +6,6 @@ using SqlD.Builders;
 using SqlD.Configs.Model;
 using SqlD.Logging;
 using SqlD.Network;
-using SqlD.Network.Server.Api.Registry;
 using SqlD.UI.Models.Registry;
 using SqlD.UI.Models.Services;
 
@@ -64,9 +63,9 @@ namespace SqlD.UI.Services
 
 		public void UpdateServiceAndRestart(ServiceFormViewModel service)
 		{
-			var config = this.config.Get();
+			var cfg = this.config.Get();
 
-			var sqlDServiceModel = config.Services.First(x => x.ToEndPoint().Equals(new EndPoint(service.Host, service.Port)));
+			var sqlDServiceModel = cfg.Services.First(x => x.ToEndPoint().Equals(new EndPoint(service.Host, service.Port)));
 
 			var registryEntryViewModels = service.Forwards.Where(x => x.Selected).ToList();
 			if (registryEntryViewModels.Any())
@@ -79,14 +78,13 @@ namespace SqlD.UI.Services
 				}));
 			}
 
-			this.config.Set(config);
+			this.config.Set(cfg);
 
-			KillService(sqlDServiceModel.Host, sqlDServiceModel.Port, removeFromConfig:false);
-
-			Interface.Start(typeof(ServiceService).Assembly, config);
+			Interface.Stop();
+			Interface.Start(typeof(ServiceService).Assembly, cfg);
 		}
 
-		public void KillService(string host, int port, bool removeFromConfig)
+		public void KillService(string host, int port)
 		{
 			var hostToKill = new EndPoint(host, port);
 
@@ -103,31 +101,19 @@ namespace SqlD.UI.Services
 
 			try
 			{
-				Log.Out.Info($"Unregistering {hostToKill.ToUrl()}");
-				Registry.Unregister(hostToKill);
+				Log.Out.Info($"Removing {hostToKill.ToUrl()} from config");
+				var cfg = this.config.Get();
+				cfg.Services = cfg.Services.Where(x => !x.ToEndPoint().Equals(hostToKill)).ToList();
+				cfg.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.ToEndPoint().Equals(hostToKill)).ToList());
+				this.config.Set(cfg);
 			}
 			catch (Exception err)
 			{
 				Log.Out.Error(err.Message);
 				Log.Out.Error(err.StackTrace);
 			}
-
-			if (removeFromConfig)
-			{
-				try
-				{
-					Log.Out.Info($"Removing {hostToKill.ToUrl()} from config");
-					var config = this.config.Get();
-					config.Services = config.Services.Where(x => !x.ToEndPoint().Equals(hostToKill)).ToList();
-					config.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.ToEndPoint().Equals(hostToKill)).ToList());
-					this.config.Set(config);
-				}
-				catch (Exception err)
-				{
-					Log.Out.Error(err.Message);
-					Log.Out.Error(err.StackTrace);
-				}
-			}
+			Interface.Stop();
+			Interface.Start(typeof(ServiceService).Assembly, config.Get());
 		}
 	}
 }
