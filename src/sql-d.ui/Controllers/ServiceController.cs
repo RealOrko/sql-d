@@ -12,10 +12,10 @@ namespace SqlD.UI.Controllers
 		private readonly ConfigService config;
 		private readonly ServiceService services;
 
-		public ServiceController()
+		public ServiceController(ConfigService config, ServiceService services)
 		{
-			this.config = new ConfigService();
-			this.services = new ServiceService();
+			this.config = config;
+			this.services = services;
 		}
 
 		[HttpGet]

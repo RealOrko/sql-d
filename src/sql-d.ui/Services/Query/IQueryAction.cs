@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using SqlD.Network.Client;
 
-namespace SqlD.UI.Services.Query.Actions
+namespace SqlD.UI.Services.Query;
+
+public interface IQueryAction
 {
-	public interface IQueryAction
-	{
-		Task<object> Go(string query, ConnectionClient client, RegistryService registry);
-	}
+	Task<object> Go(string query, ConnectionClient client);
 }

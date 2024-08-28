@@ -23,5 +23,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\sql-d\SqlD.csproj" />
 	</ItemGroup>
-	
+
 </Project>
