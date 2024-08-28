@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SqlD.UI.Services;
+using SqlD.UI.Services.Client;
+using SqlD.UI.Services.Query.Actions;
 
 namespace SqlD.UI
 {
@@ -19,6 +22,17 @@ namespace SqlD.UI
         {
             services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
             services.AddResponseCompression();
+
+            services.AddSingleton<ConfigService>();
+            services.AddSingleton<QueryService>();
+            services.AddSingleton<RegistryService>();
+            services.AddSingleton<ServiceService>();
+            services.AddSingleton<SurfaceService>();
+            services.AddSingleton<ClientFactory>();
+            services.AddSingleton<UnknownAction>();
+            services.AddSingleton<DescribeAction>();
+            services.AddSingleton<CommandAction>();
+            services.AddSingleton<QueryAction>();
             
             services.AddOpenApiDocument(settings =>
             {

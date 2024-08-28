@@ -1,27 +1,27 @@
 ﻿@using SqlD.UI.ViewComponents.Registry
 @using SqlD.UI.ViewComponents.Sqlite
+
 @{
 	ViewData["Title"] = "query";
 }
 
-
 <div class="row">
 	<div class="col-md-12">
-		@await Component.InvokeAsync(nameof(RegistryList))
+		@await Component.InvokeAsync(nameof(RegistryList), new { query = Model })
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
-		@await Component.InvokeAsync(nameof(SqliteEditorQuery))
+		@await Component.InvokeAsync(nameof(SqliteEditorQuery), new { query = Model })
 		<div class="text-muted" style="font-size: 12px; margin-bottom: 20px; padding: 0;">&lt;CTRL-Enter&gt; / &lt;CMD-Enter&gt; for results ...</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
-		@await Component.InvokeAsync(nameof(SqliteEditorQueryResults))
-		@await Component.InvokeAsync(nameof(SqliteEditorCommandResults))
-		@await Component.InvokeAsync(nameof(SqliteEditorDescribeResults))
+		@await Component.InvokeAsync(nameof(SqliteEditorQueryResults), new { query = Model })
+		@await Component.InvokeAsync(nameof(SqliteEditorCommandResults), new { query = Model })
+		@await Component.InvokeAsync(nameof(SqliteEditorDescribeResults), new { query = Model })
 	</div>
 </div>

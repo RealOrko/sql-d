@@ -8,10 +8,10 @@ namespace SqlD.UI.Services.Query.Actions
 {
 	public class CommandAction : IQueryAction
 	{
-		public async Task<object> Go(QueryContext context, ConnectionClient client, RegistryService registry)
+		public async Task<object> Go(string query, ConnectionClient client, RegistryService registry)
 		{
 			var c = new Command();
-			c.Commands.Add(context.Query);
+			c.Commands.Add(query);
 			try
 			{
 				var res = await client.PostCommandAsync(c);

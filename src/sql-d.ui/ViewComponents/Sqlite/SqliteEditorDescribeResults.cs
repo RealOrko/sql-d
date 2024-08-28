@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SqlD.UI.Models;
 using SqlD.UI.Models.Query;
 using SqlD.UI.Services;
 
@@ -8,20 +9,26 @@ namespace SqlD.UI.ViewComponents.Sqlite
 {
 	public class SqliteEditorDescribeResults : ViewComponent
 	{
-		public async Task<IViewComponentResult> InvokeAsync()
+		private readonly QueryService queryService;
+
+		public SqliteEditorDescribeResults(QueryService queryService)
 		{
-			var query = base.HttpContext.Request.Query["q"].ToString();
-			var server = base.HttpContext.Request.Query["s"].ToString();
-			if (!string.IsNullOrEmpty(query))
+			this.queryService = queryService;
+		}
+
+		public async Task<IViewComponentResult> InvokeAsync(SqlLiteViewModel query)
+		{
+			if (!string.IsNullOrEmpty(query.Query))
 			{
 				try
 				{
-					var queryResponse = await new QueryService().Query(query, server, base.HttpContext);
-					return View(queryResponse as DescribeResultViewModel);
+					query.DescribeResult = await queryService.Query(query.Query, query.Server) as DescribeResultViewModel;
+					return View(query);
 				}
 				catch (Exception err)
 				{
-					return View(new DescribeResultViewModel(err.Message));
+					query.DescribeResult = new DescribeResultViewModel(err.Message);
+					return View(query);
 				}
 			}
 			return View();

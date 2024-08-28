@@ -12,7 +12,7 @@ namespace SqlD.UI.Models.Query
 			Error = error;
 		}
 
-		public QueryResultViewModel(QueryResponse response, RegistryViewModel registry, HttpRequest request)
+		public QueryResultViewModel(QueryResponse response)
 		{
 			Query = response.Query.Select;
 			Columns = response.Query.Columns;

@@ -9,9 +9,9 @@ namespace SqlD.UI.Services.Query.Actions
 {
 	public class QueryAction : IQueryAction
 	{
-		public async Task<object> Go(QueryContext context, ConnectionClient client, RegistryService registry)
+		public async Task<object> Go(string query, ConnectionClient client, RegistryService registry)
 		{
-			var from = context.Query.Split("from", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim().TrimEnd(';')).ToList();
+			var from = query.Split("from", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim().TrimEnd(';')).ToList();
 			var fromTableName = @from[1].Split(' ')[0];
 
 			var select = @from[0].Split("select", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim().TrimEnd(';')).ToList();
@@ -37,7 +37,7 @@ namespace SqlD.UI.Services.Query.Actions
 
 			var q = new Network.Server.Api.Db.Model.Query()
 			{
-				Select = context.Query,
+				Select = query,
 				Columns = columns.Select(x => x?.Trim()).ToList(),
 				Properties = columns.Select(x => x?.Trim()).ToList()
 			};
@@ -45,7 +45,7 @@ namespace SqlD.UI.Services.Query.Actions
 			try
 			{
 				var res = await client.PostQueryAsync(q);
-				return new QueryResultViewModel(res, await registry.GetServices(), context.HttpContext.Request);
+				return new QueryResultViewModel(res);
 			}
 			catch (Exception err)
 			{

@@ -14,7 +14,7 @@ namespace SqlD.UI.Models.Query
 			Error = error;
 		}
 
-		public DescribeResultViewModel(DescribeResponse response, RegistryViewModel registry, HttpRequest request)
+		public DescribeResultViewModel(DescribeResponse response)
 		{
 			this.Table = response.Query.TableName;
 			this.Columns = response.Columns;

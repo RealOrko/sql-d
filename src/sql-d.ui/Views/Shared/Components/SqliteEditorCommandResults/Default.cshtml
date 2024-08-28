@@ -1,24 +1,24 @@
-﻿@model SqlD.UI.Models.Query.CommandResultViewModel
+﻿@model SqlD.UI.Models.SqlLiteViewModel
 
-@if (Model != null && string.IsNullOrEmpty(Model.Error))
+@if (Model.CommandResult != null && string.IsNullOrEmpty(Model.CommandResult.Error))
 {
-	if (!string.IsNullOrEmpty(Model.Error))
+	if (!string.IsNullOrEmpty(Model.CommandResult.Error))
 	{
 		<div class="alert alert-danger" role="alert">
-			@Model.Status.ToString() - @Model.Error
+			@Model.CommandResult.Status.ToString() - @Model.CommandResult.Error
 		</div>
 	}
 	else
 	{
 		<div class="alert alert-success" role="alert">
-			@Model.Status.ToString()
+			@Model.CommandResult.Status.ToString()
 		</div>
 	}
 }
-else if (Model != null)
+else if (Model.DescribeResult != null)
 {
 	<div class="alert alert-danger" role="alert">
-		@Model.Error
+		@Model.CommandResult.Error
 	</div>
 }
 

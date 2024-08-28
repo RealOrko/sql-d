@@ -9,9 +9,9 @@ namespace SqlD.UI.Services.Query.Actions
 {
 	public class DescribeAction : IQueryAction
 	{
-		public async Task<object> Go(QueryContext context, ConnectionClient client, RegistryService registry)
+		public async Task<object> Go(string query, ConnectionClient client, RegistryService registry)
 		{
-			var describe = context.Query.Split("?", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			var describe = query.Split("?", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
 
 			Describe describeRequest;
 			if (describe.Any())
@@ -26,7 +26,7 @@ namespace SqlD.UI.Services.Query.Actions
 			try
 			{
 				var describeResponse = await client.DescribeCommandAsync(describeRequest);
-				return new DescribeResultViewModel(describeResponse, await registry.GetServices(), context.HttpContext.Request);
+				return new DescribeResultViewModel(describeResponse);
 			}
 			catch (Exception err)
 			{
