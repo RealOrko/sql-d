@@ -67,7 +67,7 @@ namespace SqlD.UI.Services
 		public bool IsQuery(string query)
 		{
 			if (string.IsNullOrEmpty(query)) return false;
-			if (query.ToLower().Trim().StartsWith(QueryToken.DESCRIBE.Value))
+			if (query.ToLower().Trim().StartsWith(QueryToken.SELECT.Value))
 				return true;
 			return false;
 		}
