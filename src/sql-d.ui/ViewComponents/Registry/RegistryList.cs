@@ -9,9 +9,9 @@ namespace SqlD.UI.ViewComponents.Registry
 	{
 		private readonly RegistryService registry;
 
-		public RegistryList()
+		public RegistryList(RegistryService registry)
 		{
-			this.registry = new RegistryService();
+			this.registry = registry;
 		}
 
 		public async Task<IViewComponentResult> InvokeAsync(SqlLiteViewModel query)

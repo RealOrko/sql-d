@@ -22,8 +22,11 @@ namespace SqlD.UI.ViewComponents.Sqlite
 			{
 				try
 				{
-					query.DescribeResult = await queryService.Query(query.Query, query.Server) as DescribeResultViewModel;
-					return View(query);
+					if (queryService.IsDescribe(query.Query))
+					{
+						query.DescribeResult = await queryService.Query(query.Query, query.Server) as DescribeResultViewModel;
+						return View(query);
+					}
 				}
 				catch (Exception err)
 				{

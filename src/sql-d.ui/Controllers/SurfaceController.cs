@@ -8,9 +8,9 @@ namespace SqlD.UI.Controllers
     {
 	    private readonly SurfaceService surface;
 
-	    public SurfaceController()
+	    public SurfaceController(SurfaceService surface)
 	    {
-		    this.surface = new SurfaceService();
+		    this.surface = surface;
 	    }
 
 	    public IActionResult Index()

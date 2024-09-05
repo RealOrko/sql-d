@@ -37,6 +37,40 @@ namespace SqlD.UI.Services
 			       ?? await If(query, QueryToken.DROP, async () => await commandAction.Go(query, client))
 			       ?? await unknownAction.Go(query, client);
 		}
+
+		public bool IsCommand(string query)
+		{
+			if (string.IsNullOrEmpty(query)) return false;
+			if (query.ToLower().Trim().StartsWith(QueryToken.INSERT.Value))
+				return true;
+			if (query.ToLower().Trim().StartsWith(QueryToken.UPDATE.Value))
+				return true;
+			if (query.ToLower().Trim().StartsWith(QueryToken.DELETE.Value))
+				return true;
+			if (query.ToLower().Trim().StartsWith(QueryToken.CREATE.Value))
+				return true;
+			if (query.ToLower().Trim().StartsWith(QueryToken.ALTER.Value))
+				return true;
+			if (query.ToLower().Trim().StartsWith(QueryToken.DROP.Value))
+				return true;
+			return false;
+		}
+
+		public bool IsDescribe(string query)
+		{
+			if (string.IsNullOrEmpty(query)) return false;
+			if (query.ToLower().Trim().StartsWith(QueryToken.DESCRIBE.Value))
+				return true;
+			return false;
+		}
+
+		public bool IsQuery(string query)
+		{
+			if (string.IsNullOrEmpty(query)) return false;
+			if (query.ToLower().Trim().StartsWith(QueryToken.DESCRIBE.Value))
+				return true;
+			return false;
+		}
 		
 		public async Task<object> If(string query, QueryToken token, Func<Task<object>> action)
 		{
