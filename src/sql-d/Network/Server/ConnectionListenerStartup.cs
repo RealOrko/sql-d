@@ -1,47 +1,42 @@
-using SqlD.Configs;
 using SqlD.Network.Server.Middleware;
 
-namespace SqlD.Network.Server
+namespace SqlD.Network.Server;
+
+internal class ConnectionListenerStartup
 {
-    internal class ConnectionListenerStartup
+    internal static ConnectionListener Listener;
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        internal static ConnectionListener Listener;
+        services.AddSingleton(Listener.DbConnection);
+        services.AddSingleton(Listener.ServiceModel);
+        services.AddSingleton(Listener.ServiceModel as EndPoint);
 
-        public void ConfigureServices(IServiceCollection services)
+        services.AddCors();
+        services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();
+        services.AddResponseCompression();
+
+        services.AddOpenApiDocument(settings =>
         {
-            services.AddSingleton(Listener.EndPoint);
-            services.AddSingleton(Listener.ServiceModel);
-            services.AddSingleton(Listener.DbConnection);
-            
-            services.AddCors();
-            services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();
-            services.AddResponseCompression();
+            settings.DocumentName = "v1";
+            settings.Title = "[ sql-d ]";
+            settings.Version = "1.0.0";
+        });
+    }
 
-            services.AddOpenApiDocument(settings =>
-            {
-                settings.DocumentName = "v1";
-                settings.Title = "[ sql-d ]";
-                settings.Version = "1.0.0";
-            });
-        }
+    public void Configure(IApplicationBuilder app)
+    {
+        app.UseStaticFiles();
 
-        public void Configure(IApplicationBuilder app)
-        {
-            app.UseStaticFiles();
+        var middleware = new ForwardingMiddleware(Listener);
+        app.Use(async (ctx, next) => await middleware.InvokeAsync(ctx, next));
 
-            var middleware = new ForwardingMiddleware(Listener);
-            app.Use(async (ctx, next) => await middleware.InvokeAsync(ctx, next));
+        app.UseResponseCompression();
+        app.UseRouting();
+        app.UseCors(x => x.AllowAnyOrigin());
+        app.UseEndpoints(opts => { opts.MapControllers(); });
 
-            app.UseResponseCompression();
-            app.UseRouting();
-            app.UseCors(x => x.AllowAnyOrigin());
-            app.UseEndpoints(opts =>
-            {
-                opts.MapControllers();
-            });
-
-            app.UseOpenApi();
-            app.UseSwaggerUi();
-        }
+        app.UseOpenApi();
+        app.UseSwaggerUi();
     }
 }

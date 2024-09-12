@@ -1,4 +1,5 @@
-﻿namespace SqlD.Attributes
+﻿namespace SqlD.Attributes;
+
+public class SqlLiteIgnoreAttribute : Attribute
 {
-	public class SqlLiteIgnoreAttribute : Attribute { }
 }

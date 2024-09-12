@@ -1,10 +1,9 @@
-﻿namespace SqlD.Network.Diagnostics
+﻿namespace SqlD.Network.Diagnostics;
+
+public class FastPolly
 {
-	public class FastPolly
-	{
-		public static FastPollyPolicy Handle<T>()
-		{
-			return new FastPollyPolicy(typeof(T));
-		}
-	}
+    public static FastPollyPolicy Handle<T>()
+    {
+        return new FastPollyPolicy(typeof(T));
+    }
 }

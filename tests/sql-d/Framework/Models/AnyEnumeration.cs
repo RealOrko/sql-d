@@ -1,9 +1,8 @@
-namespace SqlD.Tests.Framework.Models
+namespace SqlD.Tests.Framework.Models;
+
+public enum AnyEnumeration
 {
-	public enum AnyEnumeration
-	{
-		One,
-		Two,
-		Three
-	}
+    One,
+    Two,
+    Three
 }

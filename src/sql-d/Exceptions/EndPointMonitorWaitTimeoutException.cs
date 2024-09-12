@@ -1,9 +1,8 @@
-﻿namespace SqlD.Exceptions
+﻿namespace SqlD.Exceptions;
+
+public class EndPointMonitorWaitTimeoutException : Exception
 {
-	public class EndPointMonitorWaitTimeoutException : Exception
-	{
-		public EndPointMonitorWaitTimeoutException(string message)
-		{
-		}
-	}
+    public EndPointMonitorWaitTimeoutException(string message)
+    {
+    }
 }

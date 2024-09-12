@@ -8,19 +8,18 @@ namespace SqlD.UI.Services.Query;
 
 public class CommandAction : IQueryAction
 {
-	public async Task<object> Go(string query, ConnectionClient client)
-	{
-		var c = new Command();
-		c.Commands.Add(query);
-		try
-		{
-			var res = await client.PostCommandAsync(c);
-			return new CommandResultViewModel(res);
-		}
-		catch (Exception err)
-		{
-			return new CommandResultViewModel(err.Message);
-		}
-	}
-
+    public async Task<object> Go(string query, ConnectionClient client)
+    {
+        var c = new Command();
+        c.Commands.Add(query);
+        try
+        {
+            var res = await client.PostCommandAsync(c);
+            return new CommandResultViewModel(res);
+        }
+        catch (Exception err)
+        {
+            return new CommandResultViewModel(err.Message);
+        }
+    }
 }

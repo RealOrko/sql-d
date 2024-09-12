@@ -1,6 +1,5 @@
-﻿namespace SqlD.Configs.Model
+﻿namespace SqlD.Configs.Model;
+
+public class SqlDRegistryModel : SqlDEndPointModel
 {
-	public class SqlDRegistryModel: SqlDEndPointModel
-	{
-	}
 }
