@@ -17,16 +17,11 @@ namespace SqlD.Configs.Model
 	    public bool Enabled { get; set; } = true;
 		public List<SqlDServiceModel> Services { get; set; } = new();
 		public List<SqlDRegistryModel> Registries { get; set; } = new();
-
-        public List<EndPoint> FindForwardingAddresses(EndPoint listenerEndpoint)
-        {
-            var serviceListener = Services.First(x => x.ToEndPoint().Equals(listenerEndpoint));
-            if (serviceListener.ForwardingTo != null)
-            {
-                return serviceListener.ForwardingTo.Select(x => x.ToEndPoint()).ToList();
-            }
-            return null;
-        }
+		
+		public IEnumerable<EndPoint> FindForwardingAddresses(EndPoint listenerEndpoint)
+		{
+			return Services.First(x => x.ToEndPoint() == listenerEndpoint).ForwardingTo.Select(x => x.ToEndPoint());
+		}
 
 		public override string ToString()
 		{
