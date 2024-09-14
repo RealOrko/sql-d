@@ -4,21 +4,28 @@ namespace SqlD.Network.Client;
 
 internal class ConnectionClientFactory
 {
-    private static readonly ConcurrentDictionary<EndPoint, ConnectionClient> Clients = new();
+    private static readonly ConcurrentDictionary<string, ConnectionClient> Clients = new();
 
-    internal static ConnectionClient Get(EndPoint endPoint, bool withRetries, int retryLimit, int httpClientTimeoutMilliseconds)
+    internal static ConnectionClient Create(EndPoint endPoint, bool withRetries, int retryLimit, int httpClientTimeoutMilliseconds)
     {
-        return Clients.GetOrAdd(endPoint, e =>
+        return Clients.GetOrAdd(endPoint.ToUrl(), e =>
         {
             var connectionClient = new ConnectionClient(endPoint, withRetries, retryLimit, httpClientTimeoutMilliseconds);
             Events.RaiseClientCreated(connectionClient);
             return connectionClient;
         });
     }
-
-    public static void Remove(ConnectionClient connectionClient)
+    
+    internal static void Dispose(ConnectionClient client)
     {
-        Events.RaiseClientDisposed(connectionClient);
-        Clients.TryRemove(connectionClient.EndPoint, out var c);
+        Events.RaiseClientDisposed(client);
+        Clients.TryRemove(client.EndPoint.ToUrl(), out var l);
+        client.Dispose();
+    }
+    
+    internal static void DisposeAll()
+    {
+        Clients.Values.ToList().ForEach(Dispose);
+        Clients.Clear();
     }
 }

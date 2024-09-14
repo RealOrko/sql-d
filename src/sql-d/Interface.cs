@@ -3,6 +3,7 @@ using SqlD.Builders;
 using SqlD.Configs;
 using SqlD.Configs.Model;
 using SqlD.Logging;
+using SqlD.Network.Client;
 using SqlD.Network.Diagnostics;
 using SqlD.Network.Server;
 using SqlD.Network.Server.Api.Registry;
@@ -81,6 +82,7 @@ public static class Interface
     public static void Stop()
     {
         Configuration.Reset();
+        ConnectionClientFactory.DisposeAll();
         ConnectionListenerFactory.DisposeAll();
     }
 }
