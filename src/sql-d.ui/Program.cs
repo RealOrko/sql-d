@@ -14,7 +14,8 @@ public class Program
 
     public static void Main(string[] args)
     {
-        var config = typeof(Program).Assembly.Start("appsettings.json");
+        Interface.Setup(typeof(Program).Assembly, "appsettings.json");
+        Interface.Start();
         try
         {
             BuildWebHost(args)?.Build().Run();

@@ -13,12 +13,10 @@ namespace SqlD.UI.Services;
 
 public class ServiceService
 {
-    private readonly ConfigService config;
     private readonly RegistryService registry;
 
-    public ServiceService(ConfigService configService, RegistryService registryService)
+    public ServiceService(RegistryService registryService)
     {
-        config = configService;
         registry = registryService;
     }
 
@@ -29,7 +27,7 @@ public class ServiceService
 
     public void AddServiceToConfigAndStart(ServiceFormViewModel service)
     {
-        var config = this.config.Get();
+        var config = Configs.Configuration.Instance;
 
         var sqlDServiceModel = new SqlDServiceModel
         {
@@ -50,16 +48,13 @@ public class ServiceService
 
         config.Services.Add(sqlDServiceModel);
 
-        this.config.Set(config);
-
-        typeof(ServiceService).Assembly.Start(config);
+        Configs.Configuration.Update(config);
+        Interface.Start();
     }
 
     public void UpdateServiceAndRestart(ServiceFormViewModel service)
     {
-        var cfg = config.Get();
-
-        var sqlDServiceModel = cfg.Services.First(x => x.IsEqualTo(new EndPoint(service.Host, service.Port)));
+        var sqlDServiceModel = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(new EndPoint(service.Host, service.Port)));
 
         var registryEntryViewModels = service.Forwards.Where(x => x.Selected).ToList();
         if (registryEntryViewModels.Any())
@@ -72,10 +67,10 @@ public class ServiceService
             }));
         }
 
-        config.Set(cfg);
+        Configs.Configuration.Update(Configs.Configuration.Instance);
 
         Interface.Stop();
-        typeof(ServiceService).Assembly.Start(cfg);
+        Interface.Start();
     }
 
     public void KillService(string host, int port)
@@ -96,10 +91,10 @@ public class ServiceService
         try
         {
             Log.Out.Info($"Removing {hostToKill.ToUrl()} from config");
-            var cfg = config.Get();
-            cfg.Services = cfg.Services.Where(x => !x.IsEqualTo(hostToKill)).ToList();
-            cfg.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.IsEqualTo(hostToKill)).ToList());
-            config.Set(cfg);
+            var config = Configs.Configuration.Instance;
+            config.Services = config.Services.Where(x => !x.IsEqualTo(hostToKill)).ToList();
+            config.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.IsEqualTo(hostToKill)).ToList());
+            Configs.Configuration.Update(config);
         }
         catch (Exception err)
         {
@@ -108,6 +103,6 @@ public class ServiceService
         }
 
         Interface.Stop();
-        typeof(ServiceService).Assembly.Start(config.Get());
+        Interface.Start();
     }
 }
