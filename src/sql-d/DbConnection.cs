@@ -27,13 +27,70 @@ public class DbConnection : IDisposable
         DatabaseName = databaseName ?? throw new ArgumentNullException(nameof(databaseName));
         PragmaOptions = pragmaOptions ?? throw new ArgumentNullException(nameof(pragmaOptions));
 
-        var builder = new SQLiteConnectionStringBuilder();
-        builder.DataSource = databaseName;
-        ConnectionString = $"{builder};cache=shared";
-        Connection = CreateConnection();
+        ConnectionString = CreateConnectionString(databaseName);
+        Connection = CreateConnection(databaseName);
+        
         ApplyPragmaOptions(pragmaOptions);
 
         return this;
+    }
+    
+    internal string CreateConnectionString(string databaseName)
+    {
+        var builder = new SQLiteConnectionStringBuilder();
+        if (databaseName != ":memory:")
+        {
+            builder.DataSource = databaseName;
+        }
+        else
+        {
+            if (string.IsNullOrWhiteSpace(Configs.Configuration.Instance.DataDirectory))
+            {
+                Log.Out.Info($"Data directory does not exist for '{databaseName}' ... ");
+                builder.DataSource = databaseName;
+                
+                if (!File.Exists(databaseName))
+                {
+                    Log.Out.Info($"File does not exist, creating '{databaseName}' ... ");
+                    SQLiteConnection.CreateFile(databaseName);
+                }
+            }
+            else
+            {
+                var databasePath = Path.Combine(Configs.Configuration.Instance.DataDirectory, databaseName);
+                Log.Out.Info($"Data directory exists for '{databasePath}' ... ");
+                builder.DataSource = databasePath;
+
+                if (!File.Exists(databasePath))
+                {
+                    Log.Out.Info($"File does not exist, creating '{databasePath}' ... ");
+                    SQLiteConnection.CreateFile(databasePath);
+                }
+            }
+        }
+        if (string.IsNullOrEmpty(builder.DataSource))
+        {
+            builder.DataSource = databaseName;
+        }
+        return $"{builder};cache=shared";
+    }
+    
+    internal SQLiteConnection CreateConnection(string databaseName)
+    {
+        var connection = new SQLiteConnection(ConnectionString);
+
+        try
+        {
+            Log.Out.Info($"Connecting to '{databaseName}'");
+            connection.Open();
+        }
+        catch (Exception err)
+        {
+            Log.Out.Error($"Failed connecting to '{databaseName}', {err}");
+            throw new DbConnectionFailedException($"Failed connecting to '{databaseName}'", err);
+        }
+
+        return connection;
     }
 
     public List<T> Query<T>(string where = null) where T : new()
@@ -196,29 +253,5 @@ public class DbConnection : IDisposable
         if (!string.IsNullOrEmpty(pragmaOptions.Synchronous)) this.ExecuteCommand($"PRAGMA SYNCHRONOUS={pragmaOptions.Synchronous};");
 
         if (!string.IsNullOrEmpty(pragmaOptions.TempStore)) this.ExecuteCommand($"PRAGMA TEMP_STORE={pragmaOptions.TempStore};");
-    }
-
-    internal SQLiteConnection CreateConnection()
-    {
-        if (!File.Exists(DatabaseName) && DatabaseName != ":memory:")
-        {
-            Log.Out.Info($"File does not exist, creating '{DatabaseName}' ... ");
-            SQLiteConnection.CreateFile(DatabaseName);
-        }
-
-        var connection = new SQLiteConnection(ConnectionString);
-
-        try
-        {
-            Log.Out.Info($"Connecting to '{DatabaseName}'");
-            connection.Open();
-        }
-        catch (Exception err)
-        {
-            Log.Out.Error($"Failed connecting to '{DatabaseName}', {err}");
-            throw new DbConnectionFailedException($"Failed connecting to '{DatabaseName}'", err);
-        }
-
-        return connection;
     }
 }
