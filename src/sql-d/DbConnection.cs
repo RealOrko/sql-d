@@ -37,8 +37,10 @@ public class DbConnection : IDisposable
     
     internal string CreateConnectionString(string databaseName)
     {
+        Log.Out.Info($"Start of creating connection string {databaseName} ... ");
+        
         var builder = new SQLiteConnectionStringBuilder();
-        if (databaseName != ":memory:")
+        if (databaseName == ":memory:")
         {
             builder.DataSource = databaseName;
         }
@@ -70,8 +72,11 @@ public class DbConnection : IDisposable
         }
         if (string.IsNullOrEmpty(builder.DataSource))
         {
+            Log.Out.Info($"Data source does not exist for '{databaseName}' ... ");
             builder.DataSource = databaseName;
         }
+        
+        Log.Out.Info($"{builder};cache=shared");
         return $"{builder};cache=shared";
     }
     

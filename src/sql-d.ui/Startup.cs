@@ -26,7 +26,6 @@ public class Startup
         services.AddSingleton<QueryService>();
         services.AddSingleton<RegistryService>();
         services.AddSingleton<ServiceService>();
-        services.AddSingleton<SurfaceService>();
         services.AddSingleton<ClientFactory>();
         services.AddSingleton<UnknownAction>();
         services.AddSingleton<DescribeAction>();

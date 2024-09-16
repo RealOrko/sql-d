@@ -6,17 +6,9 @@ namespace SqlD.UI.Controllers;
 
 public class SurfaceController : Controller
 {
-    private readonly SurfaceService surface;
-
-    public SurfaceController(SurfaceService surface)
-    {
-        this.surface = surface;
-    }
-
     public IActionResult Index()
     {
-        var config = surface.GetConfig();
-        var viewModel = new SurfaceViewModel(config);
+        var viewModel = new SurfaceViewModel(Configs.Configuration.Instance);
         return View(viewModel);
     }
 }

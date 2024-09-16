@@ -25,6 +25,25 @@ public class ServiceController : Controller
     }
 
     [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        var registry = await services.GetRegistry();
+        return View(new ServiceFormViewModel(registry.Entries));
+    }
+
+    [HttpPost]
+    public IActionResult Create([FromForm] ServiceFormViewModel formViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            services.CreateService(formViewModel);
+            return Redirect("/service");
+        }
+
+        return View(formViewModel);
+    }
+
+    [HttpGet]
     public async Task<IActionResult> Edit([FromQuery] string host = null, [FromQuery] int port = 0)
     {
         var registry = await services.GetRegistry();
@@ -57,7 +76,7 @@ public class ServiceController : Controller
     {
         if (ModelState.IsValid)
         {
-            services.UpdateServiceAndRestart(formViewModel);
+            services.UpdateService(formViewModel);
             return Redirect("/service");
         }
 
@@ -65,28 +84,9 @@ public class ServiceController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Launch()
+    public IActionResult Delete([FromQuery] string host, [FromQuery] int port)
     {
-        var registry = await services.GetRegistry();
-        return View(new ServiceFormViewModel(registry.Entries));
-    }
-
-    [HttpPost]
-    public IActionResult Launch([FromForm] ServiceFormViewModel formViewModel)
-    {
-        if (ModelState.IsValid)
-        {
-            services.AddServiceToConfigAndStart(formViewModel);
-            return Redirect("/service");
-        }
-
-        return View(formViewModel);
-    }
-
-    [HttpGet]
-    public IActionResult Stop([FromQuery] string host, [FromQuery] int port)
-    {
-        services.KillService(host, port);
+        services.RemoveService(host, port);
         return Redirect("/service");
     }
 }
