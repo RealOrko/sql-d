@@ -52,15 +52,21 @@ public class ServiceService
         Interface.Start();
     }
 
-    public void UpdateService(ServiceFormViewModel service)
+    public void UpdateService(ServiceFormViewModel serviceModel)
     {
-        var sqlDServiceModel = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(new EndPoint(service.Host, service.Port)));
+        var service = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(new EndPoint(serviceModel.Host, serviceModel.Port)));
+        
+        service.Name = serviceModel.Name;
+        service.Database = serviceModel.Database;
+        service.Host = serviceModel.Host;
+        service.Port = serviceModel.Port;
+        service.Tags = serviceModel.Tags.Split(',').ToList();
 
-        var registryEntryViewModels = service.Forwards.Where(x => x.Selected).ToList();
+        var registryEntryViewModels = serviceModel.Forwards.Where(x => x.Selected).ToList();
         if (registryEntryViewModels.Any())
         {
-            sqlDServiceModel.ForwardingTo = new List<SqlDForwardingModel>();
-            sqlDServiceModel.ForwardingTo.AddRange(registryEntryViewModels.Select(y => new SqlDForwardingModel
+            service.ForwardingTo = new List<SqlDForwardingModel>();
+            service.ForwardingTo.AddRange(registryEntryViewModels.Select(y => new SqlDForwardingModel
             {
                 Host = y.Host,
                 Port = y.Port
