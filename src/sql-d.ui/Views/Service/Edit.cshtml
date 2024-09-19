@@ -79,6 +79,7 @@
                                     <input asp-for="@Model.Forwards[i].Selected" class="form-check-input" type="checkbox"/>
                                     <input asp-for="@Model.Forwards[i].Host" type="hidden"/>
                                     <input asp-for="@Model.Forwards[i].Port" type="hidden"/>
+                                    <input asp-for="@Model.Forwards[i].Database" type="hidden"/>
                                     <input asp-for="@Model.Forwards[i].Tags" type="hidden"/>
                                     <input asp-for="@Model.Forwards[i].Uri" type="hidden"/>
                                     <input asp-for="@Model.Forwards[i].AuthorityUri" type="hidden"/>
@@ -105,8 +106,12 @@
 <script>
 	$('#Name').focus();
     $('#Name').select();
+    
+    $('#Host').prop('disabled', true);
+    $('#Port').prop('disabled', true);
+    $('#Database').prop('disabled', true);
+    
     $('#Name').on('input propertychange paste', function () {
-        $('#Database').val($(this).val() + ".db");
         $('#Tags').val($(this).val());
     });
 </script>
