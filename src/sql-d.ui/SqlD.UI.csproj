@@ -24,4 +24,8 @@
         <ProjectReference Include="..\sql-d\SqlD.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Surface\Index.cshtml" />
+    </ItemGroup>
+
 </Project>
