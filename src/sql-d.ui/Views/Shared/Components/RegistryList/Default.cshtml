@@ -44,6 +44,12 @@
                         <button service-uri="@service.GetRedirectedUri(Context.Request)" class="btn btn-xs btn-primary" title="Connect to @service.GetRedirectedUri(Context.Request)">
                             <i class="fas fa-plug"></i>
                         </button>
+                        <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Edit a service">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="/service/delete/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Stop a service">
+                            <i class="fas fa-minus-circle"></i>
+                        </a>
                     </td>
                 </tr>
             }
