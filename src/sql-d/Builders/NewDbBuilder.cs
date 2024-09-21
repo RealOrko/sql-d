@@ -4,8 +4,8 @@ namespace SqlD.Builders;
 
 internal class NewDbBuilder
 {
-    public DbConnection ConnectedTo(string databaseName, SqlDPragmaModel pragma)
+    public DbConnectionFactory ConnectedTo(string databaseName, SqlDPragmaModel pragma)
     {
-        return new DbConnection().Connect(databaseName, databaseName, pragma);
+        return new DbConnectionFactory(databaseName, databaseName, pragma);
     }
 }

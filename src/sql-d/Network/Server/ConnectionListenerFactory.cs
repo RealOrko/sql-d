@@ -7,7 +7,7 @@ internal class ConnectionListenerFactory
 {
     private static readonly ConcurrentDictionary<string, ConnectionListener> Listeners = new();
 
-    internal static ConnectionListener Create(SqlDServiceModel serviceModel, DbConnection dbConnection)
+    internal static ConnectionListener Create(SqlDServiceModel serviceModel, DbConnectionFactory dbConnection)
     {
         return Listeners.GetOrAdd(serviceModel.ToUrl(), e =>
         {

@@ -8,7 +8,7 @@ internal class ConnectionListenerStartup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton(Listener.DbConnection);
+        services.AddSingleton(Listener.DbConnectionFactory);
         services.AddSingleton(Listener.ServiceModel);
         services.AddSingleton(Listener.ServiceModel as EndPoint);
 

@@ -9,12 +9,15 @@ namespace SqlD.Network.Server.Api.Registry.Controllers;
 public class RegistryController : Controller
 {
     private readonly EndPoint authorityAddress;
-    private readonly DbConnection dbConnection;
+    private readonly DbConnectionFactory dbConnectionFactory;
 
-    public RegistryController(DbConnection dbConnection, EndPoint serverAddress)
+    public RegistryController(DbConnectionFactory dbConnectionFactory, EndPoint serverAddress)
     {
-        this.dbConnection = dbConnection;
-        this.dbConnection.CreateTable<RegistryEntry>();
+        this.dbConnectionFactory = dbConnectionFactory;
+        using (var dbConnection = dbConnectionFactory.Connect())
+        {
+            dbConnection.CreateTable<RegistryEntry>();
+        }
         authorityAddress = serverAddress;
     }
 
@@ -23,13 +26,15 @@ public class RegistryController : Controller
     {
         return this.Intercept(() =>
         {
-            var registrationResponse = new RegistrationResponse
+            using (var dbConnection = dbConnectionFactory.Connect())
             {
-                Authority = authorityAddress,
-                Registry = dbConnection.Query<RegistryEntry>().OrderBy(x => x.Id).ToList()
-            };
-
-            return Ok(registrationResponse);
+                var registrationResponse = new RegistrationResponse
+                {
+                    Authority = authorityAddress,
+                    Registry = dbConnection.Query<RegistryEntry>().OrderBy(x => x.Id).ToList()
+                };
+                return Ok(registrationResponse);
+            }
         });
     }
 
@@ -39,14 +44,16 @@ public class RegistryController : Controller
         return this.Intercept(() =>
         {
             RegisterOrUpdateEntry(registration);
-            var registrationResponse = new RegistrationResponse
+            using (var dbConnection = dbConnectionFactory.Connect())
             {
-                Authority = authorityAddress,
-                Registration = registration,
-                Registry = dbConnection.Query<RegistryEntry>().OrderByDescending(x => x.Id).ToList()
-            };
-
-            return Ok(registrationResponse);
+                var registrationResponse = new RegistrationResponse
+                {
+                    Authority = authorityAddress,
+                    Registration = registration,
+                    Registry = dbConnection.Query<RegistryEntry>().OrderByDescending(x => x.Id).ToList()
+                };
+                return Ok(registrationResponse);
+            }
         });
     }
 
@@ -56,36 +63,44 @@ public class RegistryController : Controller
         return this.Intercept(() =>
         {
             UnregisterOrDeleteEntry(registration);
-            var registrationResponse = new RegistrationResponse
+            using (var dbConnection = dbConnectionFactory.Connect())
             {
-                Authority = authorityAddress,
-                Registration = registration,
-                Registry = dbConnection.Query<RegistryEntry>().OrderByDescending(x => x.Id).ToList()
-            };
-
-            return Ok(registrationResponse);
+                var registrationResponse = new RegistrationResponse
+                {
+                    Authority = authorityAddress,
+                    Registration = registration,
+                    Registry = dbConnection.Query<RegistryEntry>().OrderByDescending(x => x.Id).ToList()
+                };
+                return Ok(registrationResponse);
+            }
         });
     }
 
     private void RegisterOrUpdateEntry(Registration registration)
     {
-        dbConnection.CreateTable<RegistryEntry>();
-        UnregisterOrDeleteEntry(registration);
-        dbConnection.Insert(new RegistryEntry
+        using (var dbConnection = dbConnectionFactory.Connect())
         {
-            Name = registration.Name,
-            Database = registration.Database,
-            Uri = registration.Source.ToUrl(),
-            Tags = string.Join(",", registration.Tags.Select(x => x.Trim())),
-            LastUpdated = DateTime.UtcNow,
-            AuthorityUri = authorityAddress.ToUrl()
-        });
+            dbConnection.CreateTable<RegistryEntry>();
+            UnregisterOrDeleteEntry(registration);
+            dbConnection.Insert(new RegistryEntry
+            {
+                Name = registration.Name,
+                Database = registration.Database,
+                Uri = registration.Source.ToUrl(),
+                Tags = string.Join(",", registration.Tags.Select(x => x.Trim())),
+                LastUpdated = DateTime.UtcNow,
+                AuthorityUri = authorityAddress.ToUrl()
+            });
+        }
     }
 
     private void UnregisterOrDeleteEntry(Registration registration)
     {
-        dbConnection.CreateTable<RegistryEntry>();
-        var entries = dbConnection.Query<RegistryEntry>($"WHERE Uri = '{registration.Source.ToUrl()}'").ToList();
-        if (entries != null && entries.Any()) dbConnection.DeleteMany(entries);
+        using (var dbConnection = dbConnectionFactory.Connect())
+        {
+            dbConnection.CreateTable<RegistryEntry>();
+            var entries = dbConnection.Query<RegistryEntry>($"WHERE Uri = '{registration.Source.ToUrl()}'").ToList();
+            if (entries != null && entries.Any()) dbConnection.DeleteMany(entries);
+        }
     }
 }

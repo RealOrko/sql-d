@@ -14,14 +14,14 @@ public class DbConnectionLoadTests
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+        var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
         connection.CreateTable<AnyTableB>();
     }
 
     [OneTimeTearDown]
     public void OneTimeTearDown()
     {
-        var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+        var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
         connection.DropTable<AnyTableB>();
     }
 
@@ -45,7 +45,7 @@ public class DbConnectionLoadTests
         {
             try
             {
-                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
                 for (var counter = 0; counter < numberOfIterations; counter++)
                 {
                     connection.Insert(insertInstance);
@@ -62,7 +62,7 @@ public class DbConnectionLoadTests
         {
             try
             {
-                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
                 for (var counter = 0; counter < numberOfIterations; counter++)
                 {
                     connection.Insert(insertInstance);
@@ -79,7 +79,7 @@ public class DbConnectionLoadTests
         {
             try
             {
-                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
                 for (var counter = 0; counter < numberOfIterations; counter++)
                 {
                     connection.Insert(insertInstance);
@@ -97,7 +97,7 @@ public class DbConnectionLoadTests
         {
             try
             {
-                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
                 for (var counter = 0; counter < numberOfIterations; counter++)
                 {
                     var results = connection.Query<AnyTableB>("LIMIT 5");
@@ -114,7 +114,7 @@ public class DbConnectionLoadTests
         {
             try
             {
-                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
                 for (var counter = 0; counter < numberOfIterations; counter++)
                 {
                     var results = connection.Query<AnyTableB>("LIMIT 5");
@@ -131,7 +131,7 @@ public class DbConnectionLoadTests
         {
             try
             {
-                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+                var connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
                 for (var counter = 0; counter < numberOfIterations; counter++)
                 {
                     connection.Query<AnyTableB>("LIMIT 5");

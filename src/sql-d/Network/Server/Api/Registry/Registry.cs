@@ -10,7 +10,7 @@ public class Registry
         foreach (var availableRegistryEndPoint in Configuration.Instance.Registries)
         {
             var registryClient = new RegistryClient(availableRegistryEndPoint);
-            registryClient.Register(listener.DbConnection.Name, listener.DbConnection.DatabaseName, listener.ServiceModel, tags);
+            registryClient.Register(listener.DbConnectionFactory.Name, listener.DbConnectionFactory.DatabaseName, listener.ServiceModel, tags);
             Log.Out.Info($"Registered {listener.ServiceModel.ToUrl()} -> {availableRegistryEndPoint.ToUrl()}");
         }
     }
