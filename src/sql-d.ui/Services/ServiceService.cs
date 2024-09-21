@@ -77,7 +77,41 @@ public class ServiceService
         Interface.Start();
     }
 
-    private static void EnsureModelForSerivceConfiguration(ServiceFormViewModel serviceModel, SqlDServiceModel service, EndPoint serviceEndPoint)
+    public void RemoveService(string host, int port)
+    {
+        // TODO: Need to run this through the ensurance method ... 
+        var hostToKill = new EndPoint(host, port);
+
+        try
+        {
+            Log.Out.Info($"Sending remote unregister command to {hostToKill.ToUrl()}");
+            new NewClientBuilder(true).ConnectedTo(hostToKill).Unregister();
+        }
+        catch (Exception err)
+        {
+            Log.Out.Error(err.Message);
+            Log.Out.Error(err.StackTrace);
+        }
+
+        try
+        {
+            Log.Out.Info($"Removing {hostToKill.ToUrl()} from config");
+            var config = Configs.Configuration.Instance;
+            config.Services = config.Services.Where(x => !x.IsEqualTo(hostToKill)).ToList();
+            config.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.IsEqualTo(hostToKill)).ToList());
+            Configs.Configuration.Update(config);
+        }
+        catch (Exception err)
+        {
+            Log.Out.Error(err.Message);
+            Log.Out.Error(err.StackTrace);
+        }
+
+        Interface.Stop();
+        Interface.Start();
+    }
+    
+        private static void EnsureModelForSerivceConfiguration(ServiceFormViewModel serviceModel, SqlDServiceModel service, EndPoint serviceEndPoint)
     {
         var nonForwardModels = serviceModel.Forwards.Where(x => !x.Selected).ToList();
         if (nonForwardModels.Any())
@@ -135,38 +169,5 @@ public class ServiceService
                 otherServiceModel.ForwardingTo = otherServiceModel.ForwardingTo.Where(x => !x.IsEqualTo(serviceEndPoint)).ToList();
             }
         }
-    }
-
-    public void RemoveService(string host, int port)
-    {
-        var hostToKill = new EndPoint(host, port);
-
-        try
-        {
-            Log.Out.Info($"Sending remote unregister command to {hostToKill.ToUrl()}");
-            new NewClientBuilder(true).ConnectedTo(hostToKill).Unregister();
-        }
-        catch (Exception err)
-        {
-            Log.Out.Error(err.Message);
-            Log.Out.Error(err.StackTrace);
-        }
-
-        try
-        {
-            Log.Out.Info($"Removing {hostToKill.ToUrl()} from config");
-            var config = Configs.Configuration.Instance;
-            config.Services = config.Services.Where(x => !x.IsEqualTo(hostToKill)).ToList();
-            config.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.IsEqualTo(hostToKill)).ToList());
-            Configs.Configuration.Update(config);
-        }
-        catch (Exception err)
-        {
-            Log.Out.Error(err.Message);
-            Log.Out.Error(err.StackTrace);
-        }
-
-        Interface.Stop();
-        Interface.Start();
     }
 }
