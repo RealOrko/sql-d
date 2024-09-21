@@ -35,7 +35,7 @@
                     <td align="left">@service.GetRedirectedAuthorityUri(Context.Request)</td>
                     <td align="left">@service.LastUpdated</td>
                     <td align="center">
-                        <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Edit a service">
+                        <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-success" title="Edit a service">
                             <i class="fas fa-edit"></i>
                         </a>
                         <button service-uri="@service.GetRedirectedUri(Context.Request)" class="btn btn-xs btn-primary" title="Connect to @service.GetRedirectedUri(Context.Request)">

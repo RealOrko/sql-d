@@ -48,16 +48,16 @@
                                 <a target="_service_swag_" href="@service.GetRedirectedUri(Context.Request)swagger" class="btn btn-xs btn-default" title="Swagger for @service.GetRedirectedUri(Context.Request)">
                                     <i class="fas fa-battery-full"></i>
                                 </a>
-                                @if (!service.Tags.Contains("registry") && Model.ContainsConfig(service))
-                                {
-                                    <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Edit a service">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                }
                                 @if (!service.Tags.Contains("registry"))
                                 {
-                                    <a href="/service/delete/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Stop a service">
-                                        <i class="fas fa-minus-circle"></i>
+                                <a href="/service/delete/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-danger" title="Delete a service">
+                                    <i class="fas fa-minus-circle"></i>
+                                </a>
+                                }
+                                @if (!service.Tags.Contains("registry") && Model.ContainsConfig(service))
+                                {
+                                    <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-success" title="Edit a service">
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                 }
                             </td>
