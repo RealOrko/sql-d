@@ -32,8 +32,8 @@ internal class UrlBuilder
         return endPoint.ToUrl("api/registry");
     }
 
-    public static string GetKillUrl(EndPoint endPoint)
+    public static string GetUnregisterUrl(EndPoint endPoint)
     {
-        return endPoint.ToUrl("api/kill");
+        return endPoint.ToUrl("api/unregister");
     }
 }

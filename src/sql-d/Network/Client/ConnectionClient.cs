@@ -4,7 +4,7 @@ using SqlD.Extensions.Discovery;
 using SqlD.Logging;
 using SqlD.Network.Client.Json;
 using SqlD.Network.Server.Api.Db.Model;
-using SqlD.Network.Server.Api.Kill.Model;
+using SqlD.Network.Server.Api.Unregister.Model;
 
 namespace SqlD.Network.Client;
 
@@ -224,41 +224,23 @@ public class ConnectionClient : IDisposable
         await PostCommandAsync(command);
     }
 
-    public virtual void Kill()
+    public virtual void Unregister()
     {
-        try
+        Log.Out.Info($"Connection Client sending unregister to {EndPoint.ToUrl()}");
+        var unregisterUrl = UrlBuilder.GetUnregisterUrl(EndPoint);
+        client.PostAsync(unregisterUrl, new UnregisterRequest
         {
-            Log.Out.Info($"Connection Client sending kill to {EndPoint.ToUrl()}");
-            var killUrl = UrlBuilder.GetKillUrl(EndPoint);
-            client.PostAsync(killUrl, new KillRequest
-            {
-                EndPoint = EndPoint
-            }).GetAwaiter().GetResult();
-        }
-        catch (Exception err)
-        {
-            Log.Out.Info("Connection Client kill result, failure here is expected, downgrading to info");
-            Log.Out.Info($"{err.Message}");
-            Log.Out.Info($"{err.StackTrace}");
-        }
+            EndPoint = EndPoint
+        }).GetAwaiter().GetResult();
     }
 
-    public virtual async Task KillAsync()
+    public virtual async Task UnregisterAsync()
     {
-        try
+        var killUrl = UrlBuilder.GetUnregisterUrl(EndPoint);
+        await client.PostAsync(killUrl, new UnregisterRequest
         {
-            var killUrl = UrlBuilder.GetKillUrl(EndPoint);
-            await client.PostAsync(killUrl, new KillRequest
-            {
-                EndPoint = EndPoint
-            });
-        }
-        catch (Exception err)
-        {
-            Log.Out.Info("Connection Client kill result, failure here is expected, downgrading to info");
-            Log.Out.Info($"{err.Message}");
-            Log.Out.Info($"{err.StackTrace}");
-        }
+            EndPoint = EndPoint
+        });
     }
 
     public virtual TRes Get<TReq, TRes>(string resource, TReq message = default) where TReq : class

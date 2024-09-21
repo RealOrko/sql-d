@@ -134,8 +134,8 @@ public class ServiceService
 
         try
         {
-            Log.Out.Info($"Sending remote kill command to {hostToKill.ToUrl()}");
-            new NewClientBuilder(false).ConnectedTo(hostToKill).Kill();
+            Log.Out.Info($"Sending remote unregister command to {hostToKill.ToUrl()}");
+            new NewClientBuilder(true).ConnectedTo(hostToKill).Unregister();
         }
         catch (Exception err)
         {
