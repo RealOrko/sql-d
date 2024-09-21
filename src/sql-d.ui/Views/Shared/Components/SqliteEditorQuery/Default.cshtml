@@ -1,6 +1,6 @@
 ﻿@model SqlD.UI.Models.SqlLiteViewModel
 
-<div id="queryPanel" class="panel panel-default">
+<div id="queryPanel" class="panel panel-primary">
 	<div class="panel-heading text-left">
 		<span style="float: right; position: relative; top: -5px;">
 			<button id="createTable" class="btn btn-sm btn-default" title="Create a table called 'newtable1'">
@@ -19,7 +19,7 @@
 				<i class="fas fa-battery-full"></i>
 			</button>
 		</span>
-		Sqlite Query
+		Query
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -57,20 +57,13 @@ else
 	editor.setAutoScrollEditorIntoView(true);
 	editor.focus();
 
-	// Registry url event
-	var selectedRegistryUri = '';
-	const registryUrlEventName = 'registry.url';
-	radio(registryUrlEventName).subscribe((data) => {
-		selectedRegistryUri = data;
-	});
-
 	// CTRL-Enter / CMD-Enter event
 	editor.commands.addCommand({
 		name: "execute",
 		bindKey: { win: "Ctrl-Enter", mac: "Command-Enter" },
 		exec: function (editor) {
 			$('#Query').val(editor.getValue());
-			$('#Server').val(selectedRegistryUri);
+			$('#Server').val($('#registryUrl').val());
 			$.post('/', $('#QueryForm').serialize(), (r) => {
 				$('#bodyContainer').html(r);
 			});
@@ -93,7 +86,7 @@ else
 `;
 		editor.setValue(sql);
 		$('#Query').val(editor.getValue());
-		$('#Server').val(selectedRegistryUri);
+		$('#Server').val($('#registryUrl').val());
 		$.post('/', $('#QueryForm').serialize(), (r) => {
 			$('#bodyContainer').html(r);
 		});
@@ -104,7 +97,7 @@ else
 		var sql = `insert into newtable1 (name) values ('Example 1');`;
 		editor.setValue(sql);
 		$('#Query').val(editor.getValue());
-		$('#Server').val(selectedRegistryUri);
+		$('#Server').val($('#registryUrl').val());
 		$.post('/', $('#QueryForm').serialize(), (r) => {
 			$('#bodyContainer').html(r);
 		});
@@ -115,7 +108,7 @@ else
 		var sql = `select * from newtable1;`;
 		editor.setValue(sql);
 		$('#Query').val(editor.getValue());
-		$('#Server').val(selectedRegistryUri);
+		$('#Server').val($('#registryUrl').val());
 		$.post('/', $('#QueryForm').serialize(), (r) => {
 			$('#bodyContainer').html(r);
 		});
@@ -126,7 +119,7 @@ else
 		var sql = `drop table if exists newtable1;`;
 		editor.setValue(sql);
 		$('#Query').val(editor.getValue());
-		$('#Server').val(selectedRegistryUri);
+		$('#Server').val($('#registryUrl').val());
 		$.post('/', $('#QueryForm').serialize(), (r) => {
 			$('#bodyContainer').html(r);
 		});

@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="registryList" class="panel panel-default">
+        <div id="registryList" class="panel panel-primary">
             <div class="panel-heading text-left">
                 Edit Service
             </div>
@@ -126,6 +126,7 @@
 	nameElement.focus();
     nameElement.select();
     nameElement.on('input propertychange paste', function () {
+        $('#Database').val($(this).val() + ".db");
         $('#Tags').val($(this).val());
     });
     $('input[type="checkbox"]').on('change', function () {

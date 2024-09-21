@@ -8,10 +8,12 @@ namespace SqlD.Network.Server.Api.Db.Controllers;
 [Route("api/db")]
 public class DbController : Controller
 {
+    private readonly EndPoint endPoint;
     private readonly DbConnection dbConnection;
 
-    public DbController(DbConnection dbConnection)
+    public DbController(EndPoint endPoint, DbConnection dbConnection)
     {
+        this.endPoint = endPoint;
         this.dbConnection = dbConnection;
     }
 
@@ -39,12 +41,12 @@ public class DbController : Controller
                         results.Add(rowResults);
                     }
 
-                    return Ok(DescribeResponse.Ok(describe, results));
+                    return Ok(DescribeResponse.Ok(endPoint, describe, results));
                 }
             }
             catch (Exception err)
             {
-                return Ok(DescribeResponse.Failed(err.Message));
+                return Ok(DescribeResponse.Failed(endPoint, err.Message));
             }
         });
     }
@@ -73,12 +75,12 @@ public class DbController : Controller
                         results.Add(rowResults);
                     }
 
-                    return Ok(QueryResponse.Ok(query, results));
+                    return Ok(QueryResponse.Ok(endPoint, query, results));
                 }
             }
             catch (Exception err)
             {
-                return Ok(QueryResponse.Failed(err.Message));
+                return Ok(QueryResponse.Failed(endPoint, err.Message));
             }
         });
     }
@@ -91,11 +93,11 @@ public class DbController : Controller
             try
             {
                 var results = dbConnection.ExecuteScalars<long>(command.Commands);
-                return Ok(CommandResponse.Ok(results));
+                return Ok(CommandResponse.Ok(endPoint, results));
             }
             catch (Exception err)
             {
-                return Ok(CommandResponse.Failed(err.Message));
+                return Ok(CommandResponse.Failed(endPoint, err.Message));
             }
         });
     }
@@ -108,11 +110,11 @@ public class DbController : Controller
             try
             {
                 dbConnection.ExecuteCommands(command.Commands);
-                return Ok(CommandResponse.Ok());
+                return Ok(CommandResponse.Ok(endPoint));
             }
             catch (Exception err)
             {
-                return Ok(CommandResponse.Failed(err.Message));
+                return Ok(CommandResponse.Failed(endPoint, err.Message));
             }
         });
     }

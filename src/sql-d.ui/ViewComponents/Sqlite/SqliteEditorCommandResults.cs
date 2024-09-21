@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SqlD.Network;
 using SqlD.UI.Models;
 using SqlD.UI.Models.Query;
 using SqlD.UI.Services;
@@ -29,7 +30,7 @@ public class SqliteEditorCommandResults : ViewComponent
             }
             catch (Exception err)
             {
-                query.CommandResult = new CommandResultViewModel(err.Message);
+                query.CommandResult = new CommandResultViewModel(EndPoint.FromUri(query.Server), err.Message);
                 return View(query);
             }
 

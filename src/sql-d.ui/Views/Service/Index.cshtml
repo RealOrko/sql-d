@@ -7,17 +7,17 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="registryList" class="panel panel-default">
+        <div id="registryList" class="panel panel-primary">
             <div class="panel-heading text-left">
                 <span style="float: right; top: -5px; position:relative">
                     <a href="/service/create" class="btn btn-sm btn-default" title="Start/Create new service">
                         <i class="fas fa-plus-circle"></i>
                     </a>
                 </span>
-                Registered Services
+                Services
             </div>
             <div class="panel-body">
-                <table class="table table-bordered">
+                <table class="table table-condensed table-bordered">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -62,6 +62,41 @@
                                 }
                             </td>
                         </tr>
+                        var serviceModel = Model.Config.Services.First(x => x.IsEqualTo(service.EndPoint));
+                        if (serviceModel.ForwardingTo.Any())
+                        {
+                            <tr>
+                                <td colspan="8" align="left">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading text-left" onclick="$(this).parent().find('.panel-body').toggle('.collapsed')">
+                                            <small>Forwards</small>
+                                        </div>
+                                        <div class="forward-panel-body panel-body collapsed" aria-expanded="false">
+                                            <table class="table table-condensed table-bordered table-condensed table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Database</th>
+                                                    <th>Uri</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach (var forward in serviceModel.ForwardingTo)
+                                                {
+                                                    var forwardServiceModel = Model.Config.Services.First(x => x.IsEqualTo(forward));
+                                                    <tr>
+                                                        <td>@forwardServiceModel.Name</td>
+                                                        <td>@forwardServiceModel.Database</td>
+                                                        <td>@forwardServiceModel.ToUrl()</td>
+                                                    </tr>
+                                                }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>                                
+                        }
                     }
                     </tbody>
                 </table>
@@ -69,3 +104,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.forward-panel-body').toggle('.collapsed');
+</script>

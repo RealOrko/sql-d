@@ -45,7 +45,7 @@ public class QueryAction : IQueryAction
         }
         catch (Exception err)
         {
-            return new QueryResultViewModel(err.Message);
+            return new QueryResultViewModel(client.EndPoint, err.Message);
         }
     }
 }

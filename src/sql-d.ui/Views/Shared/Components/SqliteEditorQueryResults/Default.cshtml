@@ -2,12 +2,13 @@
 
 @if (Model.QueryResult != null && string.IsNullOrEmpty(Model.QueryResult.Error))
 {
-    <div id="queryPanel" class="panel panel-default">
-        <div class="panel-heading">
-            Sqlite Query Results
+    <div id="queryPanel" class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <div style="float:right">[ @Model.QueryResult.EndPoint.ToUrl() ]</div>
+            Results
         </div>
         <div class="panel-body">
-            <table class="table table-bordered">
+            <table class="table table-condensed table-bordered">
                 <thead>
                 <tr>
                     @foreach (var column in Model.QueryResult.Columns)
@@ -33,7 +34,15 @@
 }
 else if (Model.QueryResult != null)
 {
+    <div id="queryPanel" class="panel panel-primary">
+    <div class="panel-heading text-left">
+        <div style="float:right">[ @Model.QueryResult.EndPoint.ToUrl() ]</div>
+        Results
+    </div>
+    <div class="panel-body">
     <div class="alert alert-danger" role="alert">
         @Model.QueryResult.Error
+    </div>
+    </div>
     </div>
 }
