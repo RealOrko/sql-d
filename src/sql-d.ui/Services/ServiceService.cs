@@ -25,46 +25,60 @@ public class ServiceService
         return await registry.GetServices();
     }
 
-    public void CreateService(ServiceFormViewModel service)
+    public void CreateService(ServiceFormViewModel serviceFormModel)
     {
         var config = Configs.Configuration.Instance;
 
-        var sqlDServiceModel = new SqlDServiceModel
+        var serviceModel = new SqlDServiceModel
         {
-            Name = service.Name,
-            Database = service.Database,
-            Host = service.Host,
-            Port = service.Port,
-            Tags = (service.Tags ?? string.Empty).Split(',').ToList()
+            Name = serviceFormModel.Name,
+            Database = serviceFormModel.Database,
+            Host = serviceFormModel.Host,
+            Port = serviceFormModel.Port,
+            Tags = (serviceFormModel.Tags ?? string.Empty).Split(',').ToList()
         };
-
-        var registryEntryViewModels = service.Forwards.Where(x => x.Selected).ToList();
+        
+        var serviceEndPoint = new EndPoint(serviceModel.Host, serviceModel.Port);
+        
+        var registryEntryViewModels = serviceFormModel.Forwards.Where(x => x.Selected).ToList();
         if (registryEntryViewModels.Any())
         {
-            sqlDServiceModel.ForwardingTo.AddRange(registryEntryViewModels.Select(y => new SqlDForwardingModel
+            serviceModel.ForwardingTo.AddRange(registryEntryViewModels.Select(y => new SqlDForwardingModel
             {
                 Host = y.Host,
                 Port = y.Port
             }));
         }
 
-        config.Services.Add(sqlDServiceModel);
+        config.Services.Add(serviceModel);
+        
+        EnsureModelForSerivceConfiguration(serviceFormModel, serviceModel, serviceEndPoint);
 
         Configs.Configuration.Update(config);
         Interface.Start();
     }
 
-    public void UpdateService(ServiceFormViewModel serviceModel)
+    public void UpdateService(ServiceFormViewModel serviceFormModel)
     {
-        var serviceEndPoint = new EndPoint(serviceModel.Host, serviceModel.Port);
+        var serviceEndPoint = new EndPoint(serviceFormModel.Host, serviceFormModel.Port);
         var service = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(serviceEndPoint));
         
-        service.Name = serviceModel.Name;
-        service.Database = serviceModel.Database;
-        service.Host = serviceModel.Host;
-        service.Port = serviceModel.Port;
-        service.Tags = serviceModel.Tags.Split(',').ToList();
+        service.Name = serviceFormModel.Name;
+        service.Database = serviceFormModel.Database;
+        service.Host = serviceFormModel.Host;
+        service.Port = serviceFormModel.Port;
+        service.Tags = serviceFormModel.Tags.Split(',').ToList();
         
+        EnsureModelForSerivceConfiguration(serviceFormModel, service, serviceEndPoint);
+
+        Configs.Configuration.Update(Configs.Configuration.Instance);
+
+        Interface.Stop();
+        Interface.Start();
+    }
+
+    private static void EnsureModelForSerivceConfiguration(ServiceFormViewModel serviceModel, SqlDServiceModel service, EndPoint serviceEndPoint)
+    {
         var nonForwardModels = serviceModel.Forwards.Where(x => !x.Selected).ToList();
         if (nonForwardModels.Any())
         {
@@ -121,11 +135,6 @@ public class ServiceService
                 otherServiceModel.ForwardingTo = otherServiceModel.ForwardingTo.Where(x => !x.IsEqualTo(serviceEndPoint)).ToList();
             }
         }
-
-        Configs.Configuration.Update(Configs.Configuration.Instance);
-
-        Interface.Stop();
-        Interface.Start();
     }
 
     public void RemoveService(string host, int port)
