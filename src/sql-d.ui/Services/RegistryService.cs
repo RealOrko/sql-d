@@ -20,7 +20,6 @@ public class RegistryService
             var list = items.Convert(x => new RegistryEntryViewModel(x));
             results.AddRange(list);
         }
-
         return new RegistryViewModel(results);
     }
 }

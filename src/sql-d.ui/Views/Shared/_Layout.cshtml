@@ -1,6 +1,6 @@
 ﻿@using SqlD.UI.ViewComponents.Registry
 <!DOCTYPE html>
-<html>
+<html id="page">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,7 +14,7 @@
     <script src="~/lib/ace/src-min-noconflict/ace.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
-<body>
+<body id="body">
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -41,11 +41,13 @@
         </div>
     </div>
 </nav>
-<div class="container text-center pad-all">
-    @RenderBody()
+<div id="body" class="container text-center pad-all">
+    <div id="bodyContainer">
+        @RenderBody()
+    </div>
     <hr/>
     <footer>
-        <p>&copy; 2018</p>
+        <p>&copy; @DateTime.Now.Year</p>
     </footer>
 </div>
 

@@ -54,6 +54,20 @@ public class RegistryEntryViewModel
         set => EndPoint.Port = value;
     }
 
+    public RegistryEntryViewModel Clone()
+    {
+        var cloned = new RegistryEntryViewModel();
+        cloned.Uri = Uri;
+        cloned.Name = Name;
+        cloned.Database = Database;
+        cloned.AuthorityUri = AuthorityUri;
+        cloned.State = State.Clone().ToString();
+        cloned.Tags = Tags.Clone().ToString();
+        cloned.LastUpdated = LastUpdated;
+        cloned.EndPoint = new EndPoint(EndPoint.Host, EndPoint.Port);
+        return cloned;
+    }
+
     public string GetRedirectedUri(HttpRequest request)
     {
         if (Host.ToLower() == "localhost") return $"{request.Scheme}://{request.Host.Host}:{Port}/";
