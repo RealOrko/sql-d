@@ -48,6 +48,7 @@ public class ConnectionClientTests : NetworkTestCase
     }
 
     [Test]
+    [Platform("Linux", Reason="Only runs on Linux because windows file locks")]
     public async Task ShouldBeAbleToDownloadDatabaseFileFromClient()
     {
         await MasterClient.DownloadDatabaseTo("output.db");
