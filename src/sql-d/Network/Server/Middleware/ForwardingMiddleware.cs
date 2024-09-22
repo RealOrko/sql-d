@@ -20,32 +20,40 @@ public class ForwardingMiddleware
     public async Task InvokeAsync(HttpContext context, Func<Task> next)
     {
         StreamReader streamReader = null;
-        if (Configuration.Instance.FindForwardingAddresses(_listener.ServiceModel).Any())
+        if (!Configuration.Instance.Settings.Forwarding.Allowed)
         {
-            BeforeInvoke_BeforeRequestRead(context);
-
-            try
+            Log.Out.Info("Forwarding is disabled. Please enable this is you want near real-time replication with low data volumes for each transaction.");
+        }
+        
+        if (Configuration.Instance.Settings.Forwarding.Allowed)
+        {
+            if (Configuration.Instance.FindForwardingAddresses(_listener.ServiceModel).Any())
             {
-                if (context.Request.GetDisplayUrl().ToLower().Contains("/api/db/command"))
+                BeforeInvoke_BeforeRequestRead(context);
+
+                try
                 {
-                    streamReader = new StreamReader(context.Request.Body);
-                    var commandRequest = await Deserialise<Command>(streamReader);
-                    await ForwardToClients(async client => await client.PostCommandAsync(commandRequest));
+                    if (context.Request.GetDisplayUrl().ToLower().Contains("/api/db/command"))
+                    {
+                        streamReader = new StreamReader(context.Request.Body);
+                        var commandRequest = await Deserialise<Command>(streamReader);
+                        await ForwardToClients(async client => await client.PostCommandAsync(commandRequest));
+                    }
+
+                    if (context.Request.GetDisplayUrl().ToLower().Contains("/api/db/scalar"))
+                    {
+                        streamReader = new StreamReader(context.Request.Body);
+                        var commandRequest = await Deserialise<Command>(streamReader);
+                        await ForwardToClients(async client => await client.PostScalarAsync(commandRequest));
+                    }
+                }
+                catch (Exception err)
+                {
+                    Log.Out.Error(err.ToString());
                 }
 
-                if (context.Request.GetDisplayUrl().ToLower().Contains("/api/db/scalar"))
-                {
-                    streamReader = new StreamReader(context.Request.Body);
-                    var commandRequest = await Deserialise<Command>(streamReader);
-                    await ForwardToClients(async client => await client.PostScalarAsync(commandRequest));
-                }
+                BeforeInvoke_AfterRequestRead(context);
             }
-            catch (Exception err)
-            {
-                Log.Out.Error(err.ToString());
-            }
-
-            BeforeInvoke_AfterRequestRead(context);
         }
 
         try
@@ -56,8 +64,11 @@ public class ForwardingMiddleware
         {
             Log.Out.Warn("The middleware target could be disposed ... ");            
         }
-        
-        streamReader?.Dispose();
+
+        if (streamReader != null)
+        {
+            streamReader.Dispose();
+        }
     }
 
     private async Task ForwardToClients(Func<ConnectionClient, Task<CommandResponse>> clientApiCall)

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using SqlD.Network.Server.Middleware;
 using SqlD.Network.Server.Workers;
 
@@ -9,15 +10,24 @@ internal class ConnectionListenerStartup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.Configure<FormOptions>(options =>
+        {
+            options.BufferBody = false;
+            options.KeyLengthLimit = int.MaxValue;
+            options.ValueLengthLimit = int.MaxValue;
+            options.ValueCountLimit = int.MaxValue;
+            options.MultipartHeadersCountLimit = int.MaxValue;
+            options.MultipartHeadersLengthLimit = int.MaxValue;
+            options.MultipartBoundaryLengthLimit = 256;
+            options.MultipartBodyLengthLimit = int.MaxValue; // 128 MiB
+        });
+
         services.AddSingleton(Listener.DbConnectionFactory);
         services.AddSingleton(Listener.ServiceModel);
         services.AddSingleton((EndPoint)Listener.ServiceModel);
         services.AddSingleton(new SynchronisationWorkerQueue());
         services.AddHostedService<SynchronisationWorker>();
-        if (Configs.Configuration.Instance.Replication.Allowed)
-        {
-            services.AddHostedService<AutoSynchronisationWorker>();
-        }
+        services.AddHostedService<AutoSynchronisationWorker>();
 
         services.AddCors();
         services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();

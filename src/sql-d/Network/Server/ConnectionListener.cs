@@ -35,9 +35,9 @@ public class ConnectionListener : IDisposable
                     builder.ConfigureKestrel(opts =>
                     {
                         opts.AddServerHeader = true;
-                        opts.Limits.MaxRequestBodySize = null;
-                        opts.Limits.MaxResponseBufferSize = null;
-                        opts.Limits.MaxConcurrentConnections = null;
+                        opts.Limits.MaxRequestBodySize = int.MaxValue;
+                        opts.Limits.MaxResponseBufferSize = int.MaxValue;
+                        opts.Limits.MaxConcurrentConnections = int.MaxValue;
                         opts.ListenAnyIP(ServiceModel.Port);
                     });
                     builder.UseUrls(ServiceModel.ToWildcardUrl());
