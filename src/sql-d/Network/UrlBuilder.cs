@@ -27,6 +27,11 @@ internal class UrlBuilder
         return endPoint.ToUrl("api/db/query");
     }
 
+    internal static string GetFileStreamUrl(EndPoint endPoint)
+    {
+        return endPoint.ToUrl("api/db/fs");
+    }
+
     internal static string GetRegistryUrl(EndPoint endPoint)
     {
         return endPoint.ToUrl("api/registry");

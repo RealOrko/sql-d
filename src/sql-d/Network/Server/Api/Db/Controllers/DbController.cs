@@ -127,4 +127,17 @@ public class DbController : Controller
             }
         });
     }
+
+    [HttpGet("fs")]
+    public IActionResult FileStream()
+    {
+        return this.Intercept(() =>
+        {
+            using (var dbConnection = _dbConnectionFactory.Connect())
+            {
+                var stream = dbConnection.GetDatabaseFileStream();
+                return File(stream, "application/octet-stream", dbConnection.DatabaseName);
+            }
+        });
+    }
 }

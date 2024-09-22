@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using SqlD.Tests.Framework;
 using SqlD.Tests.Framework.Models;
@@ -44,5 +45,13 @@ public class ConnectionClientTests : NetworkTestCase
 
         results = await MasterClient.QueryAsync<AnyTableB>();
         Assert.That(results.Count, Is.EqualTo(0));
+    }
+
+    [Test]
+    public async Task ShouldBeAbleToDownloadDatabaseFileFromClient()
+    {
+        await MasterClient.DownloadDatabaseTo("output.db");
+        
+        Assert.That(File.Exists("output.db"), Is.True);
     }
 }
