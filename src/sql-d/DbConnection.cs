@@ -18,9 +18,13 @@ public class DbConnection : IDisposable
     public SQLiteConnection Connection { get; private set; }
     public SqlDPragmaModel PragmaOptions { get; private set; }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         Connection?.Dispose();
+    }
+
+    public virtual void DisposeSingleton()
+    {
     }
 
     internal virtual DbConnection Connect(string name, string databaseName, SqlDPragmaModel pragmaOptions)
@@ -306,5 +310,17 @@ public class DbConnection : IDisposable
             }
         }
         throw new DbConnectionFailedException($"The database '{DatabaseName}' could not be opened for reading because it does not exist.", null);
+    }
+
+    public class DbConnectionSingleton : DbConnection
+    {
+        public override void Dispose()
+        {
+        }
+
+        public override void DisposeSingleton()
+        {
+            Connection?.Dispose();
+        }
     }
 }

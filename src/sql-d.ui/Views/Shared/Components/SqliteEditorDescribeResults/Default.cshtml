@@ -3,7 +3,7 @@
     {
         <div id="queryPanel" class="panel panel-primary" style="margin-bottom: 0">
             <div class="panel-heading text-left">
-                <div style="float:right">[ @Model.DescribeResult.EndPoint.ToUrl() ] at @DateTime.Now.ToLongTimeString()</div>
+                <div style="float:right">@Model.DescribeResult.EndPoint.ToUrl() at @Model.StartDate.ToLongTimeString() in @DateTime.Now.Subtract(@Model.StartDate).TotalSeconds second(s)</div>
                 Results 
             </div>
             <div class="panel-body">
@@ -35,7 +35,7 @@
     {
 <div id="queryPanel" class="panel panel-primary">
     <div class="panel-heading text-left">
-        <div style="float:right">[ @Model.DescribeResult.EndPoint.ToUrl() ]</div>
+        <div style="float:right">@Model.DescribeResult.EndPoint.ToUrl() at @Model.StartDate.ToLongTimeString() in @DateTime.Now.Subtract(@Model.StartDate).TotalSeconds second(s)</div>
         Results 
     </div>
     <div class="panel-body">
