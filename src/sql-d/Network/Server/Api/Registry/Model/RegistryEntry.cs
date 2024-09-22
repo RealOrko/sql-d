@@ -25,46 +25,8 @@ public class RegistryEntry
     [SqlLiteColumn("AuthorityUri", SqlLiteType.Text, false)]
     public string AuthorityUri { get; set; }
 
-    [SqlLiteIgnore] public ServiceStateType State { get; set; }
-
-    [SqlLiteIgnore] public string[] TagsAsArray => Tags.Split(',');
-
-    public EndPoint ToEndPoint()
-    {
-        var uri = new Uri(Uri);
-        return new EndPoint(uri.Host, uri.Port);
-    }
-
-    protected bool Equals(RegistryEntry other)
-    {
-        return string.Equals(Uri, other.Uri) && string.Equals(AuthorityUri, other.AuthorityUri);
-    }
-
-    public override bool Equals(object obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((RegistryEntry)obj);
-    }
-
-    public override int GetHashCode()
-    {
-        unchecked
-        {
-            return ((Uri != null ? Uri.GetHashCode() : 0) * 397) ^ (AuthorityUri != null ? AuthorityUri.GetHashCode() : 0);
-        }
-    }
-
-    public static bool operator ==(RegistryEntry left, RegistryEntry right)
-    {
-        return Equals(left, right);
-    }
-
-    public static bool operator !=(RegistryEntry left, RegistryEntry right)
-    {
-        return !Equals(left, right);
-    }
+    [SqlLiteIgnore] 
+    public string[] TagsAsArray => Tags.Split(',');
 
     public override string ToString()
     {

@@ -1,8 +1,3 @@
 ﻿namespace SqlD.Exceptions;
 
-public class ConnectionClientCommandException : Exception
-{
-    public ConnectionClientCommandException(string message) : base(message)
-    {
-    }
-}
+public class ConnectionClientCommandException(string message) : Exception(message);

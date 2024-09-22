@@ -1,15 +1,8 @@
 ﻿namespace SqlD.Attributes;
 
-public class SqlLiteIndexAttribute : Attribute
+public class SqlLiteIndexAttribute(string indexName, SqlLiteIndexType indexType, params string[] additionalColumns) : Attribute
 {
-    public SqlLiteIndexAttribute(string indexName, SqlLiteIndexType indexType, params string[] additionalColumns)
-    {
-        IndexName = indexName;
-        IndexType = indexType;
-        AdditionalColumns = additionalColumns;
-    }
-
-    public string IndexName { get; set; }
-    public SqlLiteIndexType IndexType { get; set; }
-    public string[] AdditionalColumns { get; set; }
+    public string IndexName { get; } = indexName;
+    public SqlLiteIndexType IndexType { get; } = indexType;
+    public string[] AdditionalColumns { get; } = additionalColumns;
 }

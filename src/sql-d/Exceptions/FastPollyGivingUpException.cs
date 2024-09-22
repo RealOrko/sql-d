@@ -1,8 +1,3 @@
 ﻿namespace SqlD.Exceptions;
 
-public class FastPollyGivingUpException : Exception
-{
-    public FastPollyGivingUpException(string message) : base(message)
-    {
-    }
-}
+public class FastPollyGivingUpException(string message) : Exception(message);

@@ -1,11 +1,6 @@
 ﻿namespace SqlD.Network.Diagnostics;
 
-public class EndPointArgs : EventArgs
+public class EndPointArgs(EndPoint endPoint) : EventArgs
 {
-    public EndPointArgs(EndPoint endPoint)
-    {
-        this.EndPoint = endPoint;
-    }
-
-    public EndPoint EndPoint { get; }
+    public EndPoint EndPoint { get; } = endPoint;
 }

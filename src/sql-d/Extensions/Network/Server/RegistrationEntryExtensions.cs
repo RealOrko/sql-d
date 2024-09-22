@@ -1,7 +1,7 @@
 ﻿using SqlD.Extensions.Threading;
 using SqlD.Network.Server.Api.Registry.Model;
 
-namespace SqlD.Extensions.Network.Registry.Model;
+namespace SqlD.Extensions.Network.Server;
 
 public static class RegistrationEntryExtensions
 {

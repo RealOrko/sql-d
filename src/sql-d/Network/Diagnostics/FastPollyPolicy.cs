@@ -3,21 +3,15 @@ using SqlD.Logging;
 
 namespace SqlD.Network.Diagnostics;
 
-public class FastPollyPolicy
+public class FastPollyPolicy(Type exceptionType)
 {
-    private readonly Type exceptionType;
-    private Func<int, TimeSpan> calculateCurrentTry;
-    private int totalNumberOfRetries;
-
-    public FastPollyPolicy(Type exceptionType)
-    {
-        this.exceptionType = exceptionType;
-    }
+    private Func<int, TimeSpan> _calculateCurrentTry;
+    private int _totalNumberOfRetries;
 
     public FastPollyPolicy WaitAndRetryAsync(int numberOfRetries, Func<int, TimeSpan> calculateNextWait)
     {
-        totalNumberOfRetries = numberOfRetries;
-        calculateCurrentTry = calculateNextWait;
+        _totalNumberOfRetries = numberOfRetries;
+        _calculateCurrentTry = calculateNextWait;
         return this;
     }
 
@@ -36,13 +30,13 @@ public class FastPollyPolicy
                 // ReSharper disable once UseMethodIsInstanceOfType
                 if (exceptionType.IsAssignableFrom(err.GetType()))
                 {
-                    currentTry = currentTry + 1;
-                    currentFailures = currentFailures + 1;
-                    Log.Out.Warn($"FastPolly is retrying. CurrentTry={currentTry}, TotalRetries={totalNumberOfRetries}");
-                    Thread.Sleep(calculateCurrentTry(currentTry));
-                    if (currentTry >= totalNumberOfRetries)
+                    currentTry += 1;
+                    currentFailures += 1;
+                    Log.Out.Warn($"FastPolly is retrying. CurrentTry={currentTry}, TotalRetries={_totalNumberOfRetries}");
+                    Thread.Sleep(_calculateCurrentTry(currentTry));
+                    if (currentTry >= _totalNumberOfRetries)
                     {
-                        var error = $"FastPolly is giving up. TotalRetries={totalNumberOfRetries}, CurrentTry={currentTry}, CurrentFailures={currentFailures}, Exception={err}";
+                        var error = $"FastPolly is giving up. TotalRetries={_totalNumberOfRetries}, CurrentTry={currentTry}, CurrentFailures={currentFailures}, Exception={err}";
                         Log.Out.Error(error);
                         throw new FastPollyGivingUpException(error);
                     }

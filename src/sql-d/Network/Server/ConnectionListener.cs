@@ -6,7 +6,7 @@ namespace SqlD.Network.Server;
 
 public class ConnectionListener : IDisposable
 {
-    private IHost host;
+    private IHost _host;
 
     static ConnectionListener()
     {
@@ -28,7 +28,7 @@ public class ConnectionListener : IDisposable
 
         try
         {
-            host = Host.CreateDefaultBuilder()
+            _host = Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(builder =>
                 {
                     builder.UseStartup<ConnectionListenerStartup>();
@@ -47,7 +47,7 @@ public class ConnectionListener : IDisposable
                     logging.AddConsole(opts => { opts.LogToStandardErrorThreshold = LogLevel.Error; });
                 }).Build();
 
-            host.Start();
+            _host.Start();
 
             Log.Out.Info($"Connection listener on {ServiceModel.ToUrl()}");
         }
@@ -60,8 +60,8 @@ public class ConnectionListener : IDisposable
     
     public virtual void Dispose()
     {
-        host.StopAsync().Wait();
-        host.Dispose();
+        _host.StopAsync().Wait();
+        _host.Dispose();
 
         Log.Out.Info($"Disposed listener on {ServiceModel.ToUrl()}");
     }

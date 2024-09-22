@@ -1,8 +1,3 @@
 ﻿namespace SqlD.Exceptions;
 
-public class DbConnectionFailedException : Exception
-{
-    public DbConnectionFailedException(string message, Exception innerException) : base(message, innerException)
-    {
-    }
-}
+public class DbConnectionFailedException(string message, Exception innerException) : Exception(message, innerException);

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SqlD.Extensions.Network.Registry.Model;
+using SqlD.Extensions.Network.Server;
 using SqlD.Network.Server.Api.Registry;
 using SqlD.UI.Models.Registry;
 

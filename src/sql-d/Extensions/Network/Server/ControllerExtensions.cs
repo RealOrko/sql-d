@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SqlD.Logging;
 
-namespace SqlD.Network.Server.Api;
+namespace SqlD.Extensions.Network.Server;
 
 internal static class ControllerExtensions
 {

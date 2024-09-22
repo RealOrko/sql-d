@@ -77,4 +77,9 @@ public class ServiceFormViewModel
         get => _returns.OrderBy(x => x.Tags).ToList();
         set => _returns = value;
     }
+
+    public EndPoint ToEndPoint()
+    {
+        return new EndPoint(Host, Port);
+    }
 }
