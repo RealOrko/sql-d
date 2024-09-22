@@ -8,15 +8,8 @@ using SqlD.Network.Diagnostics;
 
 namespace SqlD.Tests.Framework;
 
-public class NetworkTestCase
+public class NetworkTestCase : BaseTestCase
 {
-    private const string ConfigurationFileName = "appsettings.json";
-
-    static NetworkTestCase()
-    {
-        Interface.Setup(typeof(NetworkTestCase).Assembly, ConfigurationFileName);
-    }
-
     public SqlDConfiguration SqlDConfig => SqlD.Configs.Configuration.Instance;
 
     public SqlDServiceModel RegistryService => SqlDConfig.Services.First(serviceModel => serviceModel.Name == "sql-d-registry-1");

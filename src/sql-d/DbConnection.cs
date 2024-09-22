@@ -23,11 +23,11 @@ public class DbConnection : IDisposable
 
     internal virtual DbConnection Connect(string name, string databaseName, SqlDPragmaModel pragmaOptions)
     {
+        Name = name;
+        DatabaseName = databaseName;
         ConnectionString = CreateConnectionString(databaseName);
         Connection = CreateConnection(databaseName);
-        
         ApplyPragmaOptions(pragmaOptions);
-
         return this;
     }
     
@@ -242,17 +242,34 @@ public class DbConnection : IDisposable
     private void ApplyPragmaOptions(SqlDPragmaModel pragmaOptions)
     {
         if (!string.IsNullOrEmpty(pragmaOptions.QueryOnly)) this.ExecuteCommand($"PRAGMA QUERY_ONLY={pragmaOptions.QueryOnly};");
-
         if (!string.IsNullOrEmpty(pragmaOptions.PageSize)) this.ExecuteCommand($"PRAGMA PAGE_SIZE={pragmaOptions.PageSize};");
-
         if (!string.IsNullOrEmpty(pragmaOptions.CountChanges)) this.ExecuteCommand($"PRAGMA COUNT_CHANGES={pragmaOptions.CountChanges};");
-
         if (!string.IsNullOrEmpty(pragmaOptions.JournalMode)) this.ExecuteCommand($"PRAGMA JOURNAL_MODE={pragmaOptions.JournalMode};");
-
         if (!string.IsNullOrEmpty(pragmaOptions.LockingMode)) this.ExecuteCommand($"PRAGMA LOCKING_MODE={pragmaOptions.LockingMode};");
-
         if (!string.IsNullOrEmpty(pragmaOptions.Synchronous)) this.ExecuteCommand($"PRAGMA SYNCHRONOUS={pragmaOptions.Synchronous};");
-
         if (!string.IsNullOrEmpty(pragmaOptions.TempStore)) this.ExecuteCommand($"PRAGMA TEMP_STORE={pragmaOptions.TempStore};");
+        PragmaOptions = pragmaOptions;
+    }
+
+    public FileStream GetDatabaseFileStream()
+    {
+        if (string.IsNullOrWhiteSpace(Configs.Configuration.Instance.DataDirectory))
+        {
+            if (File.Exists(DatabaseName))
+            {
+                Log.Out.Info($"The database file {DatabaseName} was found, opening new file stream.");
+                return File.Open(DatabaseName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            }
+        }
+        else
+        {
+            var databasePath = Path.Combine(Configs.Configuration.Instance.DataDirectory, DatabaseName);
+            if (File.Exists(databasePath))
+            {
+                Log.Out.Info($"The database file {databasePath} was found, opening new file stream.");
+                return File.Open(databasePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            }
+        }
+        throw new DbConnectionFailedException($"The database '{DatabaseName}' could not be opened for reading because it does not exist.", null);
     }
 }

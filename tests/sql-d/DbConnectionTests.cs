@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SqlD.Extensions;
@@ -52,5 +53,21 @@ public class DbConnectionTests : DatabaseTestCase<AnyTableA>
 
         var dropTable = typeof(AnyTableB).GetDropTable();
         await Connection.ExecuteCommandAsync(dropTable);
+    }
+
+    [Test]
+    public async Task ShouldBeAbleToLoadFileStream()
+    {
+        var bytes = new List<byte>();
+        using (var databaseStream = Connection.GetDatabaseFileStream())
+        {
+            byte[] buffer = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = databaseStream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                bytes.AddRange(buffer.Take(bytesRead));
+            }
+        }
+        Assert.That(bytes.Count, Is.GreaterThan(0));
     }
 }

@@ -7,7 +7,7 @@ using SqlD.Tests.Framework.Models;
 
 namespace SqlD.Tests.Framework;
 
-public class DatabaseTestCase<T> where T : IAmATestModel, new()
+public class DatabaseTestCase<T> : BaseTestCase where T : IAmATestModel, new()
 {
     protected DbConnection Connection;
     protected T Instance;
