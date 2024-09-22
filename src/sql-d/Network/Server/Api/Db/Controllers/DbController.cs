@@ -128,7 +128,7 @@ public class DbController : Controller
         });
     }
 
-    [HttpGet("fs")]
+    [HttpGet("file")]
     public IActionResult FileStream()
     {
         return this.Intercept(() =>
