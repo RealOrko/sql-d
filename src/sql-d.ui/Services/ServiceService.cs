@@ -136,4 +136,31 @@ public class ServiceService
             }
         }
     }
+
+    public async Task SynchroniseForward(EndPoint thisEndPoint, EndPoint fromEndPoint)
+    {
+        await new NewClientBuilder(true).ConnectedTo(thisEndPoint).SynchroniseWith(fromEndPoint);
+    }
+    
+    public async Task RemoveForward(EndPoint thisEndPoint, EndPoint fromEndPoint)
+    {
+        var serviceModel = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(fromEndPoint));
+        serviceModel.ForwardingTo = serviceModel.ForwardingTo.Where(x => !x.IsEqualTo(thisEndPoint)).ToList();
+        
+        Configs.Configuration.Update(Configs.Configuration.Instance);
+
+        Interface.Stop();
+        Interface.Start();
+    }
+
+    public async Task SynchroniseForwardAll()
+    {
+        foreach (var fromEndPoint in Configs.Configuration.Instance.Services)
+        {
+            foreach (var thisEndPoint in fromEndPoint.ForwardingTo)
+            {
+                await SynchroniseForward(thisEndPoint, fromEndPoint);
+            }
+        }
+    }
 }
