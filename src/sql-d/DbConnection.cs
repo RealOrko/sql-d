@@ -272,4 +272,26 @@ public class DbConnection : IDisposable
         }
         throw new DbConnectionFailedException($"The database '{DatabaseName}' could not be opened for reading because it does not exist.", null);
     }
+    
+    public string GetDatabaseFilePath()
+    {
+        if (string.IsNullOrWhiteSpace(Configs.Configuration.Instance.DataDirectory))
+        {
+            if (File.Exists(DatabaseName))
+            {
+                Log.Out.Info($"The database file {DatabaseName} was found.");
+                return DatabaseName;
+            }
+        }
+        else
+        {
+            var databasePath = Path.Combine(Configs.Configuration.Instance.DataDirectory, DatabaseName);
+            if (File.Exists(databasePath))
+            {
+                Log.Out.Info($"The database file {databasePath} was found.");
+                return databasePath;
+            }
+        }
+        throw new DbConnectionFailedException($"The database '{DatabaseName}' could not be opened for reading because it does not exist.", null);
+    }
 }

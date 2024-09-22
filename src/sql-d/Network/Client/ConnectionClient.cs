@@ -366,6 +366,8 @@ public class ConnectionClient : IDisposable
 
     public async Task DownloadDatabaseTo(string databasePath)
     {
+        Log.Out.Info($"Downloading database from {EndPoint.ToUrl()} to {databasePath} ... ");
+        
         var fileStreamUrl = UrlBuilder.GetFileStreamUrl(EndPoint);
         var response = await _client.GetAsync(fileStreamUrl);
         

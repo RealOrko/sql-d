@@ -1,4 +1,5 @@
 using SqlD.Network.Server.Middleware;
+using SqlD.Network.Server.Workers;
 
 namespace SqlD.Network.Server;
 
@@ -11,6 +12,7 @@ internal class ConnectionListenerStartup
         services.AddSingleton(Listener.DbConnectionFactory);
         services.AddSingleton(Listener.ServiceModel);
         services.AddSingleton((EndPoint)Listener.ServiceModel);
+        services.AddHostedService<SynchronisationWorker>();
 
         services.AddCors();
         services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();
