@@ -37,6 +37,11 @@ internal class UrlBuilder
         return endPoint.ToUrl("api/db/sync");
     }
 
+    internal static string GetFileHashUrl(EndPoint endPoint)
+    {
+        return endPoint.ToUrl("api/db/hash");
+    }
+
     internal static string GetRegistryUrl(EndPoint endPoint)
     {
         return endPoint.ToUrl("api/registry");
