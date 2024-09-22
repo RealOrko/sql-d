@@ -31,6 +31,11 @@ internal class UrlBuilder
     {
         return endPoint.ToUrl("api/db/file");
     }
+    
+    internal static string GetFileSyncUrl(EndPoint endPoint)
+    {
+        return endPoint.ToUrl("api/db/sync");
+    }
 
     internal static string GetRegistryUrl(EndPoint endPoint)
     {
