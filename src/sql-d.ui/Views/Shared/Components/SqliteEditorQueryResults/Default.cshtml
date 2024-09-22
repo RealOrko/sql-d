@@ -2,9 +2,9 @@
 
 @if (Model.QueryResult != null && string.IsNullOrEmpty(Model.QueryResult.Error))
 {
-    <div id="queryPanel" class="panel panel-primary">
+    <div id="queryPanel" class="panel panel-primary" style="margin-bottom: 0">
         <div class="panel-heading text-left">
-            <div style="float:right">[ @Model.QueryResult.EndPoint.ToUrl() ]</div>
+            <div style="float:right">[ @Model.QueryResult.EndPoint.ToUrl() ] at @DateTime.Now.ToLongTimeString()</div>
             Results
         </div>
         <div class="panel-body">
@@ -36,7 +36,7 @@ else if (Model.QueryResult != null)
 {
     <div id="queryPanel" class="panel panel-primary">
     <div class="panel-heading text-left">
-        <div style="float:right">[ @Model.QueryResult.EndPoint.ToUrl() ]</div>
+        <div style="float:right">[ @Model.QueryResult.EndPoint.ToUrl() ] at @DateTime.Now.ToLongTimeString()</div>
         Results
     </div>
     <div class="panel-body">
