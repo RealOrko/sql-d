@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlD.Tests", "tests\sql-d\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlD.UI", "src\sql-d.ui\SqlD.UI.csproj", "{20B97568-FCD5-46B1-8DD8-07FABB84BE30}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{DB96BEEA-88F7-4F28-84CB-08F22F658EAC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{DB96BEEA-88F7-4F28-84CB-08F22F658EAC}"
 	ProjectSection(SolutionItems) = preProject
 		version.props = version.props
 	EndProjectSection
