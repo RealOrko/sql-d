@@ -13,6 +13,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlD.Tests", "tests\sql-d\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlD.UI", "src\sql-d.ui\SqlD.UI.csproj", "{20B97568-FCD5-46B1-8DD8-07FABB84BE30}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{DB96BEEA-88F7-4F28-84CB-08F22F658EAC}"
+	ProjectSection(SolutionItems) = preProject
+		version.props = version.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D8040485-866E-44E6-84FF-952BE982891E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2AFF609C-37FE-4C8D-87A7-6D9E11D3FDF5}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EFEA11FF-147B-425A-8A51-2A5850F2EAAC}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\build.bat = scripts\build.bat
+		scripts\build.sh = scripts\build.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +57,9 @@ Global
 		{E846BDEA-B565-4339-B088-CB50A227418F} = {243695E0-61E0-4CB5-B032-54167EB126A7}
 		{6C1B5D92-63D9-4429-8551-E8A0F0EB6519} = {5CC2E2FC-6B9D-4D89-A348-F85C27287BBC}
 		{20B97568-FCD5-46B1-8DD8-07FABB84BE30} = {243695E0-61E0-4CB5-B032-54167EB126A7}
+		{D8040485-866E-44E6-84FF-952BE982891E} = {DB96BEEA-88F7-4F28-84CB-08F22F658EAC}
+		{2AFF609C-37FE-4C8D-87A7-6D9E11D3FDF5} = {D8040485-866E-44E6-84FF-952BE982891E}
+		{EFEA11FF-147B-425A-8A51-2A5850F2EAAC} = {DB96BEEA-88F7-4F28-84CB-08F22F658EAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A6FCA73-005F-41E0-A9A4-74F58DA42160}

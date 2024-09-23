@@ -5,7 +5,7 @@
         <!--IsPackable>true</IsPackable-->
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
         <!--NuSpecFile>sql-d.nuspec</NuSpecFile-->
         <!--NuSpecBasePath>bin/$(Configuration)/netcoreapp3.1/</NuSpecBasePath-->
         <NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
