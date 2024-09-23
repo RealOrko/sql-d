@@ -20,7 +20,6 @@ public class AutoSynchronisationWorker : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        Log.Out.Info($"Replication is enabled with an interval of {Configs.Configuration.Instance.Settings.Replication.Interval} second(s).");
         await Task.Factory.StartNew(async () => await Synchronise(cancellationToken), TaskCreationOptions.LongRunning);
     }
 
@@ -30,6 +29,7 @@ public class AutoSynchronisationWorker : IHostedService
         while (cancellationToken.IsCancellationRequested == false)
         {
             if (!Configs.Configuration.Instance.Settings.Replication.Allowed) continue;
+            Log.Out.Info($"Replication is enabled with an interval of {Configs.Configuration.Instance.Settings.Replication.Interval} second(s).");
             try
             {
                 var forwardServiceModels = Configs.Configuration.Instance.Services.Where(x => x.ForwardingTo.Any(y => y.IsEqualTo(_listenerEndPoint)));
