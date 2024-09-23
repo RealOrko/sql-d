@@ -47,8 +47,6 @@ public class ConnectionClientTests : NetworkTestCase
         Assert.That(results.Count, Is.EqualTo(0));
     }
 
-    #if Linux
-    // This does not work on windows because of file locks
     [Test]
     public async Task ShouldBeAbleToDownloadDatabaseFileFromClient()
     {
@@ -56,5 +54,4 @@ public class ConnectionClientTests : NetworkTestCase
         
         Assert.That(File.Exists("output.db"), Is.True);
     }
-    #endif
 }
