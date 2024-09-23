@@ -4,19 +4,9 @@ using SqlD.Logging;
 
 namespace SqlD.Network.Server.Workers;
 
-public class AutoSynchronisationWorker : IHostedService
+public class AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFactory dbConnectionFactory, SynchronisationWorkerQueue queue) : IHostedService
 {
-    private readonly EndPoint _listenerEndPoint;
-    private readonly DbConnectionFactory _dbConnectionFactory;
-    private readonly SynchronisationWorkerQueue _queue;
-    private TimeSpan _replicationInterval => TimeSpan.FromSeconds(Configs.Configuration.Instance.Settings.Replication.Interval);
-
-    public AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFactory dbConnectionFactory, SynchronisationWorkerQueue queue)
-    {
-        _listenerEndPoint = listenerEndPoint;
-        _dbConnectionFactory = dbConnectionFactory;
-        _queue = queue;
-    }
+    private static TimeSpan ReplicationInterval => TimeSpan.FromSeconds(Configs.Configuration.Instance.Settings.Replication.Interval);
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -32,7 +22,7 @@ public class AutoSynchronisationWorker : IHostedService
             Log.Out.Info($"Replication is enabled with an interval of {Configs.Configuration.Instance.Settings.Replication.Interval} second(s).");
             try
             {
-                var forwardServiceModels = Configs.Configuration.Instance.Services.Where(x => x.ForwardingTo.Any(y => y.IsEqualTo(_listenerEndPoint)));
+                var forwardServiceModels = Configs.Configuration.Instance.Services.Where(x => x.ForwardingTo.Any(y => y.IsEqualTo(listenerEndPoint)));
                 if (forwardServiceModels.Any())
                 {
                     foreach (var forwardServiceModel in forwardServiceModels)
@@ -40,14 +30,14 @@ public class AutoSynchronisationWorker : IHostedService
                         var client = new NewClientBuilder(true).ConnectedTo(forwardServiceModel);
                         var upstreamHash = await client.SynchroniseHash();
                         var downstreamHash = string.Empty;
-                        using (var dbConnection = _dbConnectionFactory.Connect())
+                        using (var dbConnection = dbConnectionFactory.Connect())
                         {
                             downstreamHash = dbConnection.GetDatabaseFileHash();
                         }
 
                         if (upstreamHash != downstreamHash)
                         {
-                            _queue.SyncronisationTasks.Enqueue(forwardServiceModel);
+                            queue.SyncronisationTasks.Enqueue(forwardServiceModel);
                         }
                     }
                 }
@@ -56,12 +46,13 @@ public class AutoSynchronisationWorker : IHostedService
             {
                 Log.Out.Error($"An error occured while synchronising a replication target: {err.Message}");
             }
-            await Task.Delay(_replicationInterval, cancellationToken);
+            await Task.Delay(ReplicationInterval, cancellationToken);
         }
         Log.Out.Info($"Replication has stopped because the cancellation token was fired.");
     }
     
     public async Task StopAsync(CancellationToken cancellationToken)
     {
+        await Task.Factory.StartNew(() => Task.CompletedTask, cancellationToken);
     }
 }
