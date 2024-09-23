@@ -28,7 +28,9 @@ public class DbConnectionFactory
 
     public virtual DbConnection Connect()
     {
-        if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.SINGLETON_STRATEGY)
+        var connectionsStrategy = Configs.Configuration.Instance.Settings.Connections.Strategy;
+        
+        if (connectionsStrategy == SqlDSettingsConnections.SINGLETON_STRATEGY)
         {
             if (Connections.TryGetValue(Name, out var connection))
             {
@@ -38,18 +40,18 @@ public class DbConnectionFactory
         
         lock (_lock)
         {
-            if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.FACTORY_STRATEGY)
+            if (connectionsStrategy == SqlDSettingsConnections.SINGLETON_STRATEGY)
+            {
+                return Connections.GetOrAdd(Name, (e) => new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions));
+            }
+            
+            if (connectionsStrategy == SqlDSettingsConnections.FACTORY_STRATEGY)
             {
                 Connections.GetOrAdd(Name, (e) => new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions)).DisposeSingleton();
                 return new DbConnection().Connect(Name, DatabaseName, PragmaOptions);
             }
             
-            if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.SINGLETON_STRATEGY)
-            {
-                return Connections.GetOrAdd(Name, (e) => new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions));
-            }
-            
-            throw new Exception($"Unknown db connection strategy '{Configs.Configuration.Instance.Settings.Connections.Strategy}'.");
+            throw new Exception($"Unknown db connection strategy '{connectionsStrategy}'.");
         }
     }
 }
