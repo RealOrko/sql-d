@@ -13,13 +13,13 @@ public class ConsoleLogger : ILogProvider
     public void Info(string message)
     {
         if (IsLogLevel(LogLevel.Info))
-            Console.WriteLine($"{Header} Info: {message}");
+            Console.WriteLine($"{Header} Information: {message}");
     }
 
     public void Warn(string message)
     {
         if (IsLogLevel(LogLevel.Warn))
-            Console.WriteLine($"{Header} Warn: {message}");
+            Console.WriteLine($"{Header} Warning: {message}");
     }
 
     public void Error(string message)
