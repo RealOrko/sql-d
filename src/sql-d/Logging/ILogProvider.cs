@@ -7,5 +7,4 @@ public interface ILogProvider
     void Warn(string message);
     void Error(string message);
     void Fatal(string message);
-    void InfoInline(string message);
 }

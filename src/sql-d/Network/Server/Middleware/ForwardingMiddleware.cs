@@ -26,6 +26,18 @@ public class ForwardingMiddleware
         {
             Log.Out.Info("Forwarding is disabled. Please enable this is you want near real-time replication with low data volumes for each transaction.");
         }
+        else
+        {
+            Log.Out.Info($"Forwarding strategy is {Configuration.Instance.Settings.Forwarding.Strategy}");
+            if (Configuration.Instance.Settings.Forwarding.Allowed && Configuration.Instance.Settings.Forwarding.Strategy == SqlDSettingsForwarding.PRIMARY_STRATEGY)
+            {
+                Log.Out.Info($"Read replicas will be updated before the source forwarding node. Replicas do not have lag for writes.");
+            }
+            if (Configuration.Instance.Settings.Forwarding.Allowed && Configuration.Instance.Settings.Forwarding.Strategy == SqlDSettingsForwarding.SECONDARY_STRATEGY)
+            {
+                Log.Out.Info($"Source forwarding node will be updated before the read replicas. Replicas do have lag for writes.");
+            }
+        }
         
         context.Request.EnableBuffering();
         
@@ -98,6 +110,7 @@ public class ForwardingMiddleware
     private async Task ForwardToClients(Func<ConnectionClient, Task<CommandResponse>> clientApiCall)
     {
         foreach (var forwardAddress in Configuration.Instance.FindForwardingAddresses(_listener.ServiceModel))
+        {
             try
             {
                 var client = new NewClientBuilder(true).ConnectedTo(forwardAddress);
@@ -109,6 +122,7 @@ public class ForwardingMiddleware
             {
                 Log.Out.Error(err.ToString());
             }
+        }
     }
 
     private static async Task<T> Deserialise<T>(StreamReader bodyRequeStreamReader)
