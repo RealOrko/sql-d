@@ -15,14 +15,14 @@ jobs:
       - name: Build with dotnet linux-x64
         run: ./scripts/build.sh
 
-- name: Test Report
-    uses: dorny/test-reporter@v1
-    if: always()
-    with:
-      name: DotNET Tests
-      path: "**/test-results.trx"                            
-      reporter: dotnet-trx
-      fail-on-error: true
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: DotNET Tests
+          path: "**/test-results.trx"                            
+          reporter: dotnet-trx
+          fail-on-error: true
 
 # This is hot garbage, will look at this later ... :/
 #  build-win-x64:
