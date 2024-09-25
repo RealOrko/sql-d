@@ -21,27 +21,27 @@ public class ForwardingMiddleware
     public async Task InvokeAsync(HttpContext context, Func<Task> next)
     {
         StreamReader streamReader = null;
-
+        var forwardingStrategy = Configuration.Instance.Settings.Forwarding.Strategy;
+        
         if (!Configuration.Instance.Settings.Forwarding.Allowed)
         {
-            Log.Out.Info("Forwarding is disabled. Please enable this is you want near real-time replication with low data volumes for each transaction.");
+            Log.Out.Debug("Forwarding is disabled. Please enable this is you want near real-time replication with low data volumes for each write.");
         }
         else
         {
-            Log.Out.Info($"Forwarding strategy is {Configuration.Instance.Settings.Forwarding.Strategy}");
-            if (Configuration.Instance.Settings.Forwarding.Allowed && Configuration.Instance.Settings.Forwarding.Strategy == SqlDSettingsForwarding.PRIMARY_STRATEGY)
+            if (Configuration.Instance.Settings.Forwarding.Allowed && forwardingStrategy == SqlDSettingsForwarding.PRIMARY_STRATEGY)
             {
-                Log.Out.Info($"Read replicas will be updated before the source forwarding node. Replicas do not have lag for writes.");
+                Log.Out.Debug($"Forwarding Strategy={forwardingStrategy}. Source forwarding node will be updated before the read replicas. Replicas will read lag for writes but writing large volumes of data result in a performance penalty, for this you should consider switching off forwarding entirely and using replication only, this always has read lag depending on the replication interval.");
             }
-            if (Configuration.Instance.Settings.Forwarding.Allowed && Configuration.Instance.Settings.Forwarding.Strategy == SqlDSettingsForwarding.SECONDARY_STRATEGY)
+            if (Configuration.Instance.Settings.Forwarding.Allowed && forwardingStrategy == SqlDSettingsForwarding.SECONDARY_STRATEGY)
             {
-                Log.Out.Info($"Source forwarding node will be updated before the read replicas. Replicas do have lag for writes.");
+                Log.Out.Debug($"Forwarding Strategy={forwardingStrategy}. Read replicas will be updated before the source forwarding node. Replicas will not have read lag for writes but writing large volumes of data result in a performance penalty, for this you should consider switching off forwarding entirely and using replication only, this always has read lag depending on the replication interval.");
             }
         }
         
         context.Request.EnableBuffering();
         
-        if (Configuration.Instance.Settings.Forwarding.Allowed && Configuration.Instance.Settings.Forwarding.Strategy == SqlDSettingsForwarding.SECONDARY_STRATEGY)
+        if (Configuration.Instance.Settings.Forwarding.Allowed && forwardingStrategy == SqlDSettingsForwarding.SECONDARY_STRATEGY)
         {
             streamReader = await ExecuteForwards(context, SqlDSettingsForwarding.SECONDARY_STRATEGY);
         }
@@ -55,7 +55,7 @@ public class ForwardingMiddleware
             Log.Out.Warn("The middleware target could be disposed ... ");            
         }
 
-        if (Configuration.Instance.Settings.Forwarding.Allowed && Configuration.Instance.Settings.Forwarding.Strategy == SqlDSettingsForwarding.PRIMARY_STRATEGY)
+        if (Configuration.Instance.Settings.Forwarding.Allowed && forwardingStrategy == SqlDSettingsForwarding.PRIMARY_STRATEGY)
         {
             streamReader = await ExecuteForwards(context, SqlDSettingsForwarding.PRIMARY_STRATEGY);
         }

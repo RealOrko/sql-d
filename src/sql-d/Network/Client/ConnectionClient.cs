@@ -30,7 +30,7 @@ public class ConnectionClient : IDisposable
     public virtual void Dispose()
     {
         _client?.Dispose();
-        Log.Out.Info($"Disposed client on {EndPoint.ToUrl()}");
+        Log.Out.Debug($"Disposed client on {EndPoint.ToUrl()}");
     }
 
     public virtual bool Ping(EndPoint remoteEndPoint = null)
@@ -366,7 +366,7 @@ public class ConnectionClient : IDisposable
 
     public async Task DownloadDatabaseTo(string databasePath)
     {
-        Log.Out.Info($"Downloading database from {EndPoint.ToUrl()} to {databasePath} ... ");
+        Log.Out.Debug($"Downloading database from {EndPoint.ToUrl()} to {databasePath} ... ");
         
         var fileStreamUrl = UrlBuilder.GetFileStreamUrl(EndPoint);
         var response = await _client.GetAsync(fileStreamUrl);
@@ -395,7 +395,7 @@ public class ConnectionClient : IDisposable
     {
         var fileHashUrl = UrlBuilder.GetFileHashUrl(EndPoint);
         var response = await _client.GetAsync<string>(fileHashUrl);
-        Log.Out.Info($"Checking synchronisation hash for {EndPoint.ToUrl()} as '{response}' ");
+        Log.Out.Debug($"Checking synchronisation hash for {EndPoint.ToUrl()} as '{response}' ");
         return response;
     }
 }

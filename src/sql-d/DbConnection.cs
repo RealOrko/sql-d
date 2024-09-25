@@ -39,7 +39,7 @@ public class DbConnection : IDisposable
     
     internal string CreateConnectionString(string databaseName)
     {
-        Log.Out.Info($"Start of creating connection string {databaseName} ... ");
+        Log.Out.Debug($"Start of creating connection string {databaseName} ... ");
         
         var builder = new SQLiteConnectionStringBuilder();
         if (databaseName == ":memory:")
@@ -50,35 +50,35 @@ public class DbConnection : IDisposable
         {
             if (string.IsNullOrWhiteSpace(Configs.Configuration.Instance.DataDirectory))
             {
-                Log.Out.Info($"Data directory does not exist for '{databaseName}' ... ");
+                Log.Out.Debug($"Data directory does not exist for '{databaseName}' ... ");
                 builder.DataSource = databaseName;
                 
                 if (!File.Exists(databaseName))
                 {
-                    Log.Out.Info($"File does not exist, creating '{databaseName}' ... ");
+                    Log.Out.Debug($"File does not exist, creating '{databaseName}' ... ");
                     SQLiteConnection.CreateFile(databaseName);
                 }
             }
             else
             {
                 var databasePath = Path.Combine(Configs.Configuration.Instance.DataDirectory, databaseName);
-                Log.Out.Info($"Data directory exists for '{databasePath}' ... ");
+                Log.Out.Debug($"Data directory exists for '{databasePath}' ... ");
                 builder.DataSource = databasePath;
 
                 if (!File.Exists(databasePath))
                 {
-                    Log.Out.Info($"File does not exist, creating '{databasePath}' ... ");
+                    Log.Out.Debug($"File does not exist, creating '{databasePath}' ... ");
                     SQLiteConnection.CreateFile(databasePath);
                 }
             }
         }
         if (string.IsNullOrEmpty(builder.DataSource))
         {
-            Log.Out.Info($"Data source does not exist for '{databaseName}' ... ");
+            Log.Out.Debug($"Data source does not exist for '{databaseName}' ... ");
             builder.DataSource = databaseName;
         }
         
-        Log.Out.Info($"{builder};cache=shared");
+        Log.Out.Debug($"ConnectionString='{builder};cache=shared'");
         return $"{builder};cache=shared";
     }
     
@@ -88,7 +88,7 @@ public class DbConnection : IDisposable
 
         try
         {
-            Log.Out.Info($"Connecting to '{databaseName}'");
+            Log.Out.Debug($"Connecting to '{databaseName}'");
             connection.Open();
         }
         catch (Exception err)
@@ -263,7 +263,7 @@ public class DbConnection : IDisposable
         {
             if (File.Exists(DatabaseName))
             {
-                Log.Out.Info($"The database file {DatabaseName} was found, opening new file stream.");
+                Log.Out.Debug($"The database file {DatabaseName} was found, opening new file stream.");
                 return File.Open(DatabaseName, FileMode.Open, FileAccess.Read, FileShare.Read);
             }
         }
@@ -272,7 +272,7 @@ public class DbConnection : IDisposable
             var databasePath = Path.Combine(Configs.Configuration.Instance.DataDirectory, DatabaseName);
             if (File.Exists(databasePath))
             {
-                Log.Out.Info($"The database file {databasePath} was found, opening new file stream.");
+                Log.Out.Debug($"The database file {databasePath} was found, opening new file stream.");
                 return File.Open(databasePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             }
         }
@@ -296,7 +296,7 @@ public class DbConnection : IDisposable
         {
             if (File.Exists(DatabaseName))
             {
-                Log.Out.Info($"The database file {DatabaseName} was found.");
+                Log.Out.Debug($"The database file {DatabaseName} was found.");
                 return DatabaseName;
             }
         }
@@ -305,7 +305,7 @@ public class DbConnection : IDisposable
             var databasePath = Path.Combine(Configs.Configuration.Instance.DataDirectory, DatabaseName);
             if (File.Exists(databasePath))
             {
-                Log.Out.Info($"The database file {databasePath} was found.");
+                Log.Out.Debug($"The database file {databasePath} was found.");
                 return databasePath;
             }
         }
