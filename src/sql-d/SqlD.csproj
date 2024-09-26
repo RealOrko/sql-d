@@ -10,6 +10,7 @@
         <!--NuSpecBasePath>bin/$(Configuration)/netcoreapp3.1/</NuSpecBasePath-->
         <NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
         <!--EnableDefaultContentItems>false</EnableDefaultContentItems-->
+        <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     </PropertyGroup>
 
     <Import Project="../../version.props"/>
