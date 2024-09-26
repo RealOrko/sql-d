@@ -75,10 +75,25 @@ public static class Interface
             }
     }
 
-    public static void Stop()
+    public static void Stop(InterfaceStopKind stopKind = InterfaceStopKind.All)
     {
         Configuration.Reset();
-        ConnectionClientFactory.DisposeAll();
-        ConnectionListenerFactory.DisposeAll();
+        if (stopKind == InterfaceStopKind.All)
+        {
+            ConnectionClientFactory.DisposeAll();
+            ConnectionListenerFactory.DisposeAll();
+        }
+
+        if (stopKind == InterfaceStopKind.NotFoundInConfig)
+        {
+            ConnectionClientFactory.DisposeNotInConfig();
+            ConnectionListenerFactory.DisposeNotInConfig();
+        }
+    }
+
+    public enum InterfaceStopKind
+    {
+        All,
+        NotFoundInConfig
     }
 }

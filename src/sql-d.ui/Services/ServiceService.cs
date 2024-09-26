@@ -59,7 +59,7 @@ public class ServiceService
 
         Configs.Configuration.Update(Configs.Configuration.Instance);
         
-        Interface.Stop();
+        Interface.Stop(Interface.InterfaceStopKind.NotFoundInConfig);
         Interface.Start();
     }
 
@@ -73,7 +73,7 @@ public class ServiceService
         Configs.Configuration.Instance.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.IsEqualTo(serviceEndPoint)).ToList());
         Configs.Configuration.Update(Configs.Configuration.Instance);
 
-        Interface.Stop();
+        Interface.Stop(Interface.InterfaceStopKind.NotFoundInConfig);
         Interface.Start();
     }
     
@@ -149,7 +149,7 @@ public class ServiceService
         
         Configs.Configuration.Update(Configs.Configuration.Instance);
 
-        Interface.Stop();
+        Interface.Stop(Interface.InterfaceStopKind.NotFoundInConfig);
         Interface.Start();
     }
 

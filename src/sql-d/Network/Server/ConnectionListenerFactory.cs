@@ -32,4 +32,16 @@ internal class ConnectionListenerFactory
         Listeners.Values.ToList().ForEach(Dispose);
         Listeners.Clear();
     }
+
+    public static void DisposeNotInConfig()
+    {
+        foreach (var listener in Listeners.Values.ToList())
+        {
+            if (!Configs.Configuration.Instance.Services.Any(service => service.IsEqualTo(listener.ServiceModel)))
+            {
+                Listeners.TryRemove(listener.ServiceModel.ToUrl(), out var _);
+                listener.Dispose();
+            }
+        }
+    }
 }
