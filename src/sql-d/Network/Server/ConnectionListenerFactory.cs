@@ -33,7 +33,7 @@ internal class ConnectionListenerFactory
         Listeners.Clear();
     }
 
-    public static void DisposeNotInConfig()
+    public static void DisposeNotInConfig(EndPoint[] optionalEndPoints)
     {
         foreach (var listener in Listeners.Values.ToList())
         {
@@ -42,6 +42,15 @@ internal class ConnectionListenerFactory
                 Listeners.TryRemove(listener.ServiceModel.ToUrl(), out var _);
                 listener.Dispose();
             }
+            if (optionalEndPoints != null)
+            {
+                if (!Configs.Configuration.Instance.Services.Any(service => optionalEndPoints.Any(endPoint => service.IsEqualTo(endPoint))))
+                {
+                    Listeners.TryRemove(listener.ServiceModel.ToUrl(), out var _);
+                    listener.Dispose();
+                }
+            }
+
         }
     }
 }

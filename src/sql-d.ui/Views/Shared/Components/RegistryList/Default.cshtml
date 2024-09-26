@@ -1,6 +1,6 @@
 ﻿@model SqlD.UI.Models.Registry.RegistryViewModel
 
-<div id="registryList" class="panel panel-primary">
+<div id="registryList" class="panel panel-primary" style="margin-top: 10px !important">
     <div class="panel-heading text-left">
         <span style="float: right; top: -5px; position:relative">
             <a href="/service/create" class="btn btn-sm btn-default" title="Launch new service">
@@ -36,7 +36,7 @@
                         <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-success" title="Edit a service">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <button service-uri="@service.GetRedirectedUri(Context.Request)" class="btn btn-xs btn-primary" title="Connect to @service.GetRedirectedUri(Context.Request)">
+                        <button service-name="@service.Name" service-uri="@service.GetRedirectedUri(Context.Request)" class="btn btn-xs btn-primary" title="Connect to @service.GetRedirectedUri(Context.Request)">
                             <i class="fas fa-plug"></i>
                         </button>
                     </td>
@@ -58,8 +58,9 @@
 		// Registry url event
 		$('#registryList button').on('click', (e) => {
 			const registryUrlEventName = 'registry.url';
-			let serviceUri = $(e.currentTarget).attr('service-uri');
-			radio(registryUrlEventName).broadcast(serviceUri);
+            let serviceName = $(e.currentTarget).attr('service-name');
+            let serviceUri = $(e.currentTarget).attr('service-uri');
+			radio(registryUrlEventName).broadcast({ 'serviceName': serviceName, 'serviceUri': serviceUri });
 			$('#registryList .panel-body').collapse('toggle');
 		});
 	});

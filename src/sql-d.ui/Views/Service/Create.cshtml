@@ -72,17 +72,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-offset-1">
+                        <div class="col-md-offset-3">
                             @for (var i = 0; i < Model.Forwards.Count; i++)
                             {
-                                <div class="col-md-4 text-left">
+                                <div class="col-md-6 text-left">
                                     <input asp-for="@Model.Forwards[i].Selected" class="form-check-input forward" type="checkbox"/>
                                     <input asp-for="@Model.Forwards[i].Host" type="hidden"/>
                                     <input asp-for="@Model.Forwards[i].Port" type="hidden"/>
-                                    <input asp-for="@Model.Forwards[i].Tags" type="hidden"/>
-                                    <input asp-for="@Model.Forwards[i].Uri" type="hidden"/>
-                                    <input asp-for="@Model.Forwards[i].AuthorityUri" type="hidden"/>
-                                    &nbsp;
                                     <label asp-for="@Model.Forwards[i].Selected" style="text-transform: capitalize; font-weight: normal !important">
                                         @Model.Forwards[i].Tags (@Model.Forwards[i].Host:@Model.Forwards[i].Port)
                                     </label>
@@ -98,10 +94,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-offset-1">
+                        <div class="col-md-offset-3">
                             @for (var i = 0; i < Model.Returns.Count; i++)
                             {
-                            <div class="col-md-4 text-left">
+                            <div class="col-md-6 text-left">
                                 <input asp-for="@Model.Returns[i].Selected" class="form-check-input return" type="checkbox"/>
                                 <input asp-for="@Model.Returns[i].Host" type="hidden"/>
                                 <input asp-for="@Model.Returns[i].Port" type="hidden"/>
