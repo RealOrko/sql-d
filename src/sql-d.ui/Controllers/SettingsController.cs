@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SqlD.Network;
 using SqlD.UI.Models.Services;
+using SqlD.UI.Models.Settings;
 using SqlD.UI.Services;
 
 namespace SqlD.UI.Controllers;
@@ -11,14 +12,21 @@ public class SettingsController : Controller
 {
     private readonly SettingsService _settings;
 
-    public SettingsController(SettingsService services)
+    public SettingsController(SettingsService settings)
     {
-        _settings = services;
+        _settings = settings;
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        return View();
+        return View(_settings.ReadConfig());
+    }
+    
+    [HttpPost]
+    public IActionResult Save([FromForm] SettingsWriteModel model)
+    {
+        _settings.WriteConfig(model.Data);
+        return Ok();
     }
 }

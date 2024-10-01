@@ -1,0 +1,56 @@
+@model SqlD.UI.Models.Settings.SettingsReadModel
+
+@{
+    ViewBag.Title = "settings";
+    Layout = "_Layout";
+}
+
+<div id="settingsPanel" class="panel panel-primary">
+	<div class="panel-heading text-left">
+		Settings
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div style="overflow: auto; resize: vertical; min-height: 540px; max-height: fit-content;">
+					<!-- This has to be un-indented to reduce white space that accumulates in the editor -->
+					<pre id="editor" style="height: 95%; margin-left: 15px; margin-right: 15px;">
+@Model.Data
+</pre>
+					<!-- This has to be un-indented to reduce white space that accumulates in the editor -->
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<input id="saveSettings" class="btn btn-primary" value="Save Settings"/>
+			</div>			
+		</div>
+	</div>
+</div>
+
+<form id="SettingsForm" Method="post" action="/settings/save" enctype="multipart/form-data">
+	<input id="Data" name="Data" type="hidden" value="" />
+</form>
+
+<script>
+
+	// Editor
+	var editor = ace.edit("editor");
+	editor.setTheme("ace/theme/github");
+	editor.session.setMode("ace/mode/json");
+	editor.setAutoScrollEditorIntoView(true);
+	editor.focus();
+
+	// Save settings
+	$('#saveSettings').on('click', (e) => {
+		console.log('Save settings clicked!');
+		$('#Data').val(editor.getValue());
+		$.post('/settings/save', $('#SettingsForm').serialize(), (r) => {
+			// TODO: Acknowledge or Error
+			console.log('Posted!');
+			console.log(r);
+		});
+	});
+
+</script>

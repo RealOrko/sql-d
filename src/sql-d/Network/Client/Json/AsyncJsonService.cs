@@ -7,6 +7,7 @@ using Newtonsoft.Json.Serialization;
 using SqlD.Extensions.System;
 using SqlD.Extensions.System.Net;
 using SqlD.Logging;
+using SqlD.Serialiser;
 
 namespace SqlD.Network.Client.Json;
 
@@ -14,7 +15,6 @@ public class AsyncJsonService : IAsyncJsonService
 {
     private static readonly ConcurrentDictionary<string, string> Headers;
     private readonly HttpClient _client;
-    private readonly JsonSerializerSettings _settings;
     private bool _successOnly;
 
     static AsyncJsonService()
@@ -28,7 +28,6 @@ public class AsyncJsonService : IAsyncJsonService
         _client.Timeout = TimeSpan.FromMilliseconds(httpClientTimeoutInMilliseconds);
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         _client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-        _settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
     }
 
     public virtual async Task<T> GetAsync<T>(string uri, object data = null)
@@ -151,7 +150,7 @@ public class AsyncJsonService : IAsyncJsonService
         if (data == null)
             request = new StringContent(string.Empty);
         else
-            request = new StringContent(JsonConvert.SerializeObject(data, _settings));
+            request = new StringContent(JsonSerialiser.Serialise(data));
         request.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         return request;
     }
@@ -181,6 +180,6 @@ public class AsyncJsonService : IAsyncJsonService
 
         if (!result.IsSuccessStatusCode) Log.Out.Error($"Error with response: {payload}");
 
-        return JsonConvert.DeserializeObject<T>(payload, _settings);
+        return JsonSerialiser.Deserialise<T>(payload);
     }
 }

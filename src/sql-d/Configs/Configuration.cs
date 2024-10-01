@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SqlD.Configs.Model;
 using SqlD.Logging;
+using SqlD.Serialiser;
 
 namespace SqlD.Configs;
 
@@ -86,9 +87,9 @@ public static class Configuration
             var settingsFilePath = Path.Combine(_assemblyDirectory, _settingsFile);
             var json = File.ReadAllText(settingsFilePath);
             var jsonInstance = JObject.Parse(json);
-            jsonInstance["SqlD"] = JObject.Parse(JsonConvert.SerializeObject(config));
+            jsonInstance["SqlD"] = JObject.Parse(JsonSerialiser.Serialise(config));
 
-            json = JsonConvert.SerializeObject(jsonInstance, Formatting.Indented);
+            json = JsonSerialiser.Serialise(jsonInstance);
             File.WriteAllText(settingsFilePath, json);
         }
     }
