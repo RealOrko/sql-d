@@ -10,21 +10,14 @@ using SqlD.Network.Client;
 
 namespace SqlD;
 
-public class DbConnectionFactory
+public class DbConnectionFactory(string name, string databaseName, SqlDPragmaModel pragmaOptions)
 {
-    private static object _lock = new();
+    private static object Synchronise = new();
     private static readonly ConcurrentDictionary<string, DbConnection> Connections = new();
     
-    public string Name { get; }
-    public string DatabaseName { get; }
-    public SqlDPragmaModel PragmaOptions { get; }
-
-    public DbConnectionFactory(string name, string databaseName, SqlDPragmaModel pragmaOptions)
-    {
-        Name = name;
-        DatabaseName = databaseName;
-        PragmaOptions = pragmaOptions;
-    }
+    public string Name { get; } = name;
+    public string DatabaseName { get; } = databaseName;
+    public SqlDPragmaModel PragmaOptions { get; } = pragmaOptions;
 
     public virtual DbConnection Connect()
     {
@@ -38,7 +31,7 @@ public class DbConnectionFactory
             }
         }
         
-        lock (_lock)
+        lock (Synchronise)
         {
             connectionsStrategy = Configs.Configuration.Instance.Settings.Connections.Strategy;
 
