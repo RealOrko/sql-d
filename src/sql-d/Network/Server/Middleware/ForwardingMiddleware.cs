@@ -10,15 +10,8 @@ using SqlD.Serialiser;
 
 namespace SqlD.Network.Server.Middleware;
 
-public class ForwardingMiddleware
+public class ForwardingMiddleware(ConnectionListener listener)
 {
-    private readonly ConnectionListener _listener;
-
-    public ForwardingMiddleware(ConnectionListener listener)
-    {
-        _listener = listener;
-    }
-
     public async Task InvokeAsync(HttpContext context, Func<Task> next)
     {
         StreamReader streamReader = null;
@@ -71,7 +64,7 @@ public class ForwardingMiddleware
     {
         StreamReader streamReader = null;
         
-        if (Configuration.Instance.FindForwardingAddresses(_listener.ServiceModel).Any())
+        if (Configuration.Instance.FindForwardingAddresses(listener.ServiceModel).Any())
         {
             if (strategy == SqlDSettingsForwarding.PRIMARY_STRATEGY)
             {
@@ -110,7 +103,7 @@ public class ForwardingMiddleware
 
     private async Task ForwardToClients(Func<ConnectionClient, Task<CommandResponse>> clientApiCall)
     {
-        foreach (var forwardAddress in Configuration.Instance.FindForwardingAddresses(_listener.ServiceModel))
+        foreach (var forwardAddress in Configuration.Instance.FindForwardingAddresses(listener.ServiceModel))
         {
             try
             {
