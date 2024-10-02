@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using SqlD.Configs.Model;
+using SqlD.Logging;
 using SqlD.Serialiser;
 using SqlD.UI.Models.Settings;
 
@@ -15,17 +16,29 @@ public class SettingsService
         return settingsModel;
     }
 
-    public void WriteConfig(string config)
+    public SettingsResultModel WriteConfig(string config)
     {
-        var configModel = JsonSerialiser.Deserialise<SqlDConfiguration>(config);
-        if (configModel == null)
+        var resultModel = new SettingsResultModel();
+
+        try
         {
-            throw new Exception("Sorry invalid configuration.");
+            var configModel = JsonSerialiser.Deserialise<SqlDConfiguration>(config);
+            if (configModel == null)
+            {
+                throw new Exception("Sorry invalid configuration.");
+            }
+
+            Interface.Stop();
+            Configs.Configuration.Update(configModel);
+            Interface.Start();
         }
-        
-        Configs.Configuration.Update(configModel);
-        
-        Interface.Stop();
-        Interface.Start();
+        catch (Exception ex)
+        {
+            resultModel.Error = ex.Message + " Configuration has been reverted.";
+            Configs.Configuration.Revert();
+            Interface.Start();
+        }
+
+        return resultModel;
     }
 }

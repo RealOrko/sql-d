@@ -26,7 +26,7 @@ public class SettingsController : Controller
     [HttpPost]
     public IActionResult Save([FromForm] SettingsWriteModel model)
     {
-        _settings.WriteConfig(model.Data);
-        return Ok();
+        var result = _settings.WriteConfig(model.Data);
+        return PartialView(result);
     }
 }

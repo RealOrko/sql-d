@@ -1,0 +1,27 @@
+@model SqlD.UI.Models.Settings.SettingsResultModel
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+<div id="queryPanel" class="panel panel-primary">
+    <div class="panel-heading text-left">
+        Results
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-danger" role="alert">
+            @Model.Error
+        </div>
+    </div>
+</div>
+}
+else
+{
+<div id="queryPanel" class="panel panel-primary">
+    <div class="panel-heading text-left">
+        Results 
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-success" role="alert">
+            OK
+        </div>
+    </div>
+</div>
+}
