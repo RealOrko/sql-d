@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using SqlD.Builders;
 using SqlD.Logging;
+using SqlD.Network.Diagnostics;
 
 namespace SqlD.Network.Server.Workers;
 
@@ -15,7 +16,7 @@ public class AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFa
 
     private async Task Synchronise(CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+        await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
         while (cancellationToken.IsCancellationRequested == false)
         {
             if (!Configs.Configuration.Instance.Settings.Replication.Allowed) continue;
@@ -27,9 +28,9 @@ public class AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFa
                 {
                     foreach (var forwardServiceModel in forwardServiceModels)
                     {
-                        var client = new NewClientBuilder(true).ConnectedTo(forwardServiceModel);
+                        var client = new NewClientBuilder(false).ConnectedTo(forwardServiceModel);
                         var upstreamHash = await client.GetSynchronisationHash();
-                        var downstreamHash = string.Empty;
+                        string downstreamHash;
                         using (var dbConnection = dbConnectionFactory.Connect())
                         {
                             downstreamHash = dbConnection.GetDatabaseFileHash();
