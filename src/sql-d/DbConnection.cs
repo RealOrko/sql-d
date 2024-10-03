@@ -254,6 +254,8 @@ public class DbConnection : IDisposable
         if (!string.IsNullOrEmpty(pragmaOptions.LockingMode)) this.ExecuteCommand($"PRAGMA LOCKING_MODE={pragmaOptions.LockingMode};");
         if (!string.IsNullOrEmpty(pragmaOptions.Synchronous)) this.ExecuteCommand($"PRAGMA SYNCHRONOUS={pragmaOptions.Synchronous};");
         if (!string.IsNullOrEmpty(pragmaOptions.TempStore)) this.ExecuteCommand($"PRAGMA TEMP_STORE={pragmaOptions.TempStore};");
+        if (!string.IsNullOrEmpty(pragmaOptions.AutoVacuum)) this.ExecuteCommand($"PRAGMA AUTO_VACUUM={pragmaOptions.AutoVacuum};");
+        if (!string.IsNullOrEmpty(pragmaOptions.AutoVacuumPages)) this.ExecuteCommand($"PRAGMA INCREMENTAL_VACUUM({pragmaOptions.AutoVacuumPages});");
         PragmaOptions = pragmaOptions;
     }
 

@@ -114,7 +114,7 @@ else
 
 	// Query table event
 	$('#queryTable').on('click', (e) => {
-		var sql = `select * from newtable1;`;
+		var sql = `select * from newtable1 order by created desc limit 1000;`;
 		editor.setValue(sql);
 		$('#Query').val(editor.getValue());
 		$('#Server').val($('#registryUrl').val());

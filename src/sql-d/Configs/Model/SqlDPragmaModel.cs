@@ -11,9 +11,13 @@ public class SqlDPragmaModel
         JournalMode = "OFF",
         PageSize = "65536",
         CacheSize = "10000",
-        QueryOnly = "OFF"
+        QueryOnly = "OFF",
+        AutoVacuum = "INCREMENTAL",
+        AutoVacuumPages = "64"
     };
 
+    public string AutoVacuum { get; set; }
+    public string AutoVacuumPages { get; set; }
     public string JournalMode { get; set; }
     public string Synchronous { get; set; }
     public string TempStore { get; set; }

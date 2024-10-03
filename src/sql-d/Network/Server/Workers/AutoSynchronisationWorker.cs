@@ -7,6 +7,7 @@ namespace SqlD.Network.Server.Workers;
 
 public class AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFactory dbConnectionFactory, SynchronisationWorkerQueue queue) : IHostedService
 {
+    private static TimeSpan DelayInterval => TimeSpan.FromSeconds(Configs.Configuration.Instance.Settings.Replication.Delay);
     private static TimeSpan ReplicationInterval => TimeSpan.FromSeconds(Configs.Configuration.Instance.Settings.Replication.Interval);
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -16,7 +17,7 @@ public class AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFa
 
     private async Task Synchronise(CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
+        await Task.Delay(DelayInterval, cancellationToken);
         while (cancellationToken.IsCancellationRequested == false)
         {
             if (!Configs.Configuration.Instance.Settings.Replication.Allowed) continue;

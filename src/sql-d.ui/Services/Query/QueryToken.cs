@@ -12,6 +12,7 @@ public class QueryToken
     public static readonly QueryToken CREATE = new("create");
     public static readonly QueryToken ALTER = new("alter");
     public static readonly QueryToken DROP = new("drop");
+    public static readonly QueryToken VACUUM = new("vacuum");
 
     private readonly string value;
 
