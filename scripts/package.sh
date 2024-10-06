@@ -12,6 +12,10 @@ echo ''
 echo '[SQL-D]:PUBLISH/'
 echo ''
 
+# Debug output for Github Actions
+echo "GITHUB_HEAD_REF=$GITHUB_HEAD_REF"
+echo "GITHUB_REF=$GITHUB_REF"
+
 # For testing locally, please commit GITHUB_RUN_NUMBER commented 
 # export GITHUB_RUN_NUMBER='12'
 export GITHUB_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/master//g' | sed 's/main//g')
