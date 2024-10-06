@@ -79,6 +79,7 @@ public static class Interface
     public static void Stop(InterfaceStopKind stopKind = InterfaceStopKind.All, params EndPoint[] OptionalEndPoints)
     {
         Configuration.Reset();
+        
         if (stopKind == InterfaceStopKind.All)
         {
             ConnectionClientFactory.DisposeAll();

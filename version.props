@@ -9,9 +9,8 @@
 	
 	<PropertyGroup>
 		<Version>$(MajorVersion).$(MinorVersion).$(RevisionVersion)</Version>
-		<AssemblyVersion>$(MajorVersion).$(MinorVersion).$(RevisionVersion)</AssemblyVersion>
-		<AssemblyFileVersion>$(MajorVersion).$(MinorVersion).$(RevisionVersion).$(BuildVersion)</AssemblyFileVersion>
-		<NuspecProperties>version=$(AssemblyVersion)</NuspecProperties>
+		<Authors>realorko</Authors>
+		<Company>cryosharp</Company>
 	</PropertyGroup>
 
 </Project>
