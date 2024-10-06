@@ -9,7 +9,7 @@ if [ ! -f "$DOTNETPATH" ]; then
 fi
 
 echo ''
-echo '[SQL-D]:BUILD/'
+echo '[SQL-D]:PUBLISH/'
 echo ''
 
 export GITHUB_RUN_NUMBER='12'
