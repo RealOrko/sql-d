@@ -12,26 +12,28 @@
         <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     </PropertyGroup>
 
-    <Import Project="../../version.props"/>
+    <Import Project="../../version.props" />
 
     <ItemGroup>
-        <None Remove="appsettings.json"/>
-        <None Remove="sql-d.nuspec"/>
+        <None Remove="appsettings.json" />
+        <None Remove="sql-d.nuspec" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="NSwag.Annotations" Version="14.1.0"/>
-        <PackageReference Include="NSwag.AspNetCore" Version="14.1.0"/>
-        <PackageReference Include="System.Data.SQLite" Version="1.0.118"/>
-        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="NSwag.Annotations" Version="14.1.0" />
+        <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
+        <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
     </ItemGroup>
 
-    <!-- <Target Name="RunAfterBuild" AfterTargets="Build">
-        <CallTarget Targets="CreateZip;CreateTarball;CreateRpm;CreateDeb" />
-    </Target> -->
-    
+    <ItemGroup>
+        <Content Include="sql-d.service" CopyToPublishDirectory="PreserveNewest" LinuxFileMode="1755">
+            <LinuxPath>/etc/systemd/system/sql-d.service</LinuxPath>
+        </Content>
+    </ItemGroup>
+
 </Project>

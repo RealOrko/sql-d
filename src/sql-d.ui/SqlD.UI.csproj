@@ -31,8 +31,10 @@
       <_ContentIncludedByDefault Remove="Views\Surface\Index.cshtml" />
     </ItemGroup>
 
-    <!-- <Target Name="RunAfterBuild" AfterTargets="Build">
-        <CallTarget Targets="CreateZip;CreateTarball;CreateRpm;CreateDeb" />
-    </Target> -->
+    <ItemGroup>
+        <Content Include="sql-d.service" CopyToPublishDirectory="PreserveNewest" LinuxFileMode="1755">
+            <LinuxPath>/etc/systemd/system/sql-d.service</LinuxPath>
+        </Content>
+    </ItemGroup>
 
 </Project>
