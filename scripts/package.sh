@@ -13,7 +13,7 @@ echo '[SQL-D]:PUBLISH/'
 echo ''
 
 # For testing locally, please commit GITHUB_RUN_NUMBER commented 
-export GITHUB_RUN_NUMBER='12'
+# export GITHUB_RUN_NUMBER='12'
 export GITHUB_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/master//g' | sed 's/main//g')
 export SQLD_VERSION=$(echo "$GITHUB_RUN_NUMBER-$GITHUB_BRANCH_NAME" | sed 's/\-$//g')
 
