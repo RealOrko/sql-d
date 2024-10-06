@@ -11,6 +11,8 @@ fi
 echo ''
 echo '[SQL-D]:BUILD/'
 echo ''
+echo "Current Run Number: $GITHUB_RUN_NUMBER"
+echo ''
 
 dotnet tool install --global dotnet-zip
 dotnet tool install --global dotnet-tarball
@@ -20,3 +22,4 @@ dotnet tool install --global dotnet-deb
 dotnet restore $PWD/tests/sql-d/SqlD.Tests.csproj
 dotnet build $PWD/tests/sql-d/SqlD.Tests.csproj
 dotnet test $PWD/tests/sql-d/SqlD.Tests.csproj --logger "trx;LogFileName=test-results.trx"
+
