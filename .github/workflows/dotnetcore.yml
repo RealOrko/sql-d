@@ -21,6 +21,8 @@ jobs:
           path: "**/test-results.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
+      - name: Package with dotnet linux-x64
+        run: ./scripts/package.sh
 
 # This is hot garbage, will look at this later ... :/
 #  build-win-x64:
