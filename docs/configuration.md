@@ -171,7 +171,6 @@ You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appset
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ## Authority
 
