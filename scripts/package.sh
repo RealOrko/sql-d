@@ -33,10 +33,12 @@ dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateTarball /p:Configuratio
 dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateRpm /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
 dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
 
-mkdir -p $PWD/published/
+mkdir -p $PWD/packages/
 
-find $PWD/src -name '*.nupkg' -exec cp "{}" $PWD/published/  \;
-find $PWD/src -name '*.zip' -exec cp "{}" $PWD/published/  \;
-find $PWD/src -name '*.tar.gz' -exec cp "{}" $PWD/published/  \;
-find $PWD/src -name '*.rpm' -exec cp "{}" $PWD/published/  \;
-find $PWD/src -name '*.deb' -exec cp "{}" $PWD/published/  \;
+find $PWD/src -name '*.nupkg' -exec cp "{}" $PWD/packages/  \;
+find $PWD/src -name '*.zip' -exec cp "{}" $PWD/packages/  \;
+find $PWD/src -name '*.tar.gz' -exec cp "{}" $PWD/packages/  \;
+find $PWD/src -name '*.rpm' -exec cp "{}" $PWD/packages/  \;
+find $PWD/src -name '*.deb' -exec cp "{}" $PWD/packages/  \;
+
+ls -la $PWD/packages/
