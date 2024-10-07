@@ -17,24 +17,13 @@ public class ConnectionListener : IDisposable
     {
     }
 
-    public DbConnection DbConnection { get; private set; }
+    public DbConnectionFactory DbConnectionFactory { get; private set; }
     public SqlDServiceModel ServiceModel { get; private set; }
 
-    public virtual void Dispose()
+    internal virtual void Listen(SqlDServiceModel serviceModel, DbConnectionFactory listenerDbConnectionFactory)
     {
-        host.StopAsync().Wait();
-        host.Dispose();
-
-        Log.Out.Info($"Disposed listener on {ServiceModel.ToUrl()}");
-    }
-
-    internal virtual void Listen(SqlDServiceModel serviceModel, DbConnection listenerDbConnection)
-    {
-        serviceModel = serviceModel ?? throw new ArgumentNullException(nameof(serviceModel));
-        listenerDbConnection = listenerDbConnection ?? throw new ArgumentNullException(nameof(listenerDbConnection));
-
         ServiceModel = serviceModel;
-        DbConnection = listenerDbConnection;
+        DbConnectionFactory = listenerDbConnectionFactory;
         ConnectionListenerStartup.Listener = this;
 
         try
@@ -67,5 +56,13 @@ public class ConnectionListener : IDisposable
             Log.Out.Error($"Failed to listen on {ServiceModel.ToUrl()}, {err}");
             throw err;
         }
+    }
+    
+    public virtual void Dispose()
+    {
+        host.StopAsync().Wait();
+        host.Dispose();
+
+        Log.Out.Info($"Disposed listener on {ServiceModel.ToUrl()}");
     }
 }

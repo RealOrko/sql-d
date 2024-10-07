@@ -21,12 +21,8 @@ public class DbConnection : IDisposable
         Connection?.Dispose();
     }
 
-    public virtual DbConnection Connect(string name, string databaseName, SqlDPragmaModel pragmaOptions)
+    internal virtual DbConnection Connect(string name, string databaseName, SqlDPragmaModel pragmaOptions)
     {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
-        DatabaseName = databaseName ?? throw new ArgumentNullException(nameof(databaseName));
-        PragmaOptions = pragmaOptions ?? throw new ArgumentNullException(nameof(pragmaOptions));
-
         ConnectionString = CreateConnectionString(databaseName);
         Connection = CreateConnection(databaseName);
         

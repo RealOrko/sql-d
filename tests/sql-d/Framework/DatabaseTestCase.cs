@@ -15,7 +15,7 @@ public class DatabaseTestCase<T> where T : IAmATestModel, new()
     [SetUp]
     public virtual async Task SetUp()
     {
-        Connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+        Connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default).Connect();
 
         var createTable = typeof(AnyTableA).GetCreateTable();
         await Connection.ExecuteCommandAsync(createTable);
@@ -34,6 +34,8 @@ public class DatabaseTestCase<T> where T : IAmATestModel, new()
 
         dropTable = typeof(AnyTableB).GetDropTable();
         await Connection.ExecuteCommandAsync(dropTable);
+        
+        Connection.Dispose();
     }
 
     protected virtual async Task<T1> InsertAny<T1>() where T1 : IAmATestModel, new()

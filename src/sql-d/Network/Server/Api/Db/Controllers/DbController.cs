@@ -9,12 +9,12 @@ namespace SqlD.Network.Server.Api.Db.Controllers;
 public class DbController : Controller
 {
     private readonly EndPoint endPoint;
-    private readonly DbConnection dbConnection;
+    private readonly DbConnectionFactory dbConnectionFactory;
 
-    public DbController(EndPoint endPoint, DbConnection dbConnection)
+    public DbController(EndPoint endPoint, DbConnectionFactory dbConnectionFactory)
     {
         this.endPoint = endPoint;
-        this.dbConnection = dbConnection;
+        this.dbConnectionFactory = dbConnectionFactory;
     }
 
     [HttpPost("describe")]
@@ -26,6 +26,7 @@ public class DbController : Controller
 
             try
             {
+                using (var dbConnection = dbConnectionFactory.Connect())
                 using (var dbReader = dbConnection.ExecuteQuery($"pragma table_info({describe.TableName.TrimEnd(';')})"))
                 {
                     var reader = dbReader.Reader;
@@ -60,6 +61,7 @@ public class DbController : Controller
 
             try
             {
+                using (var dbConnection = dbConnectionFactory.Connect())
                 using (var dbReader = dbConnection.ExecuteQuery(query.Select))
                 {
                     var reader = dbReader.Reader;
@@ -92,8 +94,11 @@ public class DbController : Controller
         {
             try
             {
-                var results = dbConnection.ExecuteScalars<long>(command.Commands);
-                return Ok(CommandResponse.Ok(endPoint, results));
+                using (var dbConnection = dbConnectionFactory.Connect())
+                {
+                    var results = dbConnection.ExecuteScalars<long>(command.Commands);
+                    return Ok(CommandResponse.Ok(endPoint, results));
+                }
             }
             catch (Exception err)
             {
@@ -109,8 +114,11 @@ public class DbController : Controller
         {
             try
             {
-                dbConnection.ExecuteCommands(command.Commands);
-                return Ok(CommandResponse.Ok(endPoint));
+                using (var dbConnection = dbConnectionFactory.Connect())
+                {
+                    dbConnection.ExecuteCommands(command.Commands);
+                    return Ok(CommandResponse.Ok(endPoint));
+                }
             }
             catch (Exception err)
             {
