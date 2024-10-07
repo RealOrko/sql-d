@@ -18,18 +18,18 @@ namespace SqlD.UI.ViewComponents.Sqlite
 
 		public async Task<IViewComponentResult> InvokeAsync(SqlLiteViewModel query = null)
 		{
-			if (!string.IsNullOrEmpty(query?.Query))
+			try
 			{
-				try
+				if (queryService.IsQuery(query.Query))
 				{
 					query.QueryResult = await queryService.Query(query.Query, query.Server) as QueryResultViewModel;
 					return View(query);
 				}
-				catch (Exception err)
-				{
-					query.QueryResult = new QueryResultViewModel(err.Message);
-					return View(query);
-				}
+			}
+			catch (Exception err)
+			{
+				query.QueryResult = new QueryResultViewModel(err.Message);
+				return View(query);
 			}
 			return View();
 		}

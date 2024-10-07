@@ -6,9 +6,9 @@ namespace SqlD.UI.Services
 	{
 		private readonly ConfigService config;
 
-		public SurfaceService()
+		public SurfaceService(ConfigService configService)
 		{
-			this.config = new ConfigService();
+			this.config = configService;
 		}
 
 		public SqlDConfiguration GetConfig()

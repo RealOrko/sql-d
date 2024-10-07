@@ -22,8 +22,11 @@ namespace SqlD.UI.ViewComponents.Sqlite
 			{
 				try
 				{
-					query.CommandResult = await queryService.Query(query.Query, query.Server) as CommandResultViewModel;
-					return View(query);
+					if (queryService.IsCommand(query.Query))
+					{
+						query.CommandResult = await queryService.Query(query.Query, query.Server) as CommandResultViewModel;
+						return View(query);
+					}
 				}
 				catch (Exception err)
 				{
