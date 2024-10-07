@@ -12,17 +12,20 @@ echo ''
 echo '[SQL-D]:BUILD/'
 echo ''
 
-dotnet build -c Release $PWD/src/sql-d/SqlD.csproj 
-dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateZip /p:Configuration=Release
-dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateTarball /p:Configuration=Release
-dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateRpm /p:Configuration=Release
-dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateDeb /p:Configuration=Release
+export GITHUB_RUN_NUMBER='12'
+export GITHUB_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
-dotnet build -c Release $PWD/src/sql-d.ui/SqlD.UI.csproj 
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateZip /p:Configuration=Release
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateTarball /p:Configuration=Release
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateRpm /p:Configuration=Release
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:Build /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER 
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateZip /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateTarball /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateRpm /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateDeb /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
+
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:Build /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER 
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateZip /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateTarball /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateRpm /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release /p:RevisionVersion=$GITHUB_RUN_NUMBER
 
 rm -rf $PWD/published/
 mkdir -p $PWD/published/
