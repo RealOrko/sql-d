@@ -2,6 +2,7 @@
 using SqlD.Extensions;
 using SqlD.Extensions.Network.Server;
 using SqlD.Network.Server.Api.Db.Model;
+using SqlD.Network.Server.Workers;
 
 namespace SqlD.Network.Server.Api.Db.Controllers;
 
@@ -140,4 +141,15 @@ public class DbController : Controller
             }
         });
     }
+    
+    [HttpPost("sync")]
+    public IActionResult Synchronise([FromBody] EndPoint endPoint)
+    {
+        return this.Intercept(() =>
+        {
+            SynchronisationWorker.SyncronisationTasks.Enqueue(endPoint);
+            return Ok();
+        });
+    }
+
 }

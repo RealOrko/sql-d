@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using SqlD.Builders;
 
 namespace SqlD.Network.Server.Workers;
@@ -6,6 +7,7 @@ public class SynchronisationWorker : IHostedService
 {
     private readonly EndPoint _listenerEndPoint;
     private readonly DbConnectionFactory _dbConnectionFactory;
+    internal static ConcurrentQueue<EndPoint> SyncronisationTasks { get; } = new();
 
     public SynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFactory dbConnectionFactory)
     {
@@ -15,17 +17,27 @@ public class SynchronisationWorker : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var forwardingServices = Configs.Configuration.Instance.Services.Where(x => x.ForwardingTo.Any(y => y.IsEqualTo(_listenerEndPoint)));
-        if (forwardingServices.Any())
+        await Task.Factory.StartNew(async () => await Synchronise(cancellationToken), TaskCreationOptions.LongRunning);
+    }
+
+    private async Task Synchronise(CancellationToken cancellationToken)
+    {
+        while (cancellationToken.IsCancellationRequested == false)
         {
-            using (var dbConnection = _dbConnectionFactory.Connect())
+            if (SyncronisationTasks.TryDequeue(out var endPoint))
             {
-                foreach (var forwardingService in forwardingServices)
-                {
-                    var forwardingClient = new NewClientBuilder(true).ConnectedTo(forwardingService);
-                    await forwardingClient.DownloadDatabaseTo(dbConnection.GetDatabaseFilePath());
-                }
+                await GetDatabaseFrom(endPoint);
             }
+            await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+        }
+    }
+    
+    private async Task GetDatabaseFrom(EndPoint endPoint)
+    {
+        using (var dbConnection = _dbConnectionFactory.Connect())
+        {
+            var forwardingClient = new NewClientBuilder(true).ConnectedTo(endPoint);
+            await forwardingClient.DownloadDatabaseTo(dbConnection.GetDatabaseFilePath());
         }
     }
 

@@ -379,4 +379,15 @@ public class ConnectionClient : IDisposable
             await response.Content.CopyToAsync(targetFileStream);
         }        
     }
+
+    public async Task SynchroniseWith(EndPoint endPoint)
+    {
+        Log.Out.Info($"Synchronising database with {EndPoint.ToUrl()} ... ");
+        
+        var fileSyncUrl = UrlBuilder.GetFileSyncUrl(EndPoint);
+        var response = await _client.PostAsync(fileSyncUrl, endPoint);
+        
+        if (response.StatusCode != HttpStatusCode.OK)
+            throw new ConnectionClientCommandException($"FileSync failed.");
+    }
 }
