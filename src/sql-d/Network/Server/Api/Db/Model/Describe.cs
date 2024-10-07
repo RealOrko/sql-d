@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace SqlD.Network.Server.Api.Db.Model
+﻿namespace SqlD.Network.Server.Api.Db.Model
 {
 	public class Describe
 	{

@@ -1,5 +1,3 @@
-using System;
-
 namespace SqlD.Exceptions
 {
 	internal class InvalidSqlLiteIdentityMappingException : Exception

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SqlD.Network.Diagnostics
+﻿namespace SqlD.Network.Diagnostics
 {
 	public class EndPointArgs : EventArgs
 	{

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SqlD.Options
+﻿namespace SqlD.Options
 {
     public class ArgumentAttribute : Attribute
 	{

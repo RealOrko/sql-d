@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace SqlD.Network.Server.Api.Db.Model
 {
 	public class QueryResponse

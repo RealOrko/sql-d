@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SqlD.Logging
+﻿namespace SqlD.Logging
 {
 	public class ConsoleLogger : ILogProvider
 	{

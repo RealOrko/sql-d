@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using SqlD.Tests.Framework;
 using SqlD.Tests.Framework.Models;
 using SqlD.Tests.Framework.Network;
 

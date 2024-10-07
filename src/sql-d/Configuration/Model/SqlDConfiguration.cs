@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SqlD.Configuration.Model
+﻿namespace SqlD.Configuration.Model
 {
 	public class SqlDConfiguration
     {

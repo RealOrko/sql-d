@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
-using System.Linq;
 
 namespace SqlD.Network.Diagnostics
 {

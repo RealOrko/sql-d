@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using SqlD.Configuration.Model;
 using SqlD.Extensions;
-using SqlD.Tests.Framework;
 using SqlD.Tests.Framework.Models;
 using SqlD.Tests.Framework.Network;
 

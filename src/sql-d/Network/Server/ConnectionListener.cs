@@ -1,10 +1,5 @@
-using System;
 using System.Net;
 using System.Reflection;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using SqlD.Logging;
 
 namespace SqlD.Network.Server
