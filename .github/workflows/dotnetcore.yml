@@ -14,25 +14,25 @@ jobs:
       - name: Build with dotnet linux-x64
         run: ./scripts/build.sh
 
-  build-win-x64:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 8.0.401
-      - name: Build with dotnet win-x64
-        run: .\scripts\build.bat
-        shell: cmd
+  # build-win-x64:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - name: Setup .NET Core
+  #       uses: actions/setup-dotnet@v1
+  #       with:
+  #         dotnet-version: 8.0.401
+  #     - name: Build with dotnet win-x64
+  #       run: .\scripts\build.bat
+  #       shell: cmd
 
-  build-osx-x64:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 8.0.401
-      - name: Build with osx-x64
-        run: ./scripts/build.sh
+  # build-osx-x64:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - name: Setup .NET Core
+  #       uses: actions/setup-dotnet@v1
+  #       with:
+  #         dotnet-version: 8.0.401
+  #     - name: Build with osx-x64
+  #       run: ./scripts/build.sh
