@@ -46,7 +46,7 @@ jobs:
           asset_path: ./packages/sql-d.${{ steps.version.outputs.version }}.nupkg
           asset_name: sql-d.${{ steps.version.outputs.version }}.nupkg
           asset_content_type: application/gzip
-      - name: Upload SqlD.${{ steps.version.outputs.version }}.tar.gz
+      - name: Upload SqlD.tar.gz
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -55,7 +55,7 @@ jobs:
           asset_path: ./packages/SqlD.${{ steps.version.outputs.version }}.tar.gz
           asset_name: SqlD.${{ steps.version.outputs.version }}.tar.gz
           asset_content_type: application/gzip
-      - name: Upload SqlD.${{ steps.version.outputs.version }}.zip
+      - name: Upload SqlD.zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -64,7 +64,7 @@ jobs:
           asset_path: ./packages/SqlD.${{ steps.version.outputs.version }}.zip
           asset_name: SqlD.${{ steps.version.outputs.version }}.zip
           asset_content_type: application/gzip
-      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.deb
+      - name: Upload SqlD.UI.deb
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -73,7 +73,7 @@ jobs:
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.deb
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.deb
           asset_content_type: application/gzip
-      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.rpm
+      - name: Upload SqlD.UI.rpm
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -82,7 +82,7 @@ jobs:
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.rpm
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.rpm
           asset_content_type: application/gzip
-      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
+      - name: Upload SqlD.UI.tar.gz
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -91,7 +91,7 @@ jobs:
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
           asset_content_type: application/gzip
-      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.zip
+      - name: Upload SqlD.UI.zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
