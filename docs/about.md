@@ -3,7 +3,6 @@
 <div align="right">
 	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
 </div>
-
 <br/>
 
 An HTTP persistence API powered by [Sqlite](https://sqlite.org) written in .NET core. Its chief design goal is to be a low ceremony ephemeral storage mechanism that you can call 
