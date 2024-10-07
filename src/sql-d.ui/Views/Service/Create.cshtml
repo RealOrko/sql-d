@@ -101,8 +101,9 @@
 </div>
 
 <script>
-	$('#Tags').focus();
+	$('#Name').focus();
 	$('#Name').on('input propertychange paste', function () {
-		$('#Database').val($(this).val() + ".db");
+        $('#Database').val($(this).val() + ".db");
+        $('#Tags').val($(this).val());
 	});
 </script>
