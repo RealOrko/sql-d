@@ -33,6 +33,7 @@ public class QueryService
                ?? await If(query, QueryToken.CREATE, async () => await commandAction.Go(query, client))
                ?? await If(query, QueryToken.ALTER, async () => await commandAction.Go(query, client))
                ?? await If(query, QueryToken.DROP, async () => await commandAction.Go(query, client))
+               ?? await If(query, QueryToken.VACUUM, async () => await commandAction.Go(query, client))
                ?? await unknownAction.Go(query, client);
     }
 
@@ -50,6 +51,8 @@ public class QueryService
         if (query.ToLower().Trim().StartsWith(QueryToken.ALTER.Value))
             return true;
         if (query.ToLower().Trim().StartsWith(QueryToken.DROP.Value))
+            return true;
+        if (query.ToLower().Trim().StartsWith(QueryToken.VACUUM.Value))
             return true;
         return false;
     }
