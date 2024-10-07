@@ -10,7 +10,6 @@ namespace SqlD.UI;
 public class Program
 {
     private static readonly Uri EntryAssemblyCodeBase = new(Assembly.GetEntryAssembly().Location);
-    private static readonly string RootDirectoryPath = Path.GetDirectoryName(EntryAssemblyCodeBase.LocalPath);
 
     public static void Main(string[] args)
     {
@@ -31,9 +30,6 @@ public class Program
         try
         {
             Log.Out.Info($"Entry assembly: {EntryAssemblyCodeBase}");
-            Log.Out.Info($"Content Root: {RootDirectoryPath}");
-            Log.Out.Info($"Current directory: {Environment.CurrentDirectory}");
-
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(builder => { builder.UseStartup<Startup>(); });
         }

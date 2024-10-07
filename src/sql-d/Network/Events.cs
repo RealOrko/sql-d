@@ -13,25 +13,25 @@ public static class Events
 
     internal static void RaiseClientCreated(ConnectionClient client)
     {
-        Log.Out.Info($"Raising 'ClientCreated' event for {client.EndPoint}");
+        Log.Out.Debug($"Raising 'ClientCreated' event for {client.EndPoint}");
         ClientCreated?.Invoke(new ClientCreatedEventArgs(client));
     }
 
     public static void RaiseClientDisposed(ConnectionClient client)
     {
-        Log.Out.Info($"Raising 'ClientDisposed' event for {client.EndPoint}");
+        Log.Out.Debug($"Raising 'ClientDisposed' event for {client.EndPoint}");
         ClientDisposed?.Invoke(new ClientDisposedEventArgs(client));
     }
 
     internal static void RaiseListenerCreated(ConnectionListener listener)
     {
-        Log.Out.Info($"Raising 'ListenerCreated' event for {listener.ServiceModel}");
+        Log.Out.Debug($"Raising 'ListenerCreated' event for {listener.ServiceModel}");
         ListenerCreated?.Invoke(new ListenerCreatedEventArgs(listener));
     }
 
     public static void RaiseListenerDisposed(ConnectionListener listener)
     {
-        Log.Out.Info($"Raising 'ListenerDisposed' event for {listener.ServiceModel}");
+        Log.Out.Debug($"Raising 'ListenerDisposed' event for {listener.ServiceModel}");
         ListenerDisposed?.Invoke(new ListenerDisposedEventArgs(listener));
     }
 }

@@ -34,7 +34,7 @@ public class SynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFactor
         {
             var forwardingClient = new NewClientBuilder(true).ConnectedTo(endPoint);
             await forwardingClient.DownloadDatabaseTo(dbConnection.GetDatabaseFilePath());
-            Log.Out.Info($"Database successfully written to {dbConnection.GetDatabaseFilePath()} ... ");
+            Log.Out.Debug($"Database successfully written to {dbConnection.GetDatabaseFilePath()} ... ");
             Log.Out.Info($"Successfully synchronised database from {endPoint.ToUrl()} to {listenerEndPoint.ToUrl()} ... ");
         }
     }

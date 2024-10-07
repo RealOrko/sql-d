@@ -78,7 +78,7 @@ public static class Configuration
     {
         lock (Synchronise)
         {
-            Log.Out.Info($"Updating configuration from {_assemblyDirectory}");
+            Log.Out.Info($"Updating configuration at {_assemblyDirectory}/{_settingsFile}");
             
             _instance = config;
             _instance.SetDataDirectory(_assemblyDirectory);
@@ -97,7 +97,7 @@ public static class Configuration
     {
         lock (Synchronise)
         {
-            Log.Out.Info($"Resetting configuration from {_assemblyDirectory}");
+            Log.Out.Info($"Resetting configuration from {_assemblyDirectory}/{_settingsFile}");
             _instance = null;
         }
     }

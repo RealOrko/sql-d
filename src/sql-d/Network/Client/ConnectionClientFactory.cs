@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using SqlD.Logging;
 
 namespace SqlD.Network.Client;
 
@@ -25,6 +26,7 @@ internal class ConnectionClientFactory
     
     internal static void DisposeAll()
     {
+        Log.Out.Info("Disposing all cached connection clients.");
         Clients.Values.ToList().ForEach(Dispose);
         Clients.Clear();
     }

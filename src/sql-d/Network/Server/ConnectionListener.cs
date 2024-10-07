@@ -50,7 +50,7 @@ public class ConnectionListener : IDisposable
 
             _host.Start();
 
-            Log.Out.Info($"Connection listener on {ServiceModel.ToUrl()}");
+            Log.Out.Info($"Started connection listener on {ServiceModel.ToUrl()}");
         }
         catch (Exception err)
         {
@@ -64,6 +64,6 @@ public class ConnectionListener : IDisposable
         _host.StopAsync().Wait();
         _host.Dispose();
 
-        Log.Out.Info($"Disposed listener on {ServiceModel.ToUrl()}");
+        Log.Out.Info($"Disposed connection listener on {ServiceModel.ToUrl()}");
     }
 }

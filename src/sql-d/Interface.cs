@@ -41,7 +41,7 @@ public static class Interface
                 var client = new NewClientBuilder(false).ConnectedTo(service);
                 if (client.Ping())
                 {
-                    Log.Out.Warn($"Skipping the start of registry service '{service}', already up!");
+                    Log.Out.Warn($"Skipping the start of registry '{service}', already running.");
                     continue;
                 }
 
@@ -61,7 +61,7 @@ public static class Interface
                 var client = new NewClientBuilder(false).ConnectedTo(service);
                 if (client.Ping())
                 {
-                    Log.Out.Warn($"Skipping the start of sql service '{service}', already up!");
+                    Log.Out.Warn($"Skipping the start of '{service}', already running.");
                     continue;
                 }
 

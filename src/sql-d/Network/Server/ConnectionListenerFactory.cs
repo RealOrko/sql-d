@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using SqlD.Configs.Model;
+using SqlD.Logging;
 
 namespace SqlD.Network.Server;
 
@@ -27,6 +28,7 @@ internal class ConnectionListenerFactory
 
     internal static void DisposeAll()
     {
+        Log.Out.Info("Disposing all connection listeners.");
         Listeners.Values.ToList().ForEach(Dispose);
         Listeners.Clear();
     }

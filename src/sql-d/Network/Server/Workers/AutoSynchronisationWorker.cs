@@ -19,7 +19,7 @@ public class AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFa
         while (cancellationToken.IsCancellationRequested == false)
         {
             if (!Configs.Configuration.Instance.Settings.Replication.Allowed) continue;
-            Log.Out.Info($"Replication is enabled with an interval of {Configs.Configuration.Instance.Settings.Replication.Interval} second(s).");
+            Log.Out.Debug($"Replication is enabled with an interval of {Configs.Configuration.Instance.Settings.Replication.Interval} second(s).");
             try
             {
                 var forwardServiceModels = Configs.Configuration.Instance.Services.Where(x => x.ForwardingTo.Any(y => y.IsEqualTo(listenerEndPoint)));
