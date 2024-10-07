@@ -15,7 +15,7 @@ echo ''
 set +u
 
 if [ -z "$GITHUB_RUN_NUMBER" ]; then 
-	export GITHUB_RUN_NUMBER=1
+	export GITHUB_RUN_NUMBER=0
 fi
 
 if [ -z "$GITHUB_REF" ]; then 
