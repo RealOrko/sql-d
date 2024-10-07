@@ -90,7 +90,7 @@ namespace SqlD.UI.Controllers
 		[HttpGet]
 		public IActionResult Stop([FromQuery] string host, [FromQuery] int port)
 		{
-			services.KillService(host, port, removeFromConfig:true);
+			services.KillService(host, port);
 			return Redirect("/service");
 		}
 	}
