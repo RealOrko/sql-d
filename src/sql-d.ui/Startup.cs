@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using SqlD.UI.Services;
 using SqlD.UI.Services.Client;
@@ -66,7 +68,11 @@ public class Startup
             app.UseHsts();
         }
 
-        app.UseStaticFiles();
+        app.UseStaticFiles(new StaticFileOptions
+        { 
+            FileProvider = new PhysicalFileProvider(Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "wwwroot")), RequestPath = "" 
+        });
+        
         app.UseRouting();
         app.UseEndpoints(opts =>
         {

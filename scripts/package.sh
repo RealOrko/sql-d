@@ -9,15 +9,15 @@ if [ ! -f "$DOTNETPATH" ]; then
 fi
 
 echo ''
-echo '[SQL-D]:PUBLISH/'
+echo '[SQL-D]:PACKAGE/'
 echo ''
 
 # For testing locally, please commit GITHUB_RUN_NUMBER, GITHUB_BRANCH_NAME commented 
-# export GITHUB_RUN_NUMBER='12'
-# export GITHUB_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/master//g' | sed 's/main//g')
+export GITHUB_RUN_NUMBER='12'
+export GITHUB_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/master//g' | sed 's/main//g')
 
 # For pipeline runs in Github Actions, please always leave uncommented
-export GITHUB_BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///g' | sed 's/master//g' | sed 's/main//g')
+#export GITHUB_BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///g' | sed 's/master//g' | sed 's/main//g')
 export SQLD_VERSION=$(echo "$GITHUB_RUN_NUMBER-$GITHUB_BRANCH_NAME" | sed 's/\-$//g')
 
 git clean -x -f -d
