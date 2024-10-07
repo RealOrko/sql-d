@@ -100,4 +100,29 @@ public class ServiceController : Controller
         _services.RemoveService(host, port);
         return Redirect("/Service");
     }
+    
+    [HttpGet("Service/Forward/SynchroniseAll")]
+    public async Task<IActionResult> ForwardSynchroniseAll()
+    {
+        await _services.SynchroniseForwardAll();
+        return Redirect("/Service");
+    }
+
+    [HttpGet("Service/Forward/Synchronise")]
+    public async Task<IActionResult> ForwardSynchronise([FromQuery] string thisHost, [FromQuery] int thisPort, [FromQuery] string fromHost, [FromQuery] int fromPort)
+    {
+        var thisEndPoint = new EndPoint(thisHost, thisPort);
+        var fromEndPoint = new EndPoint(fromHost, fromPort);
+        await _services.SynchroniseForward(thisEndPoint, fromEndPoint);
+        return Redirect("/Service");
+    }
+
+    [HttpGet("Service/Forward/Delete")]
+    public async Task<IActionResult> ForwardDelete([FromQuery] string thisHost, [FromQuery] int thisPort, [FromQuery] string fromHost, [FromQuery] int fromPort)
+    {
+        var thisEndPoint = new EndPoint(thisHost, thisPort);
+        var fromEndPoint = new EndPoint(fromHost, fromPort);
+        await _services.RemoveForward(thisEndPoint, fromEndPoint);
+        return Redirect("/Service");
+    }
 }

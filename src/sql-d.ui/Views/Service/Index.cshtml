@@ -13,6 +13,9 @@
                     <a href="/service/create" class="btn btn-sm btn-default" title="Start/Create new service">
                         <i class="fas fa-plus-circle"></i>
                     </a>
+                    <a href="/service/forward/synchroniseall" class="btn btn-sm btn-danger" title="Synchronise all forwards">
+                        <i class="fas fa-fast-forward"></i>
+                    </a>
                 </span>
                 Services
             </div>
@@ -65,17 +68,18 @@
                         {
                             <tr>
                                 <td colspan="8" align="left">
-                                    <div class="panel panel-info">
+                                    <div class="panel panel-info" style="margin-bottom:0">
                                         <div class="panel-heading text-left" onclick="$(this).parent().find('.panel-body').toggle('.collapsed')">
                                             <small>Forwards</small>
                                         </div>
-                                        <div class="forward-panel-body panel-body collapsed" aria-expanded="false">
-                                            <table class="table table-condensed table-bordered table-condensed table-bordered">
+                                        <div class="forward-panel-body panel-body collapsed" style="padding:0" aria-expanded="false">
+                                            <table class="table table-condensed table-bordered table-condensed table-bordered" style="margin-bottom:0">
                                                 <thead>
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>Database</th>
                                                     <th>Uri</th>
+                                                    <th width="80px"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -86,6 +90,14 @@
                                                         <td>@forwardServiceModel.Name</td>
                                                         <td>@forwardServiceModel.Database</td>
                                                         <td>@forwardServiceModel.ToUrl()</td>
+                                                        <td align="center">
+                                                            <a href="/service/forward/delete?thisHost=@Html.Encode(forwardServiceModel.Host)&thisPort=@Html.Encode(forwardServiceModel.Port)&fromHost=@Html.Encode(serviceModel.Host)&fromPort=@Html.Encode(serviceModel.Port)" class="btn btn-xs btn-danger" title="Delete this forward">
+                                                                <i class="fas fa-minus-circle"></i>
+                                                            </a>
+                                                            <a href="/service/forward/synchronise?thisHost=@Html.Encode(forwardServiceModel.Host)&thisPort=@Html.Encode(forwardServiceModel.Port)&fromHost=@Html.Encode(serviceModel.Host)&fromPort=@Html.Encode(serviceModel.Port)" class="btn btn-xs btn-danger" title="Synchronise with upstream">
+                                                                <i class="fas fa-fast-forward"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 }
                                                 </tbody>
@@ -102,7 +114,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $('.forward-panel-body').toggle('.collapsed');
-</script>

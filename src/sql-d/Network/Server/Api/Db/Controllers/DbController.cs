@@ -12,11 +12,13 @@ public class DbController : Controller
 {
     private readonly EndPoint _endPoint;
     private readonly DbConnectionFactory _dbConnectionFactory;
+    private readonly SynchronisationWorkerQueue _queue;
 
-    public DbController(EndPoint endPoint, DbConnectionFactory dbConnectionFactory)
+    public DbController(EndPoint endPoint, DbConnectionFactory dbConnectionFactory, SynchronisationWorkerQueue queue)
     {
         _endPoint = endPoint;
         _dbConnectionFactory = dbConnectionFactory;
+        _queue = queue;
     }
 
     [HttpPost("describe")]
@@ -147,9 +149,8 @@ public class DbController : Controller
     {
         return this.Intercept(() =>
         {
-            SynchronisationWorker.SyncronisationTasks.Enqueue(endPoint);
+            _queue.SyncronisationTasks.Enqueue(endPoint);
             return Ok();
         });
     }
-
 }
