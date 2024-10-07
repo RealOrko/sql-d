@@ -59,7 +59,7 @@ public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
 ### With `appsettings.json`
 
 This is the default scaled out configuration of a sql-d cluster build/running `sql-d.ui`. You can add this json as an appsettings.json file. Please make sure it is always copied to the output directory. 
-You can activate it using the `typeof(ClassInMyAssembly).Assembly.SqlDGo();` public API from the [sql-d](https://www.nuget.org/packages?q=sql-d) NuGet.
+You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appsettings.json"); Interface.Start();` public API from the [sql-d](https://www.nuget.org/packages?q=sql-d) NuGet.
 
 ```json
 "SqlD": {
@@ -234,7 +234,6 @@ with your `forwardingTo` SqlD instance service definitions.
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Example](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services--example)
-  - [Process Model](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#process-model)
   - [Registries](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#registries)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
