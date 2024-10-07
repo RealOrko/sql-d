@@ -12,6 +12,7 @@
 <div align="right">
 	<a href="#sqld-help---building">[Back to Top]</a>
 </div>
+<br/>
 
 Builds are currently only supported on linux-x64 platforms. If you have Windows please use WSL/Ubuntu 24.04 and if you are on MacOS you would need a Oracle VirtualBox installation. Please note this script will also execute tests and is used in the main CI/CD build. 
 
@@ -30,6 +31,7 @@ Builds are currently only supported on linux-x64 platforms. If you have Windows 
 <div align="right">
 	<a href="#sqld-help---building">[Back to Top]</a>
 </div>
+<br/>
 
 You can generate packages locally to test them out. Currently the debian package is tested and will install sqld.ui as a systemd unit. If you would like to try it out please run the commands below.
 
