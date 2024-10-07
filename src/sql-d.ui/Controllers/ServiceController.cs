@@ -37,7 +37,7 @@ public class ServiceController : Controller
         if (ModelState.IsValid)
         {
             services.CreateService(formViewModel);
-            return Redirect("/service");
+            return Redirect("/");
         }
 
         return View(formViewModel);
@@ -77,7 +77,7 @@ public class ServiceController : Controller
         if (ModelState.IsValid)
         {
             services.UpdateService(formViewModel);
-            return Redirect("/service");
+            return Redirect("/");
         }
 
         return View(formViewModel);
@@ -87,6 +87,6 @@ public class ServiceController : Controller
     public IActionResult Delete([FromQuery] string host, [FromQuery] int port)
     {
         services.RemoveService(host, port);
-        return Redirect("/service");
+        return Redirect("/");
     }
 }
