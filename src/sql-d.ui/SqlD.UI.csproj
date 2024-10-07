@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="sql-d.service" CopyToPublishDirectory="PreserveNewest" LinuxFileMode="1755">
+        <Content Include="sqld.ui.service" CopyToPublishDirectory="PreserveNewest" LinuxFileMode="1755">
             <LinuxPath>/etc/systemd/system/sql-d.service</LinuxPath>
         </Content>
     </ItemGroup>
