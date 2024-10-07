@@ -3,13 +3,13 @@ using SqlD.Network.Client;
 
 namespace SqlD.Builders
 {
-	public class NewClientBuilder
+	internal class NewClientBuilder
 	{
 		private readonly int retryLimit;
 		private readonly bool withRetries;
 		private readonly int httpClientTimeoutMilliseconds;
 
-		internal NewClientBuilder(bool withRetries, int retryLimit, int httpClientTimeoutMilliseconds)
+		internal NewClientBuilder(bool withRetries, int retryLimit = 5, int httpClientTimeoutMilliseconds = 5000)
 		{
 			this.withRetries = withRetries;
 			this.retryLimit = retryLimit;
@@ -19,12 +19,6 @@ namespace SqlD.Builders
 		public ConnectionClient ConnectedTo(EndPoint endPoint)
 		{
 			return ConnectionClientFactory.Get(endPoint, this.withRetries, this.retryLimit, this.httpClientTimeoutMilliseconds);
-		}
-
-		public async Task<bool> PingAsync(EndPoint endPoint)
-		{
-			var client = ConnectionClientFactory.Get(endPoint, this.withRetries, this.retryLimit, this.httpClientTimeoutMilliseconds);
-			return await client.PingAsync();
 		}
 	}
 }

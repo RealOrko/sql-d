@@ -13,17 +13,17 @@ namespace SqlD
 		public static void Start(this Assembly startAssembly, SqlDConfiguration config = null)
 		{
 			var cfg = config ?? Configs.Configuration.Load(startAssembly);
-			Start(cfg, startAssembly);
+			Start(cfg);
 		}
 
 		public static SqlDConfiguration Start(this Assembly startAssembly, string settingsFile)
 		{
 			var cfg = Configs.Configuration.Load(startAssembly, settingsFile);
-			Start(cfg, startAssembly);
+			Start(cfg);
 			return cfg;
 		}
 
-		private static void Start(SqlDConfiguration cfg, Assembly startAssembly)
+		private static void Start(SqlDConfiguration cfg)
 		{
 			if (cfg == null)
 			{
@@ -46,14 +46,14 @@ namespace SqlD
 			{
 				try
 				{
-					var client = NewClient(withRetries: false).ConnectedTo(service.ToEndPoint());
+					var client = new NewClientBuilder(withRetries: false).ConnectedTo(service.ToEndPoint());
 					if (client.Ping())
 					{
 						Log.Out.Warn($"Skipping the start of registry service '{service.ToEndPoint()}', already up!");
 						continue;
 					}
 
-					var listener = NewListener().Hosting(startAssembly, service);
+					var listener = new NewListenerBuilder().Hosting(service);
 					EndPointMonitor.WaitUntil(service.ToEndPoint(), EndPointIs.Up);
 					Registry.Register(listener, string.Join(",", service.Tags));
 				}
@@ -68,14 +68,14 @@ namespace SqlD
 			{
 				try
 				{
-					var client = NewClient(withRetries: false).ConnectedTo(service.ToEndPoint());
+					var client = new NewClientBuilder(withRetries: false).ConnectedTo(service.ToEndPoint());
 					if (client.Ping())
 					{
 						Log.Out.Warn($"Skipping the start of sql service '{service.ToEndPoint()}', already up!");
 						continue;
 					}
 
-					var listener = NewListener().Hosting(startAssembly, service);
+					var listener = new NewListenerBuilder().Hosting(service);
 					Registry.Register(listener, string.Join(",", service.Tags));
 				}
 				catch (Exception err)
@@ -88,31 +88,9 @@ namespace SqlD
 
 		public static void Stop()
 		{
+			EndPointRegistry.Reset();
+			Configs.Configuration.Reset();
 			ConnectionListenerFactory.DisposeAll();
 		}
-		
-		#region Factory Methods
-
-		public static string NewId()
-		{
-			return Guid.NewGuid().ToString("N");
-		}
-
-		public static NewDbBuilder NewDb()
-		{
-			return new NewDbBuilder();
-		}
-
-		public static NewClientBuilder NewClient(bool withRetries = true, int retryLimit = 5, int httpClientTimeoutMilliseconds = 5000)
-		{
-			return new NewClientBuilder(withRetries, retryLimit, httpClientTimeoutMilliseconds);
-		}
-
-		public static NewListenerBuilder NewListener()
-		{
-			return new NewListenerBuilder();
-		}
-
-		#endregion
 	}
 }

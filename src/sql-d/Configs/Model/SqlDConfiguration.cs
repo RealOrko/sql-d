@@ -4,15 +4,17 @@ namespace SqlD.Configs.Model
 {
 	public class SqlDConfiguration
     {
-        public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
-        {
-            Enabled = true,
-            Registries = new List<SqlDRegistryModel>(),
-            Services = new List<SqlDServiceModel>()
-        };
+	    public static SqlDConfiguration Default()
+	    {
+		    return new()
+		    {
+			    Enabled = true,
+			    Registries = new List<SqlDRegistryModel>(),
+			    Services = new List<SqlDServiceModel>()
+		    };
+	    }
 
-        public bool Enabled { get; set; } = true;
-		public string Authority { get; set; }
+	    public bool Enabled { get; set; } = true;
 		public List<SqlDServiceModel> Services { get; set; } = new();
 		public List<SqlDRegistryModel> Registries { get; set; } = new();
 

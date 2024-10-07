@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using SqlD.Builders;
 using SqlD.Exceptions;
 
 namespace SqlD.Network.Diagnostics
@@ -69,7 +70,7 @@ namespace SqlD.Network.Diagnostics
 			{
 				try
 				{
-					var client = Interface.NewClient().ConnectedTo(EndPoint);
+					var client = new NewClientBuilder(withRetries:false).ConnectedTo(EndPoint);
 					var pingResult = await client.PingAsync();
 					Interlocked.Exchange(ref isUp, pingResult ? 1 : 0);
 					DoEvents();

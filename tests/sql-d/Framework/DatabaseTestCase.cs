@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
+using SqlD.Builders;
 using SqlD.Configs.Model;
 using SqlD.Extensions;
 using SqlD.Tests.Framework.Models;
 
 namespace SqlD.Tests.Framework
 {
-	public class DbConnectionTestCase<T> where T : IAmATestModel, new()
+	public class DatabaseTestCase<T> where T : IAmATestModel, new()
 	{
 		protected T Instance;
 		protected DbConnection Connection;
@@ -14,7 +15,7 @@ namespace SqlD.Tests.Framework
 		[SetUp]
 		public virtual async Task SetUp()
 		{
-			Connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+			Connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 
 			var createTable = typeof(AnyTableA).GetCreateTable();
 			await Connection.ExecuteCommandAsync(createTable);

@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using SqlD.Configs.Model;
-using SqlD.Extensions;
+using SqlD.Tests.Framework;
 using SqlD.Tests.Framework.Models;
-using SqlD.Tests.Framework.Network;
 
 namespace SqlD.Tests.Network.Server
 {
@@ -11,41 +9,41 @@ namespace SqlD.Tests.Network.Server
 	public class ConnectionListenerWithForwardingTests : NetworkTestCase
 	{
 		[Test]
-		public async Task ShouldBeAbleToInsertUpdateAndDelete()
+		public async Task ShouldBeAbleToInsertUpdateAndDeleteWithSingle()
 		{
-			await WellKnown.Clients.Free1Client.CreateTableAsync<AnyTableB>();
+			await MasterClient.CreateTableAsync<AnyTableB>();
 
-			const int maxItems = 25;
+			var instances = GenFu.GenFu.New<AnyTableB>();
 
-			var instances = GenFu.GenFu.ListOf<AnyTableB>(maxItems);
+			await MasterClient.InsertAsync(instances);
+			await MasterClient.UpdateAsync(instances);
 
-			await WellKnown.Clients.Free1Client.InsertManyAsync(instances);
-			AssertSourceHasCountMoreThanOrEqualTo(maxItems);
-			AssertTargetHasCountMoreThanOrEqualTo(maxItems);
+			var results = await MasterClient.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(1));
 
-			await WellKnown.Clients.Free1Client.UpdateManyAsync(instances);
-			AssertSourceHasCountMoreThanOrEqualTo(maxItems);
-			AssertTargetHasCountMoreThanOrEqualTo(maxItems);
+			await MasterClient.DeleteAsync(instances);
 
-			await WellKnown.Clients.Free1Client.DeleteManyAsync(instances);
-			AssertSourceHasCountMoreThanOrEqualTo(0);
-			AssertTargetHasCountMoreThanOrEqualTo(0);
+			results = await MasterClient.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(0));
 		}
 
-		private void AssertTargetHasCountMoreThanOrEqualTo(int count = 0)
+		[Test]
+		public async Task ShouldBeAbleToInsertUpdateAndDeleteWithMany()
 		{
-			var countSql = typeof(AnyTableB).GetCount();
-			var targetConnection = Interface.NewDb().ConnectedTo(WellKnown.Listeners.Free1Listener.DatabaseName, SqlDPragmaModel.Default);
-			var targetResults = targetConnection.ExecuteScalar<long>(countSql);
-			Assert.That(targetResults, Is.GreaterThanOrEqualTo(count));
-		}
+			await MasterClient.CreateTableAsync<AnyTableB>();
 
-		private void AssertSourceHasCountMoreThanOrEqualTo(int count = 0)
-		{
-			var countSql = typeof(AnyTableB).GetCount();
-			var sourceConnection = Interface.NewDb().ConnectedTo(WellKnown.Listeners.Free2Listener.DatabaseName, SqlDPragmaModel.Default);
-			var sourceResultsCount = sourceConnection.ExecuteScalar<long>(countSql);
-			Assert.That(sourceResultsCount, Is.GreaterThanOrEqualTo(count));
+			var instances = GenFu.GenFu.ListOf<AnyTableB>(25);
+
+			await MasterClient.InsertManyAsync(instances);
+			await MasterClient.UpdateManyAsync(instances);
+
+			var results = await MasterClient.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(25));
+
+			await MasterClient.DeleteManyAsync(instances);
+
+			results = await MasterClient.QueryAsync<AnyTableB>();
+			Assert.That(results.Count, Is.EqualTo(0));
 		}
 	}
 }

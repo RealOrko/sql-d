@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SqlD.Network;
 using SqlD.Network.Diagnostics;
-using SqlD.Tests.Framework.Network;
+using SqlD.Tests.Framework;
 
 namespace SqlD.Tests.Network.Diagnostics
 {
@@ -11,25 +11,25 @@ namespace SqlD.Tests.Network.Diagnostics
 		[Test]
 		public void ShouldBeAbleToDetectListenerUpDownEvents()
 		{
-			EndPointMonitor freeEndPointMonitor2 = null;
+			EndPointMonitor endPointMonitor = null;
 
 			try
 			{
-				var free2IsUp = false;
+				var masterIsUp = false;
 
-				freeEndPointMonitor2 = new EndPointMonitor(WellKnown.EndPoints.Free2);
+				endPointMonitor = new EndPointMonitor(MasterService.ToEndPoint());
 
-				freeEndPointMonitor2.OnUp += args => free2IsUp = true;
-				freeEndPointMonitor2.OnDown += args => free2IsUp = false;
+				endPointMonitor.OnUp += args => masterIsUp = true;
+				endPointMonitor.OnDown += args => masterIsUp = false;
 
-				freeEndPointMonitor2.WaitUntil(Constants.END_POINT_UP_WAIT_FOR_TIMEOUT, EndPointIs.Up);
-				freeEndPointMonitor2.DoEvents();
+				endPointMonitor.WaitUntil(Constants.END_POINT_UP_WAIT_FOR_TIMEOUT, EndPointIs.Up);
+				endPointMonitor.DoEvents();
 
-				Assert.That(free2IsUp, Is.True);
+				Assert.That(masterIsUp, Is.True);
 			}
 			finally
 			{
-				freeEndPointMonitor2?.Dispose();
+				endPointMonitor?.Dispose();
 			}
 		}
 	}

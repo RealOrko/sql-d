@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.Extensions;
 using Newtonsoft.Json;
+using SqlD.Builders;
 using SqlD.Network.Client;
 using SqlD.Network.Server.Api.Db.Model;
 
@@ -13,7 +14,6 @@ namespace SqlD.Network.Server.Middleware
 		{
 			get
 			{
-				Configs.Configuration.ConfigReady.WaitOne();
 				return Configs.Configuration.Instance.FindForwardingAddresses(_listener.EndPoint);
 			}
 		} 
@@ -63,7 +63,7 @@ namespace SqlD.Network.Server.Middleware
 			{
 				try
 				{
-					var client = Interface.NewClient().ConnectedTo(forwardAddress);
+					var client = new NewClientBuilder(withRetries:true).ConnectedTo(forwardAddress);
 
 					var commandResponse = await clientApiCall(client);
 					if (commandResponse.StatusCode != StatusCode.Ok)
