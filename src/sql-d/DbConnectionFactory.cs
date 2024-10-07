@@ -1,17 +1,19 @@
-﻿using System.Data;
+﻿using System.Collections.Concurrent;
+using System.Data;
 using System.Data.SQLite;
 using SqlD.Configs.Model;
 using SqlD.Exceptions;
 using SqlD.Extensions;
 using SqlD.Extensions.Discovery;
 using SqlD.Logging;
+using SqlD.Network.Client;
 
 namespace SqlD;
 
 public class DbConnectionFactory
 {
     private static object _lock = new();
-    private static DbConnection _connection;
+    private static readonly ConcurrentDictionary<string, DbConnection> Connections = new();
     
     public string Name { get; }
     public string DatabaseName { get; }
@@ -26,30 +28,28 @@ public class DbConnectionFactory
 
     public virtual DbConnection Connect()
     {
-        if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.SINGLETON_STRATEGY && _connection != null)
+        if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.SINGLETON_STRATEGY)
         {
-            return _connection;
+            if (Connections.TryGetValue(Name, out var connection))
+            {
+                return connection;
+            }
         }
         
         lock (_lock)
         {
-            if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.SINGLETON_STRATEGY && _connection != null)
-            {
-                return _connection;
-            }
-
             if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.FACTORY_STRATEGY)
             {
-                _connection?.DisposeSingleton();
+                Connections.GetOrAdd(Name, (e) => new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions)).DisposeSingleton();
                 return new DbConnection().Connect(Name, DatabaseName, PragmaOptions);
             }
             
-            if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.SINGLETON_STRATEGY && _connection == null)
+            if (Configs.Configuration.Instance.Settings.Connections.Strategy == SqlDSettingsConnections.SINGLETON_STRATEGY)
             {
-                _connection = new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions);
+                return Connections.GetOrAdd(Name, (e) => new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions));
             }
             
-            return _connection;
+            throw new Exception($"Unknown db connection strategy '{Configs.Configuration.Instance.Settings.Connections.Strategy}'.");
         }
     }
 }
