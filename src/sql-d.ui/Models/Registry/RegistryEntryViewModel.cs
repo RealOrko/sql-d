@@ -13,7 +13,6 @@ public class RegistryEntryViewModel
         Name = string.Empty;
         Database = string.Empty;
         AuthorityUri = string.Empty;
-        State = string.Empty;
         Tags = string.Empty;
         LastUpdated = DateTime.UtcNow;
         EndPoint = new EndPoint();
@@ -33,7 +32,6 @@ public class RegistryEntryViewModel
     public DateTime LastUpdated { get; set; }
     public string Tags { get; set; }
     public string Name { get; set; }
-    public string State { get; set; }
     public string Database { get; set; }
     public string AuthorityUri { get; set; }
     public string Uri { get; set; }
@@ -59,7 +57,6 @@ public class RegistryEntryViewModel
         cloned.Name = Name;
         cloned.Database = Database;
         cloned.AuthorityUri = AuthorityUri;
-        cloned.State = State.Clone().ToString();
         cloned.Tags = Tags.Clone().ToString();
         cloned.LastUpdated = LastUpdated;
         cloned.EndPoint = new EndPoint(EndPoint.Host, EndPoint.Port);
