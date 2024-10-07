@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using SqlD.Network;
+﻿using SqlD.Network;
 using SqlD.Network.Client;
 
 namespace SqlD.Builders

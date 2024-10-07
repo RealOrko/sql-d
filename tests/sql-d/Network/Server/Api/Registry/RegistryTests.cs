@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SqlD.Tests.Framework;
 using SqlD.Tests.Framework.Network;
 using NetworkRegistry = SqlD.Network.Server.Api.Registry.Registry;
 
