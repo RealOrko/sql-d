@@ -100,6 +100,9 @@ jobs:
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.zip
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.zip
           asset_content_type: application/gzip
+      - name: Publish NuGet package
+        run: |
+          dotnet nuget push ./packages/sql-d.${{ steps.version.outputs.version }}.nupkg --api-key "${{ secrets.NUGET }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
 # This is hot garbage, will look at this later ... :/
 #  build-win-x64:
