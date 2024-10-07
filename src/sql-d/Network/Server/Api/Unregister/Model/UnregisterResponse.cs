@@ -1,8 +1,8 @@
-﻿namespace SqlD.Network.Server.Api.Kill.Model;
+﻿namespace SqlD.Network.Server.Api.Unregister.Model;
 
-public class KillResponse
+public class UnregisterResponse
 {
-    public KillResponse(EndPoint authorityAddress)
+    public UnregisterResponse(EndPoint authorityAddress)
     {
         ServerDateTime = DateTime.UtcNow;
         AuthorityAddress = authorityAddress;

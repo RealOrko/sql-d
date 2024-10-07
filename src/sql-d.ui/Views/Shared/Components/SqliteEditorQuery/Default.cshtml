@@ -69,7 +69,11 @@ else
 		name: "execute",
 		bindKey: { win: "Ctrl-Enter", mac: "Command-Enter" },
 		exec: function (editor) {
-			location.href = '/?q=' + encodeURIComponent(editor.getValue()) + '&s=' + selectedRegistryUri;
+			$('#Query').val(editor.getValue());
+			$('#Server').val(selectedRegistryUri);
+			$.post('/', $('#QueryForm').serialize(), (r) => {
+				$('#bodyContainer').html(r);
+			});
 		}
 	});
 
