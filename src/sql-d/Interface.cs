@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using SqlD.Builders;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.Logging;
 using SqlD.Network.Diagnostics;
 using SqlD.Network.Server;

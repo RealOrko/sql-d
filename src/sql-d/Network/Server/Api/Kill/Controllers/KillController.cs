@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.Logging;
 using SqlD.Network.Server.Api.Kill.Model;
 

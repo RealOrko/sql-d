@@ -1,31 +1,14 @@
 ﻿using SqlD.Network;
 
-namespace SqlD.Configuration.Model
+namespace SqlD.Configs.Model
 {
 	public class SqlDConfiguration
     {
         public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
         {
             Enabled = true,
-            Registries = new List<SqlDRegistryModel>()
-            {
-                new()
-                {
-                    Port = 5000,
-                    Host = "localhost"
-                }
-            },
+            Registries = new List<SqlDRegistryModel>(),
             Services = new List<SqlDServiceModel>()
-            {
-                new()
-                {
-                    Database = "localhost.db",
-                    Port = 5000,
-                    Name = "localhost",
-                    Host = "localhost",
-                    Tags = ["registry", "master", "localhost"]
-                }
-            }
         };
 
         public bool Enabled { get; set; } = true;

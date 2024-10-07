@@ -1,6 +1,6 @@
 ﻿using SqlD.Network;
 
-namespace SqlD.Configuration.Model
+namespace SqlD.Configs.Model
 {
 	public class SqlDEndPointModel : EndPoint
 	{

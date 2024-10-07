@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 
 namespace SqlD.Configs
 {
@@ -14,7 +14,12 @@ namespace SqlD.Configs
 		private static string _assemblyDirectory => Path.GetDirectoryName(new Uri(_assembly.Location).LocalPath);
 
 		internal static ManualResetEvent ConfigReady { get; } = new(false);
-		
+
+		static Configuration()
+		{
+			_instance = SqlDConfiguration.Default;
+			ConfigReady.Set();
+		}
 		
 		public static SqlDConfiguration Instance
 		{

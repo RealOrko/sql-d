@@ -13,7 +13,7 @@ namespace SqlD.Network.Server.Middleware
 		{
 			get
 			{
-				SqlD.Configs.Configuration.ConfigReady.WaitOne();
+				Configs.Configuration.ConfigReady.WaitOne();
 				return Configs.Configuration.Instance.FindForwardingAddresses(_listener.EndPoint);
 			}
 		} 

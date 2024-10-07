@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using SqlD.Configuration.Model;
+using SqlD.Configs.Model;
 using SqlD.Network;
 using SqlD.Network.Server;
 
