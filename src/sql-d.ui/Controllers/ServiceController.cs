@@ -32,7 +32,7 @@ public class ServiceController : Controller
         var registry = await services.GetRegistry();
         var viewModel = new ServiceFormViewModel(registry.Entries);
 
-        var registryEntry = registry.Entries.FirstOrDefault(x => x.EndPoint.Equals(new EndPoint(host, port)));
+        var registryEntry = registry.Entries.FirstOrDefault(x => x.EndPoint.IsEqualTo(new EndPoint(host, port)));
         if (registryEntry != null)
         {
             viewModel.Name = registryEntry.Name;

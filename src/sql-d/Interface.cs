@@ -36,10 +36,10 @@ public static class Interface
         if (!cfg.Enabled) return;
 
         var registryEndPoints = cfg.Registries.ToList();
-        var serviceEndPointsThatAreRegistries = cfg.Services.Where(x => registryEndPoints.Any(x.IsEqualTo));
-        var serviceEndPointsThatAreNotRegistries = cfg.Services.Where(x => !registryEndPoints.Any(x.IsEqualTo));
+        var registries = cfg.Services.Where(x => registryEndPoints.Any(x.IsEqualTo));
+        var services = cfg.Services.Where(x => !registryEndPoints.Any(x.IsEqualTo));
 
-        foreach (var service in serviceEndPointsThatAreRegistries)
+        foreach (var service in registries)
             try
             {
                 var client = new NewClientBuilder(false).ConnectedTo(service);
@@ -59,7 +59,7 @@ public static class Interface
                 throw;
             }
 
-        foreach (var service in serviceEndPointsThatAreNotRegistries)
+        foreach (var service in services)
             try
             {
                 var client = new NewClientBuilder(false).ConnectedTo(service);

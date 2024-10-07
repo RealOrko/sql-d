@@ -18,7 +18,7 @@ public class ServiceViewModel
     public bool ContainsConfig(RegistryEntryViewModel service)
     {
         foreach (var configService in Config.Services)
-            if (service.EndPoint.Equals(configService))
+            if (service.EndPoint.IsEqualTo(configService))
                 return true;
 
         return false;
