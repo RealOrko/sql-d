@@ -11,8 +11,8 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 8.0.401
-      - name: Version linux-x64
-        run: echo "::set-output name=version::$($PWD/scripts/version.sh)"
+      - name: Version
+        run: echo "version=$($PWD/scripts/version.sh)" >> $GITHUB_OUTPUT
         id: version
       - name: Build
         run: ./scripts/build.sh
