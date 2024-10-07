@@ -14,7 +14,7 @@ Please make sure you have the latest [dotnet core SDK](https://dotnet.microsoft.
  
 ## Current Multi-OS Support
 
-At the moment due to restrictions on windows with file locking, this project does not support windows builds. You are better off building this in WSL on windows. 
+At the moment due to restrictions on windows with file locking, this project does not support windows builds. You are better off building this in WSL. 
 
 There are assembly loading issues on MacOS for the native sqlite binaries using the current latest NuGet. 
 
