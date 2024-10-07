@@ -25,7 +25,7 @@ internal class ConnectionListenerStartup
         services.AddSingleton(Listener.DbConnectionFactory);
         services.AddSingleton(Listener.ServiceModel);
         services.AddSingleton((EndPoint)Listener.ServiceModel);
-        services.AddSingleton(new SynchronisationWorkerQueue());
+        services.AddSingleton<SynchronisationWorkerQueue>();
         services.AddHostedService<SynchronisationWorker>();
         services.AddHostedService<AutoSynchronisationWorker>();
 
