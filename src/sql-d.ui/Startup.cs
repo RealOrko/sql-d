@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SqlD.UI.Services;
 using SqlD.UI.Services.Client;
-using SqlD.UI.Services.Query.Actions;
+using SqlD.UI.Services.Query;
 
 namespace SqlD.UI
 {

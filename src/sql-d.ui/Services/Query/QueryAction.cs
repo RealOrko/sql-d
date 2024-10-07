@@ -5,11 +5,11 @@ using SqlD.Network.Client;
 using SqlD.Network.Server.Api.Db.Model;
 using SqlD.UI.Models.Query;
 
-namespace SqlD.UI.Services.Query.Actions
+namespace SqlD.UI.Services.Query
 {
 	public class QueryAction : IQueryAction
 	{
-		public async Task<object> Go(string query, ConnectionClient client, RegistryService registry)
+		public async Task<object> Go(string query, ConnectionClient client)
 		{
 			var from = query.Split("from", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim().TrimEnd(';')).ToList();
 			var fromTableName = @from[1].Split(' ')[0];

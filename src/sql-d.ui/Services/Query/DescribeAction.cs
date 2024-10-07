@@ -5,33 +5,32 @@ using SqlD.Network.Client;
 using SqlD.Network.Server.Api.Db.Model;
 using SqlD.UI.Models.Query;
 
-namespace SqlD.UI.Services.Query.Actions
+namespace SqlD.UI.Services.Query;
+
+public class DescribeAction : IQueryAction
 {
-	public class DescribeAction : IQueryAction
+	public async Task<object> Go(string query, ConnectionClient client)
 	{
-		public async Task<object> Go(string query, ConnectionClient client, RegistryService registry)
+		var describe = query.Split("?", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+
+		Describe describeRequest;
+		if (describe.Any())
 		{
-			var describe = query.Split("?", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			describeRequest = new Describe() { TableName = describe[0] };
+		}
+		else
+		{
+			describeRequest = new Describe() { TableName = "sqlite_master" };
+		}
 
-			Describe describeRequest;
-			if (describe.Any())
-			{
-				describeRequest = new Describe() { TableName = describe[0] };
-			}
-			else
-			{
-				describeRequest = new Describe() { TableName = "sqlite_master" };
-			}
-
-			try
-			{
-				var describeResponse = await client.DescribeCommandAsync(describeRequest);
-				return new DescribeResultViewModel(describeResponse);
-			}
-			catch (Exception err)
-			{
-				return new DescribeResultViewModel(err.Message);
-			}
+		try
+		{
+			var describeResponse = await client.DescribeCommandAsync(describeRequest);
+			return new DescribeResultViewModel(describeResponse);
+		}
+		catch (Exception err)
+		{
+			return new DescribeResultViewModel(err.Message);
 		}
 	}
 }

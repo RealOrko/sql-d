@@ -2,13 +2,12 @@
 using SqlD.Network.Client;
 using SqlD.UI.Models.Query;
 
-namespace SqlD.UI.Services.Query.Actions
+namespace SqlD.UI.Services.Query;
+
+public class UnknownAction : IQueryAction
 {
-	public class UnknownAction : IQueryAction
+	public async Task<object> Go(string query, ConnectionClient client)
 	{
-		public async Task<object> Go(string query, ConnectionClient client, RegistryService registry)
-		{
-			return await Task.FromResult(new UnknownResultViewModel(query));
-		}
+		return await Task.FromResult(new UnknownResultViewModel(query));
 	}
 }
