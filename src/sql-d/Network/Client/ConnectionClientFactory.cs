@@ -30,4 +30,16 @@ internal class ConnectionClientFactory
         Clients.Values.ToList().ForEach(Dispose);
         Clients.Clear();
     }
+
+    public static void DisposeNotInConfig()
+    {
+        foreach (var client in Clients.Values.ToList())
+        {
+            if (!Configs.Configuration.Instance.Services.Any(service => service.IsEqualTo(client.EndPoint)))
+            {
+                Clients.TryRemove(client.EndPoint.ToUrl(), out var _);
+                client.Dispose();
+            }
+        }
+    }
 }
