@@ -1,9 +1,9 @@
 ﻿@model SqlD.UI.Models.SqlLiteViewModel
     @if (Model.DescribeResult != null && string.IsNullOrEmpty(Model.DescribeResult.Error))
     {
-        <div id="queryPanel" class="panel panel-primary">
+        <div id="queryPanel" class="panel panel-primary" style="margin-bottom: 0">
             <div class="panel-heading text-left">
-                <div style="float:right">[ @Model.DescribeResult.EndPoint.ToUrl() ]</div>
+                <div style="float:right">[ @Model.DescribeResult.EndPoint.ToUrl() ] at @DateTime.Now.ToLongTimeString()</div>
                 Results 
             </div>
             <div class="panel-body">
