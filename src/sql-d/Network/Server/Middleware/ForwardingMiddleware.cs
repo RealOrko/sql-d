@@ -6,6 +6,7 @@ using SqlD.Configs.Model;
 using SqlD.Logging;
 using SqlD.Network.Client;
 using SqlD.Network.Server.Api.Db.Model;
+using SqlD.Serialiser;
 
 namespace SqlD.Network.Server.Middleware;
 
@@ -128,7 +129,7 @@ public class ForwardingMiddleware
     private static async Task<T> Deserialise<T>(StreamReader bodyRequeStreamReader)
     {
         var body = await bodyRequeStreamReader.ReadToEndAsync();
-        var request = JsonConvert.DeserializeObject<T>(body);
+        var request = JsonSerialiser.Deserialise<T>(body);
         return request;
     }
 }
