@@ -27,7 +27,7 @@
             <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">[ sql-d ]</a>
         </div>
         <div class="navbar-collapse collapse">
-            <div class="col-md-6 pull-right body-content">
+            <div class="col-md-6 pull-right body-content" style="margin:0 !important;">
                 @await Component.InvokeAsync(nameof(RegistrySelector))
             </div>
             <ul class="nav navbar-nav">

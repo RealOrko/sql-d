@@ -3,6 +3,7 @@ using SqlD.Builders;
 using SqlD.Configs;
 using SqlD.Configs.Model;
 using SqlD.Logging;
+using SqlD.Network;
 using SqlD.Network.Client;
 using SqlD.Network.Diagnostics;
 using SqlD.Network.Server;
@@ -75,7 +76,7 @@ public static class Interface
             }
     }
 
-    public static void Stop(InterfaceStopKind stopKind = InterfaceStopKind.All)
+    public static void Stop(InterfaceStopKind stopKind = InterfaceStopKind.All, params EndPoint[] OptionalEndPoints)
     {
         Configuration.Reset();
         if (stopKind == InterfaceStopKind.All)
@@ -86,8 +87,8 @@ public static class Interface
 
         if (stopKind == InterfaceStopKind.NotFoundInConfig)
         {
-            ConnectionClientFactory.DisposeNotInConfig();
-            ConnectionListenerFactory.DisposeNotInConfig();
+            ConnectionClientFactory.DisposeNotInConfig(OptionalEndPoints);
+            ConnectionListenerFactory.DisposeNotInConfig(OptionalEndPoints);
         }
     }
 

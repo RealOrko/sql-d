@@ -1,36 +1,48 @@
 ﻿@model object
 
-<input type="text" id="registryUrl" placeholder="Registry URL" name="registryUrl">
-
-<style>
-	input#registryUrl { width: 100%; }
-</style>
+<form class="form-horizontal" style="margin-top: 14px">
+	<div class="form-group">
+		<label id="registryName" name="registryName" class="col-sm-2 btn btn-primary input-sm" style="margin-top: 0; padding-top: 3px !important"></label>
+		<div class="col-sm-10">
+			<input type="text" id="registryUrl" placeholder="Registry URL" name="registryUrl" class="form-control input-sm" style="width: 100%"/>
+		</div>
+	</div>
+</form>
 
 <script>
 	$(() => {
-		debugger;
 		const registryUrlId = '#registryUrl';
+		const registryNameId = '#registryName';
 		const registryUrlEventName = 'registry.url';
 		const registryUrlLocalStorageKey = 'registry.registryUrl';
+		const registryNameLocalStorageKey = 'registry.serviceName';
 
 		const previousRegistryUrl = (localStorage.getItem(registryUrlLocalStorageKey) || 'http://localhost:50100');
-		radio(registryUrlEventName).broadcast(previousRegistryUrl);
+		const previousRegistryName = (localStorage.getItem(registryNameLocalStorageKey) || 'master');
+		radio(registryUrlEventName).broadcast({ 'serviceName': previousRegistryName, 'serviceUri': previousRegistryUrl });
 		$(registryUrlId).val(previousRegistryUrl);
+		$(registryNameId).text(previousRegistryName);
 
 		radio(registryUrlEventName).subscribe((data) => {
 			const currentRegistryUrl = $(registryUrlId).val();
-			if (typeof (data) !== "undefined" && data !== currentRegistryUrl) {
-				$(registryUrlId).val(data);
-				localStorage.setItem(registryUrlLocalStorageKey, data);
+			const currentRegistryName = $(registryNameId).text();
+			if (typeof (data) !== "undefined" && data.serviceUri !== currentRegistryUrl) {
+				$(registryUrlId).val(data.serviceUri);
+				$(registryNameId).text(data.serviceName);
+				localStorage.setItem(registryUrlLocalStorageKey, data.serviceUri);
+				localStorage.setItem(registryNameLocalStorageKey, data.serviceName);
 			} else {
 				$(registryUrlId).val(currentRegistryUrl);
+				$(registryNameId).text(currentRegistryName);
 			}
 		});
 
 		$(registryUrlId).on('change', () => {
 			const currentRegistryUrl = $(registryUrlId).val();
-			radio(registryUrlEventName).broadcast(currentRegistryUrl);
+			const currentRegistryName = $(registryNameId).text();
+			radio(registryUrlEventName).broadcast({ 'serviceName': currentRegistryName, 'serviceUri': currentRegistryUrl });
 			localStorage.setItem(registryUrlLocalStorageKey, currentRegistryUrl);
+			localStorage.setItem(registryNameLocalStorageKey, currentRegistryName);
 		});
 	});
 </script>

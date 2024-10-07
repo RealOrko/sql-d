@@ -31,7 +31,7 @@ internal class ConnectionClientFactory
         Clients.Clear();
     }
 
-    public static void DisposeNotInConfig()
+    public static void DisposeNotInConfig(EndPoint[] optionalEndPoints)
     {
         foreach (var client in Clients.Values.ToList())
         {
@@ -39,6 +39,15 @@ internal class ConnectionClientFactory
             {
                 Clients.TryRemove(client.EndPoint.ToUrl(), out var _);
                 client.Dispose();
+            }
+
+            if (optionalEndPoints != null)
+            {
+                if (!Configs.Configuration.Instance.Services.Any(service => optionalEndPoints.Any(endPoint => service.IsEqualTo(endPoint))))
+                {
+                    Clients.TryRemove(client.EndPoint.ToUrl(), out var _);
+                    client.Dispose();
+                }
             }
         }
     }
