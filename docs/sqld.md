@@ -86,6 +86,7 @@ namespace New_SqlD_Client
 <div align="right">
 	<a href="#sqld-help---sqld">[Back to Top]</a>
 </div>
+<br/>
 
 You have swagger support everywhere. Merely type `/swagger` at the end of any base endpoint url. 
 
@@ -111,6 +112,7 @@ Example:
 <div align="right">
 	<a href="#sqld-help---sqld">[Back to Top]</a>
 </div>
+<br/>
 
 There is a really cool tool called NSwagStudio which can be downloaded from [here](https://github.com/RSuter/NSwag/wiki/NSwagStudio).
 

@@ -14,6 +14,7 @@
 <div align="right">
 	<a href="#sqld-help---sqld-ui-api">[Back to Top]</a>
 </div>
+<br/>
 
 You can discover the API. This exposes links which allow you to discover all the shape and content of tables across all the SqlD instances.
 
@@ -40,6 +41,7 @@ You can discover the API. This exposes links which allow you to discover all the
 <div align="right">
 	<a href="#sqld-help---sqld-ui-api">[Back to Top]</a>
 </div>
+<br/>
 
 An example for describing `master`.`newtable1`.
 
@@ -68,6 +70,7 @@ An example for describing `master`.`newtable1`.
 <div align="right">
 	<a href="#sqld-help---sqld-ui-api">[Back to Top]</a>
 </div>
+<br/>
 
 An example for querying `master`.`newtable1`. 
 

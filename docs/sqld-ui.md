@@ -16,6 +16,7 @@
 <div align="right">
 	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
 </div>
+<br/>
 
 When you first browse to an instance of SqlD, you will be greet by the home page. You can use the little blue button's to connect to 
 each individual instance of SqlD. The default configuration has 5 instances running. 
@@ -39,6 +40,7 @@ each individual instance of SqlD. The default configuration has 5 instances runn
 <div align="right">
 	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
 </div>
+<br/>
 
 You can query `sqlite_master` to find out which tables have been created on currently connected SqlD instance. From the results we can see 
 `master` (http://localhost:50100) has 2 tables, `newtable1` and `sqlite_sequence`.
@@ -56,6 +58,7 @@ You can query `sqlite_master` to find out which tables have been created on curr
 <div align="right">
 	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
 </div>
+<br/>
 
 The example below shows you how to create a table called `newtable1` with columns for `id`, `name` and `created`. `id` is a sequence that auto increments, 
 `name` can hold text and `created` is a datetime that defaults to a current timestamp.
@@ -73,6 +76,7 @@ The example below shows you how to create a table called `newtable1` with column
 <div align="right">
 	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
 </div>
+<br/>
 
 The example below shows you how to insert 5 rows into `newtable1`. 
 
@@ -89,6 +93,7 @@ The example below shows you how to insert 5 rows into `newtable1`.
 <div align="right">
 	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
 </div>
+<br/>
 
 The example below shows you how to query `newtable1`. 
 
@@ -105,6 +110,7 @@ The example below shows you how to query `newtable1`.
 <div align="right">
 	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
 </div>
+<br/>
 
 The example below shows you how to drop `newtable1`. 
 

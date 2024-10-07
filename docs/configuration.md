@@ -20,6 +20,7 @@
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 ### No `appsettings.json`
 
@@ -177,6 +178,7 @@ You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appset
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 For setting the authority for SqlD instance send registration commands when they start up. This is useful for authorities backed on to public DNS entries.
 
@@ -197,6 +199,7 @@ For setting the authority for SqlD instance send registration commands when they
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 For specifying the registry URL over HTTP to call when a SqlD instance starts up. The time will be recorded as UTC.
 
@@ -220,6 +223,7 @@ For specifying the registry URL over HTTP to call when a SqlD instance starts up
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 A service defines an actual SqlD instance with a host and a port number. 
 
@@ -238,6 +242,7 @@ with your `forwardingTo` SqlD instance service definitions.
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 An example of a service that forwards traffic to other url's.
 
@@ -287,6 +292,7 @@ An example of a service that forwards traffic to other url's.
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 The persisted file path of the SqlD database file.
 
@@ -309,6 +315,7 @@ The persisted file path of the SqlD database file.
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 The host/port is the uri the SqlD instance will serve traffic from. 
 
@@ -332,6 +339,7 @@ The host/port is the uri the SqlD instance will serve traffic from.
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 For distinguishing SqlD instances when queried via the [SqlD UI API](https://github.com/RealOrko/sql-d/blob/master/docs/sqld-ui-api.md).
 
@@ -354,6 +362,7 @@ For distinguishing SqlD instances when queried via the [SqlD UI API](https://git
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 For defining pragma values that are passed directly to sqlite. 
 
@@ -396,6 +405,7 @@ Here are links to the supported pragma parameters for services:
 <div align="right">
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
+<br/>
 
 An example of a write forwarding configuration block for a SqlD instance:
 
