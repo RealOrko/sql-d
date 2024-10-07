@@ -12,9 +12,10 @@ Please make sure you have the latest [dotnet core SDK](https://dotnet.microsoft.
 
   - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
  
-## Docker (Linux/OSX)
+## Current Multi-OS Support
 
-To do docker testing you will need:
+At the moment due to restrictions on windows with file locking, this project does not support windows builds. You are better off building this in WSL on windows. 
 
- - [Docker Linux](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
- - [Docker Osx](https://docs.docker.com/docker-for-mac/install/)
+There are assembly loading issues on MacOS for the native sqlite binaries using the current latest NuGet. 
+
+Contributors more than welcome :)
