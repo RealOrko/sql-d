@@ -391,7 +391,7 @@ public class ConnectionClient : IDisposable
             throw new ConnectionClientCommandException($"FileSync failed.");
     }
     
-    public async Task<string> SynchroniseHash()
+    public async Task<string> GetSynchronisationHash()
     {
         var fileHashUrl = UrlBuilder.GetFileHashUrl(EndPoint);
         var response = await _client.GetAsync<string>(fileHashUrl);

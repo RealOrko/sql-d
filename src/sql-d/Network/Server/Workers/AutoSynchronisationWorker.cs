@@ -28,7 +28,7 @@ public class AutoSynchronisationWorker(EndPoint listenerEndPoint, DbConnectionFa
                     foreach (var forwardServiceModel in forwardServiceModels)
                     {
                         var client = new NewClientBuilder(true).ConnectedTo(forwardServiceModel);
-                        var upstreamHash = await client.SynchroniseHash();
+                        var upstreamHash = await client.GetSynchronisationHash();
                         var downstreamHash = string.Empty;
                         using (var dbConnection = dbConnectionFactory.Connect())
                         {
