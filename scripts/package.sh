@@ -51,6 +51,3 @@ find $PWD/src -name '*.rpm' -exec cp "{}" $PWD/packages/  \;
 find $PWD/src -name '*.deb' -exec cp "{}" $PWD/packages/  \;
 
 ls -la $PWD/packages/
-
-sudo dpkg --purge sqld.ui || true
-sudo dpkg -i $PWD/SqlD.UI.1.0.0-refactor.deb
