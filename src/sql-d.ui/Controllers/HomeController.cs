@@ -7,9 +7,15 @@ namespace SqlD.UI.Controllers;
 public class HomeController : Controller
 {
     [HttpGet("/")]
-    public IActionResult Index(string q = null, string s = null)
+    public IActionResult IndexGet(string q = null, string s = null)
     {
-        return View(new SqlLiteViewModel { Query = q, Server = s });
+        return View("Index", new SqlLiteViewModel { Query = q, Server = s });
+    }
+
+    [HttpPost("/")]
+    public IActionResult IndexPost([FromForm] SqlLiteViewModel viewModel)
+    {
+        return PartialView("Index", viewModel);
     }
 
     public IActionResult Error()

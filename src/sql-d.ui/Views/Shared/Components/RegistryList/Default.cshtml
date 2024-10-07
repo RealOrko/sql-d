@@ -35,17 +35,8 @@
                     <td align="left">@service.GetRedirectedAuthorityUri(Context.Request)</td>
                     <td align="left">@service.LastUpdated</td>
                     <td align="center">
-                        <a target="_service_id_" href="@service.GetRedirectedUri(Context.Request)api/id" class="btn btn-xs btn-default" title="Service ID for @service.GetRedirectedUri(Context.Request)">
-                            <i class="far fa-id-card"></i>
-                        </a>
-                        <a target="_service_swag_" href="@service.GetRedirectedUri(Context.Request)swagger" class="btn btn-xs btn-default" title="Swagger for @service.GetRedirectedUri(Context.Request)">
-                            <i class="fas fa-battery-full"></i>
-                        </a>
                         <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Edit a service">
                             <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="/service/delete/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Stop a service">
-                            <i class="fas fa-minus-circle"></i>
                         </a>
                         <button service-uri="@service.GetRedirectedUri(Context.Request)" class="btn btn-xs btn-primary" title="Connect to @service.GetRedirectedUri(Context.Request)">
                             <i class="fas fa-plug"></i>

@@ -42,6 +42,12 @@
                             <td align="left">@service.GetRedirectedAuthorityUri(Context.Request)</td>
                             <td align="left">@service.LastUpdated</td>
                             <td align="center">
+                                <a target="_service_id_" href="@service.GetRedirectedUri(Context.Request)api/id" class="btn btn-xs btn-default" title="Service ID for @service.GetRedirectedUri(Context.Request)">
+                                    <i class="far fa-id-card"></i>
+                                </a>
+                                <a target="_service_swag_" href="@service.GetRedirectedUri(Context.Request)swagger" class="btn btn-xs btn-default" title="Swagger for @service.GetRedirectedUri(Context.Request)">
+                                    <i class="fas fa-battery-full"></i>
+                                </a>
                                 @if (!service.Tags.Contains("registry") && Model.ContainsConfig(service))
                                 {
                                     <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Edit a service">

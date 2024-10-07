@@ -1,32 +1,32 @@
 ﻿@model SqlD.UI.Models.SqlLiteViewModel
 
 <div id="queryPanel" class="panel panel-default">
-    <div class="panel-heading text-left">
-        <span style="float: right; position: relative; top: -5px;">
-            <button id="createTable" class="btn btn-sm btn-default" title="Create a table called 'newtable1'">
-                <i class="fas fa-table"></i>
-            </button>
-            <button id="insertRows" class="btn btn-sm btn-default" title="Insert 5 rows into 'newtable1'">
-                <i class="fas fa-plus-circle"></i>
-            </button>
-            <button id="queryTable" class="btn btn-sm btn-default" title="Select rows from 'newtable1'">
-                <i class="fas fa-question-circle"></i>
-            </button>
-            <button id="dropTable" class="btn btn-sm btn-default" title="Drop table 'newtable1'">
-                <i class="fas fa-minus-circle"></i>
-            </button>
-            <button id="apiBrowse" class="btn btn-sm btn-default" title="Browse the sql-d api">
-                <i class="fas fa-battery-full"></i>
-            </button>
-        </span>
-        Sqlite Query
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div style="height: 220px;">
-                    <!-- This has to be un-indented to reduce white space that accumulates in the editor -->
-                    <pre id="editor" style="height: 200px; margin-left: 15px; margin-right: 15px;">
+	<div class="panel-heading text-left">
+		<span style="float: right; position: relative; top: -5px;">
+			<button id="createTable" class="btn btn-sm btn-default" title="Create a table called 'newtable1'">
+				<i class="fas fa-table"></i>
+			</button>
+			<button id="insertRows" class="btn btn-sm btn-default" title="Insert 5 rows into 'newtable1'">
+				<i class="fas fa-plus-circle"></i>
+			</button>
+			<button id="queryTable" class="btn btn-sm btn-default" title="Select rows from 'newtable1'">
+				<i class="fas fa-question-circle"></i>
+			</button>
+			<button id="dropTable" class="btn btn-sm btn-default" title="Drop table 'newtable1'">
+				<i class="fas fa-minus-circle"></i>
+			</button>
+			<button id="apiBrowse" class="btn btn-sm btn-default" title="Browse the sql-d api">
+				<i class="fas fa-battery-full"></i>
+			</button>
+		</span>
+		Sqlite Query
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div style="height: 220px;">
+					<!-- This has to be un-indented to reduce white space that accumulates in the editor -->
+					<pre id="editor" style="height: 200px; margin-left: 15px; margin-right: 15px;">
 @if (!string.IsNullOrEmpty(Model.Query))
 {
 	@Html.Raw(Model.Query.Trim())
@@ -36,12 +36,17 @@ else
 	@Html.Raw("select * from sqlite_master;")
 }
 </pre>
-                    <!-- This has to be un-indented to reduce white space that accumulates in the editor -->
-                </div>
-            </div>
-        </div>
-    </div>
+					<!-- This has to be un-indented to reduce white space that accumulates in the editor -->
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<form id="QueryForm" Method="post" action="/">
+	<input id="Query" name="Query" type="hidden" value=""/>
+	<input id="Server" name="Server" type="hidden" value=""/>
+</form>
 
 <script>
 
@@ -83,48 +88,43 @@ else
 );
 `;
 		editor.setValue(sql);
-		location.href = '/?q=' + encodeURIComponent(editor.getValue()) + '&s=' + selectedRegistryUri;
+		$('#Query').val(editor.getValue());
+		$('#Server').val(selectedRegistryUri);
+		$.post('/', $('#QueryForm').serialize(), (r) => {
+			$('#bodyContainer').html(r);
+		});
 	});
 
 	// Insert rows event
 	$('#insertRows').on('click', (e) => {
-		var sql = `insert into newtable1 (name) values ('Example 1');
-insert into newtable1 (name) values ('Example 2');
-insert into newtable1 (name) values ('Example 3');
-insert into newtable1 (name) values ('Example 4');
-insert into newtable1 (name) values ('Example 5');
-`;
+		var sql = `insert into newtable1 (name) values ('Example 1');`;
 		editor.setValue(sql);
-		// TODO: Remove this because it runs into url limits			
-		location.href = '/?q=' + encodeURIComponent(editor.getValue()) + '&s=' + selectedRegistryUri;
-
-		/*
-		$.ajax({
-			url: '/q',
-			type: 'post',
-			data: { server: selectedRegistryUri, query: editor.getValue() },
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			dataType: 'json',
-			success: function (data) {
-				console.info(data);
-			}
+		$('#Query').val(editor.getValue());
+		$('#Server').val(selectedRegistryUri);
+		$.post('/', $('#QueryForm').serialize(), (r) => {
+			$('#bodyContainer').html(r);
 		});
-		*/
 	});
 
 	// Query table event
 	$('#queryTable').on('click', (e) => {
 		var sql = `select * from newtable1;`;
 		editor.setValue(sql);
-		location.href = '/?q=' + encodeURIComponent(editor.getValue()) + '&s=' + selectedRegistryUri;
+		$('#Query').val(editor.getValue());
+		$('#Server').val(selectedRegistryUri);
+		$.post('/', $('#QueryForm').serialize(), (r) => {
+			$('#bodyContainer').html(r);
+		});
 	});
 
 	// Drop table event
 	$('#dropTable').on('click', (e) => {
 		var sql = `drop table if exists newtable1;`;
 		editor.setValue(sql);
-		location.href = '/?q=' + encodeURIComponent(editor.getValue()) + '&s=' + selectedRegistryUri;
+		$('#Query').val(editor.getValue());
+		$('#Server').val(selectedRegistryUri);
+		$.post('/', $('#QueryForm').serialize(), (r) => {
+			$('#bodyContainer').html(r);
+		});
 	});
 </script>

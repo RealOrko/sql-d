@@ -40,11 +40,13 @@ public class ServiceService
 
         var registryEntryViewModels = service.Forwards.Where(x => x.Selected).ToList();
         if (registryEntryViewModels.Any())
+        {
             sqlDServiceModel.ForwardingTo.AddRange(registryEntryViewModels.Select(y => new SqlDForwardingModel
             {
                 Host = y.Host,
                 Port = y.Port
             }));
+        }
 
         config.Services.Add(sqlDServiceModel);
 
@@ -54,23 +56,70 @@ public class ServiceService
 
     public void UpdateService(ServiceFormViewModel serviceModel)
     {
-        var service = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(new EndPoint(serviceModel.Host, serviceModel.Port)));
+        var serviceEndPoint = new EndPoint(serviceModel.Host, serviceModel.Port);
+        var service = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(serviceEndPoint));
         
         service.Name = serviceModel.Name;
         service.Database = serviceModel.Database;
         service.Host = serviceModel.Host;
         service.Port = serviceModel.Port;
         service.Tags = serviceModel.Tags.Split(',').ToList();
-
-        var registryEntryViewModels = serviceModel.Forwards.Where(x => x.Selected).ToList();
-        if (registryEntryViewModels.Any())
+        
+        var nonForwardModels = serviceModel.Forwards.Where(x => !x.Selected).ToList();
+        if (nonForwardModels.Any())
         {
-            service.ForwardingTo = new List<SqlDForwardingModel>();
-            service.ForwardingTo.AddRange(registryEntryViewModels.Select(y => new SqlDForwardingModel
+            foreach (var nonForwardModel in nonForwardModels)
+            {
+                var nonForwardEndPoint = new EndPoint(nonForwardModel.Host, nonForwardModel.Port);
+                service.ForwardingTo = service.ForwardingTo.Where(x => !x.IsEqualTo(nonForwardEndPoint)).ToList();
+            }
+        }
+
+        var forwardModels = serviceModel.Forwards.Where(x => x.Selected).ToList();
+        if (forwardModels.Any())
+        {
+            service.ForwardingTo.AddRange(forwardModels.Select(y => new SqlDForwardingModel
             {
                 Host = y.Host,
                 Port = y.Port
             }));
+        }
+        
+        var nonReturnModels = serviceModel.Forwards.Where(x => !x.Selected).ToList();
+        if (nonReturnModels.Any())
+        {
+            foreach (var nonReturnModel in nonReturnModels)
+            {
+                var nonReturnEndPoint = new EndPoint(nonReturnModel.Host, nonReturnModel.Port);
+                service = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(nonReturnEndPoint));
+                service.ForwardingTo = service.ForwardingTo.Where(x => !x.IsEqualTo(serviceEndPoint)).ToList();
+            }
+        }
+        
+        var returnModels = serviceModel.Returns.Where(x => x.Selected).ToList();
+        if (returnModels.Any())
+        {
+            foreach (var returnModel in returnModels)
+            {
+                var returnEndPoint = new EndPoint(returnModel.Host, returnModel.Port);
+                service = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(returnEndPoint));
+                if (!service.ForwardingTo.Any(x => x.IsEqualTo(serviceEndPoint)))
+                {
+                    service.ForwardingTo.Add(new SqlDForwardingModel()
+                    {
+                        Host = serviceEndPoint.Host,
+                        Port = serviceEndPoint.Port,
+                    });
+                }
+            }
+        }
+        else
+        {
+            var otherServiceModels = Configs.Configuration.Instance.Services.Where(x => !x.IsEqualTo(serviceEndPoint));
+            foreach (var otherServiceModel in otherServiceModels)
+            {
+                otherServiceModel.ForwardingTo = otherServiceModel.ForwardingTo.Where(x => !x.IsEqualTo(serviceEndPoint)).ToList();
+            }
         }
 
         Configs.Configuration.Update(Configs.Configuration.Instance);

@@ -46,28 +46,39 @@ public class ServiceController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit([FromQuery] string host = null, [FromQuery] int port = 0)
     {
+        var serviceEndPoint = new EndPoint(host, port);
+        var serviceModel = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(serviceEndPoint));
+        
         var registry = await services.GetRegistry();
-        var viewModel = new ServiceFormViewModel(registry.Entries);
+        var viewModel = new ServiceFormViewModel(serviceModel, registry.Entries);
 
-        var registryEntry = registry.Entries.FirstOrDefault(x => x.EndPoint.IsEqualTo(new EndPoint(host, port)));
-        if (registryEntry != null)
+        var forwardEntry = Configs.Configuration.Instance.Services.FirstOrDefault(x => x.IsEqualTo(serviceEndPoint));
+        if (forwardEntry != null)
         {
-            viewModel.Name = registryEntry.Name;
-            viewModel.Host = registryEntry.Host;
-            viewModel.Port = registryEntry.Port;
-            viewModel.Database = registryEntry.Database;
-            viewModel.Tags = string.Join(",", registryEntry.Tags);
-        }
-
-        var configEntry = Configs.Configuration.Instance.Services.FirstOrDefault(x => x.IsEqualTo(new EndPoint(host, port)));
-        if (configEntry != null)
-            foreach (var forwardEntry in configEntry.ForwardingTo)
+            foreach (var forward in forwardEntry.ForwardingTo)
             {
-                var forwardRegistryEntry = registry.Entries.First(x => x.EndPoint.IsEqualTo(new EndPoint(forwardEntry.Host, forwardEntry.Port)));
+                var forwardRegistryEntry = viewModel.Forwards.First(x => x.EndPoint.IsEqualTo(forward));
                 forwardRegistryEntry.Selected = true;
-                viewModel.Forwards.Add(forwardRegistryEntry);
             }
-
+        }
+        
+        var returnEntries = Configs.Configuration.Instance.Services.Where(x => !x.IsEqualTo(serviceEndPoint));
+        if (returnEntries.Any())
+        {
+            foreach (var @return in returnEntries)
+            {
+                if (@return.ForwardingTo.Any(x => x.IsEqualTo(serviceEndPoint)))
+                {
+                    var returnRegistryEntry = viewModel.Returns.First(x =>
+                    {
+                        var returnEndPoint = new EndPoint(@return.Host, @return.Port);
+                        return x.EndPoint.IsEqualTo(returnEndPoint);
+                    });
+                    returnRegistryEntry.Selected = true;
+                }
+            }
+        }
+        
         return View(viewModel);
     }
 
