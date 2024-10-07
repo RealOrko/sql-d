@@ -30,4 +30,8 @@
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
     </ItemGroup>
 
+    <Target Name="RunAfterBuild" AfterTargets="Build">
+        <CallTarget Targets="CreateZip;CreateTarball;CreateRpm;CreateDeb" />
+    </Target>
+    
 </Project>
