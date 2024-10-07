@@ -36,11 +36,11 @@ jobs:
           tag_name: ${{ steps.version.outputs.version }}
           body_path: CHANGELOG.md
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
       - name: Upload sql-d.${{ steps.version.outputs.version }}.nupkg
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./packages/sql-d.${{ steps.version.outputs.version }}.nupkg
@@ -49,7 +49,7 @@ jobs:
       - name: Upload SqlD.tar.gz
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./packages/SqlD.${{ steps.version.outputs.version }}.tar.gz
@@ -58,7 +58,7 @@ jobs:
       - name: Upload SqlD.zip
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./packages/SqlD.${{ steps.version.outputs.version }}.zip
@@ -67,7 +67,7 @@ jobs:
       - name: Upload SqlD.UI.deb
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.deb
@@ -76,7 +76,7 @@ jobs:
       - name: Upload SqlD.UI.rpm
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.rpm
@@ -85,7 +85,7 @@ jobs:
       - name: Upload SqlD.UI.tar.gz
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
@@ -94,7 +94,7 @@ jobs:
       - name: Upload SqlD.UI.zip
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.zip
