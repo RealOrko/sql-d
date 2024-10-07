@@ -3,7 +3,9 @@ Description=sql-d
 
 [Service]
 Type=simple
+WorkingDirectory=/usr/share/SqlD.UI
 ExecStart=/usr/share/SqlD.UI/SqlD.UI
 
 [Install]
 WantedBy=multi-user.target
+
