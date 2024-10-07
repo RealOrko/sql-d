@@ -9,7 +9,7 @@
 		<!--NuSpecFile>sql-d.nuspec</NuSpecFile-->
 		<!--NuSpecBasePath>bin/$(Configuration)/netcoreapp3.1/</NuSpecBasePath-->
 		<NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
-		<EnableDefaultContentItems>false</EnableDefaultContentItems>
+		<!--EnableDefaultContentItems>false</EnableDefaultContentItems-->
 	</PropertyGroup>
 
 	<Import Project="../../version.props" />
@@ -19,17 +19,17 @@
 		<None Remove="sql-d.nuspec" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<!--ItemGroup>
 		<Content Include="sql-d.nuspec">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-	</ItemGroup>
+	</ItemGroup-->
 
-	<ItemGroup>
+	<!--ItemGroup>
 		<Content Include="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-	</ItemGroup>
+	</ItemGroup-->
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
