@@ -12,6 +12,23 @@ echo ''
 echo '[SQL-D]:BUILD/'
 echo ''
 
-dotnet restore $PWD/src/sql-d.ui/SqlD.UI.csproj
-dotnet build $PWD/src/sql-d.ui/SqlD.UI.csproj
-dotnet publish $PWD/src/sql-d.ui/SqlD.UI.csproj -o $PWD/published/
+dotnet build -c Release $PWD/src/sql-d/SqlD.csproj 
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateZip /p:Configuration=Release
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateTarball /p:Configuration=Release
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateRpm /p:Configuration=Release
+dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateDeb /p:Configuration=Release
+
+dotnet build -c Release $PWD/src/sql-d.ui/SqlD.UI.csproj 
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateZip /p:Configuration=Release
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateTarball /p:Configuration=Release
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateRpm /p:Configuration=Release
+dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release
+
+rm -rf $PWD/published/
+mkdir -p $PWD/published/
+
+find $PWD/src -name '*.nupkg' -exec cp "{}" $PWD/published/  \;
+find $PWD/src -name '*.zip' -exec cp "{}" $PWD/published/  \;
+find $PWD/src -name '*.tar.gz' -exec cp "{}" $PWD/published/  \;
+find $PWD/src -name '*.rpm' -exec cp "{}" $PWD/published/  \;
+find $PWD/src -name '*.deb' -exec cp "{}" $PWD/published/  \;

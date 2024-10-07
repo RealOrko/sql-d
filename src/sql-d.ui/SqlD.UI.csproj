@@ -31,8 +31,8 @@
       <_ContentIncludedByDefault Remove="Views\Surface\Index.cshtml" />
     </ItemGroup>
 
-    <Target Name="RunAfterBuild" AfterTargets="Build">
+    <!-- <Target Name="RunAfterBuild" AfterTargets="Build">
         <CallTarget Targets="CreateZip;CreateTarball;CreateRpm;CreateDeb" />
-    </Target>
+    </Target> -->
 
 </Project>
