@@ -23,7 +23,6 @@ public class Startup
         services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
         services.AddResponseCompression();
 
-        services.AddSingleton<ConfigService>();
         services.AddSingleton<QueryService>();
         services.AddSingleton<RegistryService>();
         services.AddSingleton<ServiceService>();

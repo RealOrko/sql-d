@@ -9,14 +9,12 @@ public class QueryService
 {
     private readonly ClientFactory clientFactory;
     private readonly IQueryAction commandAction;
-    private readonly ConfigService configService;
     private readonly IQueryAction describeAction;
     private readonly IQueryAction queryAction;
     private readonly IQueryAction unknownAction;
 
-    public QueryService(ConfigService configService, ClientFactory clientFactory, UnknownAction unknownAction, DescribeAction describeAction, CommandAction commandAction, QueryAction queryAction)
+    public QueryService(ClientFactory clientFactory, UnknownAction unknownAction, DescribeAction describeAction, CommandAction commandAction, QueryAction queryAction)
     {
-        this.configService = configService ?? throw new ArgumentNullException(nameof(configService));
         this.clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
         this.unknownAction = unknownAction ?? throw new ArgumentNullException(nameof(unknownAction));
         this.describeAction = describeAction ?? throw new ArgumentNullException(nameof(describeAction));
@@ -26,7 +24,7 @@ public class QueryService
 
     public async Task<object> Query(string query, string targetUri = null)
     {
-        var client = clientFactory.GetClientOrDefault(targetUri, configService);
+        var client = clientFactory.GetClientOrDefault(targetUri);
         return await If(query, QueryToken.DESCRIBE, async () => await describeAction.Go(query, client))
                ?? await If(query, QueryToken.SELECT, async () => await queryAction.Go(query, client))
                ?? await If(query, QueryToken.INSERT, async () => await commandAction.Go(query, client))

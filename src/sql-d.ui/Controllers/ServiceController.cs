@@ -9,12 +9,10 @@ namespace SqlD.UI.Controllers;
 
 public class ServiceController : Controller
 {
-    private readonly ConfigService config;
     private readonly ServiceService services;
 
-    public ServiceController(ConfigService config, ServiceService services)
+    public ServiceController(ServiceService services)
     {
-        this.config = config;
         this.services = services;
     }
 
@@ -22,7 +20,7 @@ public class ServiceController : Controller
     public async Task<IActionResult> Index(string q = null, string s = null)
     {
         var registry = await services.GetRegistry();
-        var viewModel = new ServiceViewModel(config.Get(), registry.Entries);
+        var viewModel = new ServiceViewModel(Configs.Configuration.Instance, registry.Entries);
         return View(viewModel);
     }
 
@@ -42,7 +40,7 @@ public class ServiceController : Controller
             viewModel.Tags = string.Join(",", registryEntry.Tags);
         }
 
-        var configEntry = config.Get().Services.FirstOrDefault(x => x.IsEqualTo(new EndPoint(host, port)));
+        var configEntry = Configs.Configuration.Instance.Services.FirstOrDefault(x => x.IsEqualTo(new EndPoint(host, port)));
         if (configEntry != null)
             foreach (var forwardEntry in configEntry.ForwardingTo)
             {

@@ -4,15 +4,8 @@ namespace SqlD.UI.Services;
 
 public class SurfaceService
 {
-    private readonly ConfigService config;
-
-    public SurfaceService(ConfigService configService)
-    {
-        config = configService;
-    }
-
     public SqlDConfiguration GetConfig()
     {
-        return config.Get();
+        return Configs.Configuration.Instance;
     }
 }

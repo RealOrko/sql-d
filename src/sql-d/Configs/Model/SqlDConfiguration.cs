@@ -11,20 +11,10 @@ public class SqlDConfiguration
 
     public List<SqlDServiceModel> Services { get; set; } = new();
     public List<SqlDRegistryModel> Registries { get; set; } = new();
-
-    public static SqlDConfiguration Default()
-    {
-        return new SqlDConfiguration
-        {
-            Enabled = true,
-            Registries = new List<SqlDRegistryModel>(),
-            Services = new List<SqlDServiceModel>()
-        };
-    }
     
     public void SetDataDirectory(string dataDirectory)
     {
-        if (!string.IsNullOrWhiteSpace(dataDirectory))
+        if (!string.IsNullOrWhiteSpace(dataDirectory) && string.IsNullOrEmpty(DataDirectory))
         {
             Log.Out.Info($"Setting data directory to {dataDirectory}");
             DataDirectory = dataDirectory;

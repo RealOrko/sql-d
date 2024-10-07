@@ -48,7 +48,15 @@ public class ForwardingMiddleware
             BeforeInvoke_AfterRequestRead(context);
         }
 
-        await next.Invoke();
+        try
+        {
+            await next.Invoke();
+        }
+        catch (Exception)
+        {
+            Log.Out.Warn("The middleware target could be disposed ... ");            
+        }
+        
         streamReader?.Dispose();
     }
 

@@ -12,7 +12,12 @@ public class NetworkTestCase
 {
     private const string ConfigurationFileName = "appsettings.json";
 
-    public SqlDConfiguration SqlDConfig { get; private set; }
+    static NetworkTestCase()
+    {
+        Interface.Setup(typeof(NetworkTestCase).Assembly, ConfigurationFileName);
+    }
+
+    public SqlDConfiguration SqlDConfig => SqlD.Configs.Configuration.Instance;
 
     public SqlDServiceModel RegistryService => SqlDConfig.Services.First(serviceModel => serviceModel.Name == "sql-d-registry-1");
 
@@ -42,7 +47,7 @@ public class NetworkTestCase
         if (File.Exists("sql-d-slave-2.db")) File.Delete("sql-d-slave-2.db");
         if (File.Exists("sql-d-slave-3.db")) File.Delete("sql-d-slave-3.db");
         if (File.Exists("sql-d-registry-1.db")) File.Delete("sql-d-registry-1.db");
-        SqlDConfig = GetType().Assembly.Start(ConfigurationFileName);
+        Interface.Start();
         EndPointMonitor.WaitUntil(RegistryService, EndPointIs.Up);
         EndPointMonitor.WaitUntil(Slave3Service, EndPointIs.Up);
         EndPointMonitor.WaitUntil(Slave2Service, EndPointIs.Up);

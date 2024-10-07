@@ -9,17 +9,10 @@ namespace SqlD.UI.Services;
 
 public class RegistryService
 {
-    private readonly ConfigService config;
-
-    public RegistryService(ConfigService configService)
-    {
-        config = configService;
-    }
-
     public async Task<RegistryViewModel> GetServices()
     {
         var results = new List<RegistryEntryViewModel>();
-        var registries = config.Get().Registries.ToList();
+        var registries = Configs.Configuration.Instance.Registries.ToList();
         foreach (var registry in registries)
         {
             var client = new RegistryClient(registry);

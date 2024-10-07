@@ -12,28 +12,24 @@ namespace SqlD;
 
 public static class Interface
 {
-    public static void Start(this Assembly startAssembly, SqlDConfiguration config = null)
+    public static void Setup(Assembly startAssembly, string settingsFile)
     {
-        var cfg = config ?? Configuration.Load(startAssembly);
-        Start(cfg);
+        Configuration.SetAssembly(startAssembly);
+        Configuration.SetSettingsFile(settingsFile);
     }
-
-    public static SqlDConfiguration Start(this Assembly startAssembly, string settingsFile)
+    
+    public static void Start()
     {
-        var cfg = Configuration.Load(startAssembly, settingsFile);
-        Start(cfg);
-        return cfg;
+        Start(Configuration.Instance);
     }
 
     private static void Start(SqlDConfiguration cfg)
     {
-        if (cfg == null)
+        if (!cfg.Enabled)
         {
-            Log.Out.Warn("Configuration is null, are you sure this is what you intended?");
+            Log.Out.Warn("Configuration is disabled, exiting startup ...");
             return;
         }
-
-        if (!cfg.Enabled) return;
 
         var registryEndPoints = cfg.Registries.ToList();
         var registries = cfg.Services.Where(x => registryEndPoints.Any(x.IsEqualTo));
