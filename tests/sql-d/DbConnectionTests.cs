@@ -55,6 +55,8 @@ public class DbConnectionTests : DatabaseTestCase<AnyTableA>
         await Connection.ExecuteCommandAsync(dropTable);
     }
 
+    #if Linux
+    // This does not work on windows because of file locks
     [Test]
     public async Task ShouldBeAbleToLoadFileStream()
     {
@@ -70,4 +72,5 @@ public class DbConnectionTests : DatabaseTestCase<AnyTableA>
         }
         Assert.That(bytes.Count, Is.GreaterThan(0));
     }
+    #endif
 }
