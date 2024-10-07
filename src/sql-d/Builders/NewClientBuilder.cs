@@ -9,7 +9,7 @@ internal class NewClientBuilder
     private readonly int retryLimit;
     private readonly bool withRetries;
 
-    internal NewClientBuilder(bool withRetries, int retryLimit = 10, int httpClientTimeoutMilliseconds = 120000)
+    internal NewClientBuilder(bool withRetries, int retryLimit = 3, int httpClientTimeoutMilliseconds = 120000)
     {
         this.withRetries = withRetries;
         this.retryLimit = retryLimit;
