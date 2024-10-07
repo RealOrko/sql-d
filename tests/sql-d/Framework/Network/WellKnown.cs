@@ -41,19 +41,19 @@ namespace SqlD.Tests.Framework.Network
 			{
 				lock (Synchronise)
 				{
-					RegistryClient = SqlDStart.NewClient().ConnectedTo(EndPoints.Registry);
+					RegistryClient = Interface.NewClient().ConnectedTo(EndPoints.Registry);
 					EndPointMonitor.WaitUntil(RegistryClient.EndPoint, EndPointIs.Up);
 
-					AlphaClient = SqlDStart.NewClient().ConnectedTo(EndPoints.Alpha);
+					AlphaClient = Interface.NewClient().ConnectedTo(EndPoints.Alpha);
 					EndPointMonitor.WaitUntil(AlphaClient.EndPoint, EndPointIs.Up);
 
-					BetaClient = SqlDStart.NewClient().ConnectedTo(EndPoints.Beta);
+					BetaClient = Interface.NewClient().ConnectedTo(EndPoints.Beta);
 					EndPointMonitor.WaitUntil(BetaClient.EndPoint, EndPointIs.Up);
 
-					Free1Client = SqlDStart.NewClient().ConnectedTo(EndPoints.Free1);
+					Free1Client = Interface.NewClient().ConnectedTo(EndPoints.Free1);
 					EndPointMonitor.WaitUntil(Free1Client.EndPoint, EndPointIs.Up);
 
-					Free2Client = SqlDStart.NewClient().ConnectedTo(EndPoints.Free2);
+					Free2Client = Interface.NewClient().ConnectedTo(EndPoints.Free2);
 					EndPointMonitor.WaitUntil(Free2Client.EndPoint, EndPointIs.Up);
 				}
 			}
@@ -94,19 +94,19 @@ namespace SqlD.Tests.Framework.Network
 			{
 				lock (Synchronise)
 				{
-					RegistryListener = SqlDStart.NewListener().Hosting(typeof(SqlDStart).Assembly, SqlDStart.NewId(), SqlDStart.NewId(), SqlDPragmaModel.Default, EndPoints.Registry);
+					RegistryListener = Interface.NewListener().Hosting(typeof(Interface).Assembly, Interface.NewId(), Interface.NewId(), SqlDPragmaModel.Default, EndPoints.Registry);
 					EndPointMonitor.WaitUntil(RegistryListener.EndPoint, EndPointIs.Up);
 
-					AlphaListener = SqlDStart.NewListener().Hosting(typeof(SqlDStart).Assembly, SqlDStart.NewId(), SqlDStart.NewId(), SqlDPragmaModel.Default, EndPoints.Alpha);
+					AlphaListener = Interface.NewListener().Hosting(typeof(Interface).Assembly, Interface.NewId(), Interface.NewId(), SqlDPragmaModel.Default, EndPoints.Alpha);
 					EndPointMonitor.WaitUntil(AlphaListener.EndPoint, EndPointIs.Up);
 
-					BetaListener = SqlDStart.NewListener().Hosting(typeof(SqlDStart).Assembly, SqlDStart.NewId(), SqlDStart.NewId(), SqlDPragmaModel.Default, EndPoints.Beta);
+					BetaListener = Interface.NewListener().Hosting(typeof(Interface).Assembly, Interface.NewId(), Interface.NewId(), SqlDPragmaModel.Default, EndPoints.Beta);
 					EndPointMonitor.WaitUntil(BetaListener.EndPoint, EndPointIs.Up);
 
-					Free1Listener = SqlDStart.NewListener().Hosting(typeof(SqlDStart).Assembly, SqlDStart.NewId(), SqlDStart.NewId(), SqlDPragmaModel.Default, EndPoints.Free1, EndPoints.Free2);
+					Free1Listener = Interface.NewListener().Hosting(typeof(Interface).Assembly, Interface.NewId(), Interface.NewId(), SqlDPragmaModel.Default, EndPoints.Free1, EndPoints.Free2);
 					EndPointMonitor.WaitUntil(Free1Listener.EndPoint, EndPointIs.Up);
 
-					Free2Listener = SqlDStart.NewListener().Hosting(typeof(SqlDStart).Assembly, SqlDStart.NewId(), SqlDStart.NewId(), SqlDPragmaModel.Default, EndPoints.Free2);
+					Free2Listener = Interface.NewListener().Hosting(typeof(Interface).Assembly, Interface.NewId(), Interface.NewId(), SqlDPragmaModel.Default, EndPoints.Free2);
 					EndPointMonitor.WaitUntil(Free2Listener.EndPoint, EndPointIs.Up);
 				}
 			}

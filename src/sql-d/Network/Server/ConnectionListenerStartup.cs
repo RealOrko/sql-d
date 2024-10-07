@@ -7,23 +7,10 @@ namespace SqlD.Network.Server
 {
     internal class ConnectionListenerStartup
     {
-        public static Assembly StartAssembly;
-        public static EndPoint ListenerAddress;
-        public static DbConnection DbConnection;
-        public static EndPoint[] ForwardAddresses;
-        
-        public string DbConnectionName = DbConnection.Name;
-        public string DbConnectionDbName = DbConnection.DatabaseName;
-        public SqlDPragmaModel PragmaOptions = DbConnection.PragmaOptions;
+        internal static ConnectionListener Listener;
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configuration = SqlDConfig.Get(StartAssembly);
-
-            services.AddSingleton(configuration);
-            services.AddSingleton(ListenerAddress);
-            services.AddSingleton(x => SqlDStart.NewDb().ConnectedTo(DbConnectionName, DbConnectionDbName, PragmaOptions));
-
             services.AddCors();
             services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();
             services.AddResponseCompression();
@@ -40,7 +27,7 @@ namespace SqlD.Network.Server
         {
             app.UseStaticFiles();
 
-            var middleware = new ForwardingMiddleware(ForwardAddresses);
+            var middleware = new ForwardingMiddleware(Listener);
             app.Use(async (ctx, next) => await middleware.InvokeAsync(ctx, next));
 
             app.UseResponseCompression();

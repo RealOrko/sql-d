@@ -35,7 +35,7 @@ namespace SqlD.Tests.Network.Server
 		private void AssertTargetHasCountMoreThanOrEqualTo(int count = 0)
 		{
 			var countSql = typeof(AnyTableB).GetCount();
-			var targetConnection = SqlDStart.NewDb().ConnectedTo(WellKnown.Listeners.Free1Listener.DatabaseName, SqlDPragmaModel.Default);
+			var targetConnection = Interface.NewDb().ConnectedTo(WellKnown.Listeners.Free1Listener.DatabaseName, SqlDPragmaModel.Default);
 			var targetResults = targetConnection.ExecuteScalar<long>(countSql);
 			Assert.That(targetResults, Is.GreaterThanOrEqualTo(count));
 		}
@@ -43,7 +43,7 @@ namespace SqlD.Tests.Network.Server
 		private void AssertSourceHasCountMoreThanOrEqualTo(int count = 0)
 		{
 			var countSql = typeof(AnyTableB).GetCount();
-			var sourceConnection = SqlDStart.NewDb().ConnectedTo(WellKnown.Listeners.Free2Listener.DatabaseName, SqlDPragmaModel.Default);
+			var sourceConnection = Interface.NewDb().ConnectedTo(WellKnown.Listeners.Free2Listener.DatabaseName, SqlDPragmaModel.Default);
 			var sourceResultsCount = sourceConnection.ExecuteScalar<long>(countSql);
 			Assert.That(sourceResultsCount, Is.GreaterThanOrEqualTo(count));
 		}

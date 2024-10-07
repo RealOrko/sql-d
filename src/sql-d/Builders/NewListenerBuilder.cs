@@ -20,13 +20,23 @@ namespace SqlD.Builders
 
 		public ConnectionListener Hosting(Assembly startAssembly, string name, string dbConnectionString, SqlDPragmaModel pragma, EndPoint localEndPoint, params EndPoint[] forwardEndPoints)
 		{
-			if (name == null) throw new ArgumentNullException(nameof(name));
-			if (dbConnectionString == null) throw new ArgumentNullException(nameof(dbConnectionString));
+			var serviceModel = new SqlDServiceModel()
+			{
+				Name = name,
+				Database = dbConnectionString,
+				Pragma = pragma,
+				Host = localEndPoint.Host,
+				Port = localEndPoint.Port,
+				ForwardingTo = forwardEndPoints.Select(x => new SqlDForwardingModel()
+				{
+					Host = x.Host,
+					Port = x.Port
+				}).ToList()
+			};
 
-			var dbConnection = new DbConnection().Connect(name, dbConnectionString, pragma);
-			var connectionListener = ConnectionListenerFactory.Create(startAssembly, dbConnection, localEndPoint, forwardEndPoints);
-
-			return connectionListener;
+			Configs.Configuration.Instance.Services.Add(serviceModel);
+			
+			return Hosting(startAssembly, serviceModel);
 		}
 	}
 }

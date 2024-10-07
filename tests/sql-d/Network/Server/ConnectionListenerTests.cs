@@ -32,7 +32,7 @@ namespace SqlD.Tests.Network.Server
 		private static async Task AssertTargetHasCountMoreThanOrEqualTo(int count = 0)
 		{
 			var countSql = typeof(AnyTableB).GetCount();
-			var targetConnection = SqlDStart.NewDb().ConnectedTo(WellKnown.Listeners.Free1Listener.DatabaseName, SqlDPragmaModel.Default);
+			var targetConnection = Interface.NewDb().ConnectedTo(WellKnown.Listeners.Free1Listener.DatabaseName, SqlDPragmaModel.Default);
 			var targetResults = await targetConnection.ExecuteScalarAsync<long>(countSql);
 			Assert.That(targetResults, Is.GreaterThanOrEqualTo(count));
 		}

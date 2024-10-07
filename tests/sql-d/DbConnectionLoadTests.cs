@@ -13,14 +13,14 @@ namespace SqlD.Tests
 		[OneTimeSetUp]
 		public void OneTimeSetUp()
 		{
-			var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+			var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 			connection.CreateTable<AnyTableB>();
 		}
 
 		[OneTimeTearDown]
 		public void OneTimeTearDown()
 		{
-			var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+			var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 			connection.DropTable<AnyTableB>();
 		}
 
@@ -44,7 +44,7 @@ namespace SqlD.Tests
 			{
 				try
 				{
-					var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+					var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 					for (var counter = 0; counter < numberOfIterations; counter++)
 					{
 						connection.Insert(insertInstance);
@@ -61,7 +61,7 @@ namespace SqlD.Tests
 			{
 				try
 				{
-					var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+					var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 					for (var counter = 0; counter < numberOfIterations; counter++)
 					{
 						connection.Insert(insertInstance);
@@ -78,7 +78,7 @@ namespace SqlD.Tests
 			{
 				try
 				{
-					var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+					var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 					for (var counter = 0; counter < numberOfIterations; counter++)
 					{
 						connection.Insert(insertInstance);
@@ -96,7 +96,7 @@ namespace SqlD.Tests
 			{
 				try
 				{
-					var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+					var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 					for (var counter = 0; counter < numberOfIterations; counter++)
 					{
 						var results = connection.Query<AnyTableB>("LIMIT 5");
@@ -113,7 +113,7 @@ namespace SqlD.Tests
 			{
 				try
 				{
-					var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+					var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 					for (var counter = 0; counter < numberOfIterations; counter++)
 					{
 						var results = connection.Query<AnyTableB>("LIMIT 5");
@@ -130,7 +130,7 @@ namespace SqlD.Tests
 			{
 				try
 				{
-					var connection = SqlDStart.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+					var connection = Interface.NewDb().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 					for (var counter = 0; counter < numberOfIterations; counter++)
 					{
 						connection.Query<AnyTableB>("LIMIT 5");

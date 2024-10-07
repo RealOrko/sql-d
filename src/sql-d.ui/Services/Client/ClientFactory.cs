@@ -11,7 +11,7 @@ namespace SqlD.UI.Services.Client
 		{
 			var sqlDConfiguration = config.Get();
 			var cfg = sqlDConfiguration.Services.FirstOrDefault(x => x.Tags.Contains("master"));
-			var client = SqlDStart.NewClient().ConnectedTo(EndPoint.FromUri(context.TargetUri) ?? cfg.ToEndPoint());
+			var client = Interface.NewClient().ConnectedTo(EndPoint.FromUri(context.TargetUri) ?? cfg.ToEndPoint());
 			return client;
 		}
 	}

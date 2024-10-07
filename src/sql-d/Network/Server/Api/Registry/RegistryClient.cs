@@ -11,7 +11,7 @@ namespace SqlD.Network.Server.Api.Registry
 
 		public RegistryClient(EndPoint endPoint)
 		{
-			this.client = SqlDStart.NewClient().ConnectedTo(endPoint);
+			this.client = Interface.NewClient().ConnectedTo(endPoint);
 		}
 
 		public virtual List<RegistryEntry> List()
@@ -59,8 +59,8 @@ namespace SqlD.Network.Server.Api.Registry
 
 		public virtual void Push(EndPoint target)
 		{
-			var targetRegistry = SqlDStart.NewClient().ConnectedTo(target);
-			var sourceRegistry = SqlDStart.NewClient().ConnectedTo(target);
+			var targetRegistry = Interface.NewClient().ConnectedTo(target);
+			var sourceRegistry = Interface.NewClient().ConnectedTo(target);
 			var registry = sourceRegistry.Get<Registration, RegistrationResponse>(REGISTRY_RESOURCE);
 			foreach (var registryItem in registry.Registry)
 			{
