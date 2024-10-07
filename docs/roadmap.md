@@ -28,7 +28,7 @@ Encryption for transport protocols are severely lacking in this project. Will be
 
 ### Containerisation
 
-There is distinct lack of support for deploying this into container orchestration environments, containers added to releases soon. 
+There is distinct lack of support for deploying this into container orchestration environments, containers will be added to releases soon. 
 
 ### Kubernetes
 
