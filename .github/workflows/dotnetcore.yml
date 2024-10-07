@@ -10,9 +10,9 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.100
+          dotnet-version: 8.0.401
       - name: Build with dotnet linux-x64
-        run: ./publish.sh && ./build.sh
+        run: ./scripts/build.sh
 
   build-win-x64:
     runs-on: windows-latest
@@ -21,9 +21,9 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.100
+          dotnet-version: 8.0.401
       - name: Build with dotnet win-x64
-        run: .\publish.bat && .\build.bat
+        run: .\scripts\build.bat
         shell: cmd
 
   build-osx-x64:
@@ -33,6 +33,6 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.100
+          dotnet-version: 8.0.401
       - name: Build with osx-x64
-        run: ./publish.sh && ./build.sh
+        run: ./scripts/build.sh
