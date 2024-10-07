@@ -19,7 +19,7 @@ public class CommandAction : IQueryAction
         }
         catch (Exception err)
         {
-            return new CommandResultViewModel(err.Message);
+            return new CommandResultViewModel(client.EndPoint, err.Message);
         }
     }
 }

@@ -4,20 +4,44 @@
 {
     if (!string.IsNullOrEmpty(Model.CommandResult.Error))
     {
+        <div id="queryPanel" class="panel panel-primary">
+            <div class="panel-heading text-left">
+                <div style="float:right">[ @Model.CommandResult.EndPoint.ToUrl() ]</div>
+                Results
+            </div>
+            <div class="panel-body">
         <div class="alert alert-danger" role="alert">
             @Model.CommandResult.Status.ToString() - @Model.CommandResult.Error
+        </div>
+            </div>
         </div>
     }
     else
     {
+        <div id="queryPanel" class="panel panel-primary">
+            <div class="panel-heading text-left">
+                <div style="float:right">[ @Model.CommandResult.EndPoint.ToUrl() ]</div>
+                Results 
+            </div>
+            <div class="panel-body">
         <div class="alert alert-success" role="alert">
             @Model.CommandResult.Status.ToString()
+        </div>
+            </div>
         </div>
     }
 }
 else if (Model.DescribeResult != null)
 {
+    <div id="queryPanel" class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <div style="float:right">[ @Model.CommandResult.EndPoint.ToUrl()) ]</div>
+            Results
+        </div>
+        <div class="panel-body">
     <div class="alert alert-danger" role="alert">
         @Model.CommandResult.Error
+    </div>
+        </div>
     </div>
 }

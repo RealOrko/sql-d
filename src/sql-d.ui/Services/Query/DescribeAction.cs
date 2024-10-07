@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using SqlD.Network;
 using SqlD.Network.Client;
 using SqlD.Network.Server.Api.Db.Model;
 using SqlD.UI.Models.Query;
@@ -26,7 +27,7 @@ public class DescribeAction : IQueryAction
         }
         catch (Exception err)
         {
-            return new DescribeResultViewModel(err.Message);
+            return new DescribeResultViewModel(client.EndPoint, err.Message);
         }
     }
 }

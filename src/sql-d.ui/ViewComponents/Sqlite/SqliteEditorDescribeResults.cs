@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SqlD.Network;
 using SqlD.UI.Models;
 using SqlD.UI.Models.Query;
 using SqlD.UI.Services;
@@ -29,7 +30,7 @@ public class SqliteEditorDescribeResults : ViewComponent
             }
             catch (Exception err)
             {
-                query.DescribeResult = new DescribeResultViewModel(err.Message);
+                query.DescribeResult = new DescribeResultViewModel(EndPoint.FromUri(query.Server), err.Message);
                 return View(query);
             }
 

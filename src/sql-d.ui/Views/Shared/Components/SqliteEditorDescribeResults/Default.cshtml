@@ -1,31 +1,48 @@
 ﻿@model SqlD.UI.Models.SqlLiteViewModel
-@if (Model.DescribeResult != null && string.IsNullOrEmpty(Model.DescribeResult.Error))
-{
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            @foreach (var column in Model.DescribeResult.Columns)
-            {
-                <th scope="col">@column</th>
-            }
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var row in Model.DescribeResult.Rows)
-        {
-            <tr>
-                @foreach (var rowValue in row)
-                {
-                    <th scope="row" style="font-weight:normal">@rowValue</th>
-                }
-            </tr>
-        }
-        </tbody>
-    </table>
-}
-else if (Model.DescribeResult != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @Model.DescribeResult.Error
+    @if (Model.DescribeResult != null && string.IsNullOrEmpty(Model.DescribeResult.Error))
+    {
+        <div id="queryPanel" class="panel panel-primary">
+            <div class="panel-heading text-left">
+                <div style="float:right">[ @Model.DescribeResult.EndPoint.ToUrl() ]</div>
+                Results 
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        @foreach (var column in Model.DescribeResult.Columns)
+                        {
+                            <th scope="col">@column</th>
+                        }
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var row in Model.DescribeResult.Rows)
+                    {
+                        <tr>
+                            @foreach (var rowValue in row)
+                            {
+                                <th scope="row" style="font-weight:normal">@rowValue</th>
+                            }
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            </div>
+    }
+    else if (Model.DescribeResult != null)
+    {
+<div id="queryPanel" class="panel panel-primary">
+    <div class="panel-heading text-left">
+        <div style="float:right">[ @Model.DescribeResult.EndPoint.ToUrl() ]</div>
+        Results 
     </div>
-}
+    <div class="panel-body">
+        <div class="alert alert-danger" role="alert">
+            @Model.DescribeResult.Error
+        </div>
+    </div>
+</div>
+
+    }
