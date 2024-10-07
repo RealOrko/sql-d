@@ -6,3 +6,4 @@ public class SqlLiteColumnAttribute(string name, SqlLiteType type, bool nullable
     public bool Nullable { get; } = nullable;
     public SqlLiteType Type { get; } = type;
 }
+
