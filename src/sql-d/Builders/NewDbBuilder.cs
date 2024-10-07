@@ -8,9 +8,4 @@ internal class NewDbBuilder
     {
         return new DbConnection().Connect(databaseName, databaseName, pragma);
     }
-
-    public DbConnection ConnectedTo(string name, string databaseName, SqlDPragmaModel pragma)
-    {
-        return new DbConnection().Connect(name, databaseName, pragma);
-    }
 }

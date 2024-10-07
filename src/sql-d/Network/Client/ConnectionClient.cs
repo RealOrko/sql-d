@@ -28,7 +28,6 @@ public class ConnectionClient : IDisposable
 
     public virtual void Dispose()
     {
-        ConnectionClientFactory.Remove(this);
         client?.Dispose();
         Log.Out.Info($"Disposed client on {EndPoint.ToUrl()}");
     }

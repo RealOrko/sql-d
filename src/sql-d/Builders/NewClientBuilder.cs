@@ -18,6 +18,6 @@ internal class NewClientBuilder
 
     public ConnectionClient ConnectedTo(EndPoint endPoint)
     {
-        return ConnectionClientFactory.Get(endPoint, withRetries, retryLimit, httpClientTimeoutMilliseconds);
+        return ConnectionClientFactory.Create(endPoint, withRetries, retryLimit, httpClientTimeoutMilliseconds);
     }
 }
