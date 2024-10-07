@@ -39,6 +39,7 @@ public class Startup
         services.AddSingleton<QueryService>();
         services.AddSingleton<RegistryService>();
         services.AddSingleton<ServiceService>();
+        services.AddSingleton<SettingsService>();
         services.AddSingleton<ClientFactory>();
         services.AddSingleton<UnknownAction>();
         services.AddSingleton<DescribeAction>();
