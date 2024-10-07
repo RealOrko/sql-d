@@ -174,8 +174,6 @@ You can activate it using the `typeof(ClassInMyAssembly).Assembly.SqlDGo();` pub
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ## Authority
@@ -197,8 +195,6 @@ For setting the authority for SqlD instance send registration commands when they
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ## Process Model
@@ -222,8 +218,6 @@ When spawning new SqlD instances via SqlD.Start/SqlD.UI, this will make sure the
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ## Registries
@@ -248,8 +242,6 @@ For specifying the registry URL over HTTP to call when a SqlD instance starts up
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ## Services
@@ -273,8 +265,6 @@ with your `forwardingTo` SqlD instance service definitions.
   - [Example](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services--example)
   - [Process Model](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#process-model)
   - [Registries](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#registries)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ### Services / Example
@@ -324,8 +314,6 @@ An example of a service that forwards traffic to other url's.
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 
@@ -350,8 +338,6 @@ The persisted file path of the SqlD database file.
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ### Services / Host & Port
@@ -376,8 +362,6 @@ The host/port is the uri the SqlD instance will serve traffic from.
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ### Services / Tags
@@ -401,8 +385,6 @@ For distinguishing SqlD instances when queried via the [SqlD UI API](https://git
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ### Services / Pragma
@@ -446,8 +428,6 @@ Here are links to the supported pragma parameters for services:
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
 ### Services / Forwarding
@@ -485,6 +465,4 @@ These are services you would like to replicate your writes to.
   - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
   - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
   - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.Start](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart)
-  - [Executing SqlD.Start via Docker](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldstart-via-docker)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
