@@ -8,6 +8,14 @@ if [ ! -f "$DOTNETPATH" ]; then
 	exit 1
 fi
 
+set +u
+
+if [ -z "$GITHUB_RUN_NUMBER" ]; then
+	export GITHUB_RUN_NUMBER=1
+fi 
+
+set -u
+
 echo ''
 echo '[SQL-D]:BUILD/'
 echo ''

@@ -12,12 +12,20 @@ echo ''
 echo '[SQL-D]:PACKAGE/'
 echo ''
 
-# For testing locally, please commit GITHUB_RUN_NUMBER, GITHUB_BRANCH_NAME commented 
-export GITHUB_RUN_NUMBER='12'
-export GITHUB_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/master//g' | sed 's/main//g')
+set +u
 
-# For pipeline runs in Github Actions, please always leave uncommented
-#export GITHUB_BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///g' | sed 's/master//g' | sed 's/main//g')
+if [ -z "$GITHUB_RUN_NUMBER" ]; then 
+	export GITHUB_RUN_NUMBER=1
+fi
+
+if [ -z "$GITHUB_REF" ]; then 
+	export GITHUB_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed 's/master//g' | sed 's/main//g')
+else 
+	export GITHUB_BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///g' | sed 's/master//g' | sed 's/main//g')
+fi
+
+set -u
+
 export SQLD_VERSION=$(echo "$GITHUB_RUN_NUMBER-$GITHUB_BRANCH_NAME" | sed 's/\-$//g')
 
 git clean -x -f -d
