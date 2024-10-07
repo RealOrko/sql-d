@@ -390,4 +390,12 @@ public class ConnectionClient : IDisposable
         if (response.StatusCode != HttpStatusCode.OK)
             throw new ConnectionClientCommandException($"FileSync failed.");
     }
+    
+    public async Task<string> SynchroniseHash()
+    {
+        var fileHashUrl = UrlBuilder.GetFileHashUrl(EndPoint);
+        var response = await _client.GetAsync<string>(fileHashUrl);
+        Log.Out.Info($"Checking synchronisation hash for {EndPoint.ToUrl()} as '{response}' ");
+        return response;
+    }
 }

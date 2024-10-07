@@ -14,6 +14,10 @@ internal class ConnectionListenerStartup
         services.AddSingleton((EndPoint)Listener.ServiceModel);
         services.AddSingleton(new SynchronisationWorkerQueue());
         services.AddHostedService<SynchronisationWorker>();
+        if (Configs.Configuration.Instance.Replication.Allowed)
+        {
+            services.AddHostedService<AutoSynchronisationWorker>();
+        }
 
         services.AddCors();
         services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();

@@ -144,6 +144,18 @@ public class DbController : Controller
         });
     }
     
+    [HttpGet("hash")]
+    public IActionResult FileHash()
+    {
+        return this.Intercept(() =>
+        {
+            using (var dbConnection = _dbConnectionFactory.Connect())
+            {
+                return Ok(dbConnection.GetDatabaseFileHash());
+            }
+        });
+    }
+    
     [HttpPost("sync")]
     public IActionResult Synchronise([FromBody] EndPoint endPoint)
     {

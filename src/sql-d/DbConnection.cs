@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using System.Data.SQLite;
+using System.Security.Cryptography;
+using System.Text;
 using SqlD.Configs.Model;
 using SqlD.Exceptions;
 using SqlD.Extensions;
@@ -271,6 +273,17 @@ public class DbConnection : IDisposable
             }
         }
         throw new DbConnectionFailedException($"The database '{DatabaseName}' could not be opened for reading because it does not exist.", null);
+    }
+    
+    public string GetDatabaseFileHash()
+    {
+        using (var md5 = MD5.Create())
+        {
+            using (var stream = File.OpenRead(GetDatabaseFilePath()))
+            {
+                return BitConverter.ToString(md5.ComputeHash(stream));
+            }
+        }
     }
     
     public string GetDatabaseFilePath()
