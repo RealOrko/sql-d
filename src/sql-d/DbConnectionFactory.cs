@@ -40,6 +40,8 @@ public class DbConnectionFactory
         
         lock (_lock)
         {
+            connectionsStrategy = Configs.Configuration.Instance.Settings.Connections.Strategy;
+
             if (connectionsStrategy == SqlDSettingsConnections.SINGLETON_STRATEGY)
             {
                 return Connections.GetOrAdd(Name, (e) => new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions));
@@ -47,7 +49,11 @@ public class DbConnectionFactory
             
             if (connectionsStrategy == SqlDSettingsConnections.FACTORY_STRATEGY)
             {
-                Connections.GetOrAdd(Name, (e) => new DbConnection.DbConnectionSingleton().Connect(Name, DatabaseName, PragmaOptions)).DisposeSingleton();
+                if (Connections.TryGetValue(Name, out var connection))
+                {
+                    Connections.Remove(Name, out _);
+                    connection.DisposeSingleton();
+                }
                 return new DbConnection().Connect(Name, DatabaseName, PragmaOptions);
             }
             
