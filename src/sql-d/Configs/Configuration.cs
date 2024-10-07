@@ -38,6 +38,7 @@ public static class Configuration
         if (_assembly != null)
             throw new InvalidOperationException("The configuration assembly has already been set.");
         _assembly = assembly;
+        Log.Out.Info($"Setting start assembly to {assembly.FullName}");
     }
 
     public static void SetSettingsFile(string settingsFile)
@@ -45,6 +46,7 @@ public static class Configuration
         if (_settingsFile != null)
             throw new InvalidOperationException("The configuration settings file has already been set.");
         _settingsFile = settingsFile;
+        Log.Out.Info($"Setting start settings file to {_settingsFile}");
     } 
     
     private static void LoadInstance()

@@ -20,20 +20,8 @@ public class KillController : Controller
     {
         return this.Intercept(() =>
         {
-            Log.Out.Warn($"Unregistering {request.EndPoint.ToUrl()}, this process is going down ... ");
+            Log.Out.Warn($"Killing {request.EndPoint.ToUrl()}, sending unregister event ... ");
             Registry.Registry.Unregister(request.EndPoint);
-
-            var connectionListener = ConnectionListenerFactory.Find(request.EndPoint);
-            if (connectionListener != null)
-            {
-                ConnectionListenerFactory.Dispose(connectionListener);
-                Log.Out.Info($"Successfully killed list for endpoint {request.EndPoint.ToUrl()}");
-            }
-            else
-            {
-                Log.Out.Warn($"Could not find listener for {request.EndPoint.ToUrl()}");
-            }
-
             return Ok(new KillResponse(authorityAddress));
         });
     }

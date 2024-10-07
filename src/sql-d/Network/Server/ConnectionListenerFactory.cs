@@ -7,12 +7,6 @@ internal class ConnectionListenerFactory
 {
     private static readonly ConcurrentDictionary<string, ConnectionListener> Listeners = new();
 
-    internal static ConnectionListener Find(EndPoint listenerEndPoint)
-    {
-        if (Listeners.TryGetValue(listenerEndPoint.ToUrl(), out var listener)) return listener;
-        return null;
-    }
-
     internal static ConnectionListener Create(SqlDServiceModel serviceModel, DbConnection dbConnection)
     {
         return Listeners.GetOrAdd(serviceModel.ToUrl(), e =>

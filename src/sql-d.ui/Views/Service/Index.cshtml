@@ -10,7 +10,7 @@
         <div id="registryList" class="panel panel-default">
             <div class="panel-heading text-left">
                 <span style="float: right; top: -5px; position:relative">
-                    <a href="/service/launch" class="btn btn-sm btn-default" title="Start/Create new service">
+                    <a href="/service/create" class="btn btn-sm btn-default" title="Start/Create new service">
                         <i class="fas fa-plus-circle"></i>
                     </a>
                 </span>
@@ -50,7 +50,7 @@
                                 }
                                 @if (!service.Tags.Contains("registry"))
                                 {
-                                    <a href="/service/stop/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Stop a service">
+                                    <a href="/service/delete/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Stop a service">
                                         <i class="fas fa-minus-circle"></i>
                                     </a>
                                 }

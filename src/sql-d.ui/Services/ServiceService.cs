@@ -25,7 +25,7 @@ public class ServiceService
         return await registry.GetServices();
     }
 
-    public void AddServiceToConfigAndStart(ServiceFormViewModel service)
+    public void CreateService(ServiceFormViewModel service)
     {
         var config = Configs.Configuration.Instance;
 
@@ -52,7 +52,7 @@ public class ServiceService
         Interface.Start();
     }
 
-    public void UpdateServiceAndRestart(ServiceFormViewModel service)
+    public void UpdateService(ServiceFormViewModel service)
     {
         var sqlDServiceModel = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(new EndPoint(service.Host, service.Port)));
 
@@ -73,7 +73,7 @@ public class ServiceService
         Interface.Start();
     }
 
-    public void KillService(string host, int port)
+    public void RemoveService(string host, int port)
     {
         var hostToKill = new EndPoint(host, port);
 
