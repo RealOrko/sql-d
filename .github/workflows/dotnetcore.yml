@@ -37,7 +37,7 @@ jobs:
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
-      - name: Upload sql-d.${{ steps.version.outputs.version }}.nupkg
+      - name: Upload sql-d.nupkg
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
