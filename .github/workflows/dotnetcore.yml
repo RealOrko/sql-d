@@ -3,7 +3,6 @@ name: .NET Core
 on: [push]
 
 jobs:
-  name: Linux Build
   build-linux-x64:
     runs-on: ubuntu-24.04
     steps:
@@ -14,7 +13,6 @@ jobs:
           dotnet-version: 8.0.401
       - name: Build with dotnet linux-x64
         run: ./scripts/build.sh
-
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
