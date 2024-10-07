@@ -9,6 +9,7 @@ Here is a basic view of what is next on the roadmap.
   * [OAuth2](#OAuth2)
   * [HTTPS](#HTTPS)
   * [Containerisation](#Containerisation)
+  * [Kubernetes](#Kubernetes)
  
 ## OAuth2
 
@@ -19,7 +20,7 @@ Here is a basic view of what is next on the roadmap.
 
 ### OAuth2
 
-One of the things we are thinking about next is to implement standard HTTP controls around security. This will be OAuth2 based with bearer tokens which can be defined by editing the config using the SqlD UI. 
+One of the things lacking is the ability to implement standard HTTP controls around security. This will be OAuth2 based with bearer tokens. 
 
 ### HTTPS
 
@@ -27,4 +28,8 @@ Encryption for transport protocols are severely lacking in this project. Will be
 
 ### Containerisation
 
-There is distinct lack of support for deploying this into container orchestration environments, containers, helms charts et al. 
+There is distinct lack of support for deploying this into container orchestration environments, containers added to releases soon. 
+
+### Kubernetes
+
+A helm chart for deploying this, with orchestration inside a cluster. 
