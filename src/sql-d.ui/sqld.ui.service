@@ -1,9 +1,9 @@
 [Unit]
-Description=My awesome app
+Description=sql-d
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/my-app
+ExecStart=/usr/share/SqlD.UI/SqlD.UI
 
 [Install]
 WantedBy=multi-user.target
