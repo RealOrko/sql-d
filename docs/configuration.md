@@ -59,7 +59,7 @@ public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
 ### With `appsettings.json`
 
 This is the default scaled out configuration of a sql-d cluster build/running `sql-d.ui`. You can add this json as an appsettings.json file. Please make sure it is always copied to the output directory. 
-You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appsettings.json"); Interface.Start();` public API from the [sql-d](https://www.nuget.org/packages?q=sql-d) NuGet.
+You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appsettings.json"); Interface.Start();` public APIs from the [sql-d](https://www.nuget.org/packages?q=sql-d) NuGet.
 
 ```json
 "SqlD": {
