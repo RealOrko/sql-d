@@ -118,6 +118,7 @@ namespace SqlD.UI.Services
 					Log.Out.Info($"Removing {hostToKill.ToUrl()} from config");
 					var config = this.config.Get();
 					config.Services = config.Services.Where(x => !x.ToEndPoint().Equals(hostToKill)).ToList();
+					config.Services.ForEach(x => x.ForwardingTo = x.ForwardingTo.Where(x => !x.ToEndPoint().Equals(hostToKill)).ToList());
 					this.config.Set(config);
 				}
 				catch (Exception err)
@@ -126,11 +127,6 @@ namespace SqlD.UI.Services
 					Log.Out.Error(err.StackTrace);
 				}
 			}
-		}
-
-		public SqlDConfiguration GetConfig()
-		{
-			return config.Get();
 		}
 	}
 }

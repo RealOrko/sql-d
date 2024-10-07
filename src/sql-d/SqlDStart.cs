@@ -3,14 +3,13 @@ using SqlD.Builders;
 using SqlD.Configuration.Model;
 using SqlD.Logging;
 using SqlD.Network.Diagnostics;
+using SqlD.Network.Server;
 using SqlD.Network.Server.Api.Registry;
 
 namespace SqlD
 {
 	public static class SqlDStart
 	{
-		private static readonly List<System.Diagnostics.Process> ChildProcesses = new List<System.Diagnostics.Process>();
-
 		public static string NewId()
 		{
 			return Guid.NewGuid().ToString("N");
@@ -75,18 +74,9 @@ namespace SqlD
 						continue;
 					}
 
-					// if (cfg.ProcessModel.Distributed)
-					// {
-					// 	ChildProcesses.Add(Process.Service.Start(startAssembly, service));
-					// 	EndPointMonitor.WaitUntil(service.ToEndPoint(), EndPointIs.Up);
-					// }
-					// else
-					// {
-						var listener = NewListener().Hosting(startAssembly, service.Name, service.Database, service.Pragma, service.ToEndPoint(), service.ForwardingTo.Select(x => x.ToEndPoint()).ToArray());
-						service.AddListener(listener);
-						EndPointMonitor.WaitUntil(service.ToEndPoint(), EndPointIs.Up);
-						Registry.Register(listener, string.Join(",", service.Tags));
-					// }
+					var listener = NewListener().Hosting(startAssembly, service);
+					EndPointMonitor.WaitUntil(service.ToEndPoint(), EndPointIs.Up);
+					Registry.Register(listener, string.Join(",", service.Tags));
 				}
 				catch (Exception err)
 				{
@@ -106,16 +96,8 @@ namespace SqlD
 						continue;
 					}
 
-					// if (cfg.ProcessModel.Distributed)
-					// {
-					// 	ChildProcesses.Add(Process.Service.Start(startAssembly, service));
-					// }
-					// else
-					// {
-						var listener = NewListener().Hosting(startAssembly, service.Name, service.Database, service.Pragma, service.ToEndPoint(), service.ForwardingTo.Select(x => x.ToEndPoint()).ToArray());
-						service.AddListener(listener);
-						Registry.Register(listener, string.Join(",", service.Tags));
-					// }
+					var listener = NewListener().Hosting(startAssembly, service);
+					Registry.Register(listener, string.Join(",", service.Tags));
 				}
 				catch (Exception err)
 				{
@@ -125,38 +107,9 @@ namespace SqlD
 			}
 		}
 
-		public static void SqlDStop(SqlDConfiguration config)
+		public static void SqlDStop()
 		{
-			if (config == null) throw new ArgumentNullException(nameof(config));
-
-			foreach (var childProcess in ChildProcesses)
-			{
-				try
-				{
-					childProcess.Kill();
-					childProcess.Dispose();
-				}
-				catch (Exception err)
-				{
-					Log.Out.Error(err.ToString());
-				}
-			}
-
-			foreach (var service in config.Services)
-			{
-				try
-				{
-					if (service.Listener != null)
-					{
-						service.DisposeListener();
-					}
-				}
-				catch (Exception err)
-				{
-					Log.Out.Error(err.ToString());
-					throw;
-				}
-			}
+			ConnectionListenerFactory.DisposeAll();
 		}
 	}
 }

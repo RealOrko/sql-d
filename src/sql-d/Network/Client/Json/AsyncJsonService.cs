@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SqlD.Extensions.System;
 using SqlD.Extensions.System.Net;
+using SqlD.Logging;
 
 namespace SqlD.Network.Client.Json
 {
@@ -157,6 +158,7 @@ namespace SqlD.Network.Client.Json
         {
             var requestMessage = new HttpRequestMessage(method, uri);
             requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            requestMessage.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
             foreach (var headerValue in Headers.Where(xy => !string.IsNullOrEmpty(xy.Value)))
                 requestMessage.Headers.Add(headerValue.Key, headerValue.Value);
             return requestMessage;
@@ -164,10 +166,26 @@ namespace SqlD.Network.Client.Json
 
         private async Task<T> DeserialiseResponse<T>(HttpResponseMessage result)
         {
+            var isCompressed = false;
+            if (result.Content.Headers.Contains("Content-Encoding"))
+            {
+                isCompressed = result.Content.Headers.GetValues("Content-Encoding").FirstOrDefault() == "gzip";
+            }
+            else
+            {
+                Log.Out.Warn("The response is not compressed using Content-Type=gzip!");
+            }
+            
             await using var responseStream = await result.Content.ReadAsStreamAsync();
             await using var decompressedStream = new GZipStream(responseStream, CompressionMode.Decompress);
-            using var streamReader = new System.IO.StreamReader(decompressedStream);
+            using var streamReader = new StreamReader(isCompressed ? decompressedStream : responseStream);
             var payload = await streamReader.ReadToEndAsync();
+
+            if (!result.IsSuccessStatusCode)
+            {
+                Log.Out.Error($"Error with response: {payload}");
+            }
+
             return JsonConvert.DeserializeObject<T>(payload, settings);
         }
     }

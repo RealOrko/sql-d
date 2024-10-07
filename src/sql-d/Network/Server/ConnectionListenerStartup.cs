@@ -25,7 +25,7 @@ namespace SqlD.Network.Server
             services.AddSingleton(x => SqlDStart.NewDb().ConnectedTo(DbConnectionName, DbConnectionDbName, PragmaOptions));
 
             services.AddCors();
-            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();
             services.AddResponseCompression();
 
             services.AddOpenApiDocument(settings =>
@@ -44,7 +44,6 @@ namespace SqlD.Network.Server
             app.Use(async (ctx, next) => await middleware.InvokeAsync(ctx, next));
 
             app.UseResponseCompression();
-            
             app.UseRouting();
             app.UseCors(x => x.AllowAnyOrigin());
             app.UseEndpoints(opts =>
