@@ -7,11 +7,14 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v1
-      - name: Setup .NET Core
+      - name: Setup
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 8.0.401
-      - name: Build with dotnet linux-x64
+      - name: Version linux-x64
+        run: echo "::set-output name=version::$($PWD/scripts/version.sh)"
+        id: version
+      - name: Build
         run: ./scripts/build.sh
       - name: Test Report
         uses: dorny/test-reporter@v1
@@ -21,8 +24,82 @@ jobs:
           path: "**/test-results.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
-      - name: Package with dotnet linux-x64
+      - name: Package
         run: ./scripts/package.sh
+      - name: Release
+        uses: actions/create-release@v1
+        id: release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Upload sql-d.${{ steps.version.outputs.version }}.nupkg
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./packages/sql-d.${{ steps.version.outputs.version }}.nupkg
+          asset_name: sql-d.${{ steps.version.outputs.version }}.nupkg
+          asset_content_type: application/gzip
+      - name: Upload SqlD.${{ steps.version.outputs.version }}.tar.gz
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./packages/SqlD.${{ steps.version.outputs.version }}.tar.gz
+          asset_name: SqlD.${{ steps.version.outputs.version }}.tar.gz
+          asset_content_type: application/gzip
+      - name: Upload SqlD.${{ steps.version.outputs.version }}.zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./packages/SqlD.${{ steps.version.outputs.version }}.zip
+          asset_name: SqlD.${{ steps.version.outputs.version }}.zip
+          asset_content_type: application/gzip
+      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.deb
+          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.deb
+          asset_content_type: application/gzip
+      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.rpm
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.rpm
+          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.rpm
+          asset_content_type: application/gzip
+      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
+          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
+          asset_content_type: application/gzip
+      - name: Upload SqlD.UI.${{ steps.version.outputs.version }}.zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./packages/SqlD.UI.${{ steps.version.outputs.version }}.zip
+          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.zip
+          asset_content_type: application/gzip
 
 # This is hot garbage, will look at this later ... :/
 #  build-win-x64:
