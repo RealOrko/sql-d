@@ -6,7 +6,6 @@
 
   * [Defaults](#defaults)
   * [Authority](#authority)
-  * [Process Model](#process-model)
   * [Registries](#registries)
   * [Services](#services)
     * [Example](#services--example)
@@ -187,29 +186,6 @@ For setting the authority for SqlD instance send registration commands when they
 ```json
 "SqlD": {
 	"authority": "localhost"
-}
-```
-
- *See Also*:
-
-  - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
-  - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
-  - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-  - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
-
-## Process Model
-
-<div align="right">
-	<a href="#sqld-help---configuration">[Back to Top]</a>
-</div>
-
-When spawning new SqlD instances via SqlD.Start/SqlD.UI, this will make sure they are run as separate processes guaranteeing process isolation.
-
-```json
-"SqlD": {
-	"processmodel": {
-		"distributed": true
-	}
 }
 ```
 
