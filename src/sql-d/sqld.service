@@ -1,9 +1,0 @@
-[Unit]
-Description=My awesome app
-
-[Service]
-Type=simple
-ExecStart=/usr/local/bin/my-app
-
-[Install]
-WantedBy=multi-user.target
