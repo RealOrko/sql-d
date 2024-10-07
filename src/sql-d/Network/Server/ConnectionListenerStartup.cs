@@ -10,7 +10,7 @@ internal class ConnectionListenerStartup
     {
         services.AddSingleton(Listener.DbConnectionFactory);
         services.AddSingleton(Listener.ServiceModel);
-        services.AddSingleton(Listener.ServiceModel as EndPoint);
+        services.AddSingleton((EndPoint)Listener.ServiceModel);
 
         services.AddCors();
         services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson();
