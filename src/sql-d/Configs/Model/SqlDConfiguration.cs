@@ -5,6 +5,7 @@ namespace SqlD.Configs.Model;
 
 public class SqlDConfiguration
 {
+    public string LogLevel { get; set; } = "info";
     public bool Enabled { get; set; } = true;
     public string DataDirectory { get; set; } = null;
     public SqlDSettings Settings { get; set; } = new();

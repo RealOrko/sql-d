@@ -38,7 +38,8 @@ public static class Configuration
         if (_assembly != null)
             throw new InvalidOperationException("The configuration assembly has already been set.");
         _assembly = assembly;
-        Log.Out.Info($"Setting start assembly to {assembly.FullName}");
+        // This causes null refs
+        //Log.Out.Info($"Setting start assembly to {assembly.FullName}");
     }
 
     public static void SetSettingsFile(string settingsFile)
@@ -46,22 +47,24 @@ public static class Configuration
         if (_settingsFile != null)
             throw new InvalidOperationException("The configuration settings file has already been set.");
         _settingsFile = settingsFile;
-        Log.Out.Info($"Setting start settings file to {_settingsFile}");
+        // This causes null refs
+        //Log.Out.Info($"Setting start settings file to {_settingsFile}");
     } 
     
     private static void LoadInstance()
     {
         lock (Synchronise)
         {
-            Log.Out.Info($"Loading configuration from {_assemblyDirectory}");
-
+            // This causes stack overflows
+            //Log.Out.Info($"Loading configuration from {_assemblyDirectory}");
             var builder = new ConfigurationBuilder()
                 .SetBasePath(_assemblyDirectory);
 
             var fullSettingsFilePath = Path.Combine(_assemblyDirectory, _settingsFile);
             if (File.Exists(fullSettingsFilePath))
             {
-                Log.Out.Info($"Loading configuration from {_assemblyDirectory}");
+                // This causes stack overflows
+                //Log.Out.Info($"Loading configuration from {_assemblyDirectory}");
                 builder.AddJsonFile(_settingsFile);
                 var configuration = builder.Build();
                 var section = configuration.GetSection("SqlD");

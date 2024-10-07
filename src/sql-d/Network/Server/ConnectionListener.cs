@@ -1,6 +1,7 @@
 using System.Net;
 using SqlD.Configs.Model;
 using SqlD.Logging;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace SqlD.Network.Server;
 
