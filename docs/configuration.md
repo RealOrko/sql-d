@@ -24,17 +24,13 @@
 
 ### No `appsettings.json`
 
-If you look at [SqlDConfiguration.Default](https://github.com/RealOrko/sql-d/blob/master/src/sql-d/Configuration/Model/SqlDConfiguration.cs#L7), you will notice a registry and sql-d instance
-that is defaulted to `localhost` using port `5000`. This is used when an `appsettings.json` file is not present in the output directory.
+If you look at [appsettings.json](https://github.com/RealOrko/sql-d/blob/master/src/sql-d/appsettings.json), you will notice a registry and sql-d instance
+that is defaulted to `localhost` using port `5000`. You do not have to have an `appsettings.json` and you can construct configuration objects manually like below, although it is highly recommended you add one. It is most likely that the sensible defaults for the construction of these objects wont meet your requirements for upgrades going forward. 
 
 ```csharp
 public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
 {
     Enabled = true,
-    ProcessModel = new SqlDProcessModel()
-    {
-        Distributed = false
-    },
     Registries = new List<SqlDRegistryModel>()
     {
         new SqlDRegistryModel()
@@ -66,9 +62,6 @@ You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appset
 "SqlD": {
 	"enabled": true,
 	"authority": "localhost",
-	"processmodel": {
-		"distributed": true
-	},
 	"registries": [{
 		"host": "localhost",
 		"port": 50095
