@@ -16,10 +16,6 @@ namespace SqlD.UI.Services
 		private readonly ConfigService config;
 		private readonly RegistryService registry;
 
-		public ServiceService() : this(new ConfigService(), new RegistryService())
-		{
-		}
-
 		public ServiceService(ConfigService configService, RegistryService registryService)
 		{
 			this.config = configService;

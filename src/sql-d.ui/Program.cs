@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using SqlD.Logging;
@@ -10,7 +9,7 @@ namespace SqlD.UI
 {
     public class Program
     {
-        private static readonly Uri EntryAssemblyCodeBase = new Uri(Assembly.GetEntryAssembly().Location);
+        private static readonly Uri EntryAssemblyCodeBase = new(Assembly.GetEntryAssembly().Location);
         private static readonly string RootDirectoryPath = Path.GetDirectoryName(EntryAssemblyCodeBase.LocalPath);
 
         public static void Main(string[] args)

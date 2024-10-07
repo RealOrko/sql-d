@@ -5,6 +5,6 @@ namespace SqlD.UI.Services.Query.Actions
 {
 	public interface IQueryAction
 	{
-		Task<object> Go(QueryContext context, ConnectionClient client, RegistryService registry);
+		Task<object> Go(string query, ConnectionClient client, RegistryService registry);
 	}
 }

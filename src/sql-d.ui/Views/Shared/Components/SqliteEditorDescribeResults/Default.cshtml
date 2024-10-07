@@ -1,17 +1,17 @@
-﻿@model SqlD.UI.Models.Query.DescribeResultViewModel
-@if (Model != null && string.IsNullOrEmpty(Model.Error))
+﻿@model SqlD.UI.Models.SqlLiteViewModel
+@if (Model.DescribeResult != null && string.IsNullOrEmpty(Model.DescribeResult.Error))
 {
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				@foreach (var column in Model.Columns)
+				@foreach (var column in Model.DescribeResult.Columns)
 				{
 					<th scope="col">@column</th>
 				}
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var row in Model.Rows)
+			@foreach (var row in Model.DescribeResult.Rows)
 			{
 				<tr>
 					@foreach (var rowValue in row)
@@ -23,9 +23,9 @@
 		</tbody>
 	</table>
 }
-else if (Model != null)
+else if (Model.DescribeResult != null)
 {
 	<div class="alert alert-danger" role="alert">
-		@Model.Error
+		@Model.DescribeResult.Error
 	</div>
 }

@@ -1,6 +1,6 @@
-﻿@model SqlD.UI.Models.Query.QueryResultViewModel
+﻿@model SqlD.UI.Models.SqlLiteViewModel
 
-@if (Model != null && string.IsNullOrEmpty(Model.Error))
+@if (Model.QueryResult != null && string.IsNullOrEmpty(Model.QueryResult.Error))
 {
 	<div id="queryPanel" class="panel panel-default">
 		<div class="panel-heading">
@@ -10,14 +10,14 @@
 			<table class="table table-bordered">
 				<thead>
 				<tr>
-					@foreach (var column in Model.Columns)
+					@foreach (var column in Model.QueryResult.Columns)
 					{
 						<th scope="col">@column</th>
 					}
 				</tr>
 				</thead>
 				<tbody>
-					@foreach (var row in Model.Rows)
+					@foreach (var row in Model.QueryResult.Rows)
 					{
 						<tr>
 						@foreach (var rowValue in row)
@@ -31,9 +31,9 @@
 		</div>
 	</div>
 }
-else if (Model != null)
+else if (Model.QueryResult != null)
 {
 	<div class="alert alert-danger" role="alert">
-		@Model.Error
+		@Model.QueryResult.Error
 	</div>
 }

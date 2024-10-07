@@ -6,9 +6,10 @@ namespace SqlD.UI.Controllers
 {
 	public class HomeController : Controller
     {
+        [HttpGet("/")]
 	    public IActionResult Index(string q = null, string s = null)
         {
-            return View();
+            return View(new SqlLiteViewModel() { Query = q, Server = s });
         }
 
 		public IActionResult Error()
