@@ -5,6 +5,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <StartupObject>SqlD.UI.Program</StartupObject>
         <NoWarn>$(NoWarn);NU1603;NU5125;NU5100;CS0618</NoWarn>
+        <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     </PropertyGroup>
 
     <Import Project="../../version.props"/>
