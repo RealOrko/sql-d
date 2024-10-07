@@ -42,3 +42,9 @@ You can generate packages locally to test them out. Currently the debian package
 ```
 
 You can then browse locally to `http://localhost:5000` and interact with sql-d using a management UI. 
+
+*See Also*:
+
+  - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
+  - [Prerequisites](https://github.com/RealOrko/sql-d/blob/master/docs/prerequisites.md)
+
