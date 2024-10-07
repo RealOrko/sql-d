@@ -28,6 +28,7 @@ If you look at [appsettings.json](https://github.com/RealOrko/sql-d/blob/master/
 that is defaulted to `localhost` using port `5000`. You do not have to have an `appsettings.json` and you can construct configuration objects manually like below, although it is highly recommended you add one. Highly likely that the sensible defaults for the construction of these objects wont meet your requirements for upgrades. However if you need something quick, then here it is ... 
 
 ```csharp
+// Class level declaration
 public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
 {
     Enabled = true,
@@ -52,6 +53,7 @@ public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
     }
 };
 
+// In main method somewhere
 Interface.Start(Default);
 ```
 
