@@ -10,14 +10,6 @@ namespace SqlD.Network.Server.Middleware
 	{
 		private readonly ConnectionListener _listener;
 
-		private List<EndPoint> _forwards
-		{
-			get
-			{
-				return Configs.Configuration.Instance.FindForwardingAddresses(_listener.EndPoint);
-			}
-		} 
-
 		public ForwardingMiddleware(ConnectionListener listener)
 		{
 			_listener = listener;
@@ -26,7 +18,7 @@ namespace SqlD.Network.Server.Middleware
 		public async Task InvokeAsync(HttpContext context, Func<Task> next)
 		{
 			StreamReader streamReader = null;
-			if (_forwards.Any())
+			if (Configs.Configuration.Instance.FindForwardingAddresses(_listener.EndPoint).Any())
 			{
 				BeforeInvoke_BeforeRequestRead(context);
 
@@ -59,7 +51,7 @@ namespace SqlD.Network.Server.Middleware
 
 		private async Task ForwardToClients(Func<ConnectionClient, Task<CommandResponse>> clientApiCall)
 		{
-			foreach (var forwardAddress in _forwards)
+			foreach (var forwardAddress in Configs.Configuration.Instance.FindForwardingAddresses(_listener.EndPoint))
 			{
 				try
 				{

@@ -33,11 +33,6 @@ namespace SqlD
 
 			if (!cfg.Enabled) return;
 
-			foreach (var registry in cfg.Registries)
-			{
-				Registry.GetOrAdd(registry.ToEndPoint());
-			}
-
 			var registryEndPoints = cfg.Registries.Select(x => x.ToEndPoint()).ToList();
 			var serviceEndPointsThatAreRegistries = cfg.Services.Where(x => registryEndPoints.Contains(x.ToEndPoint())).ToList();
 			var serviceEndPointsThatAreNotRegistries = cfg.Services.Where(x => !registryEndPoints.Contains(x.ToEndPoint())).ToList();
@@ -88,7 +83,6 @@ namespace SqlD
 
 		public static void Stop()
 		{
-			EndPointRegistry.Reset();
 			Configs.Configuration.Reset();
 			ConnectionListenerFactory.DisposeAll();
 		}
