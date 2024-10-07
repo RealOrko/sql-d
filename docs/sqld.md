@@ -126,3 +126,4 @@ Some unofficial pre-generated clients can be found below. These are not supporte
  *See Also*:
 
   - [Configuration](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md)
+
