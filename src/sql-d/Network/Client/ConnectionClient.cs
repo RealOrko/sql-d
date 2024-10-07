@@ -1,4 +1,5 @@
-﻿using SqlD.Exceptions;
+﻿using System.Net;
+using SqlD.Exceptions;
 using SqlD.Extensions;
 using SqlD.Extensions.Discovery;
 using SqlD.Logging;
@@ -361,5 +362,19 @@ public class ConnectionClient : IDisposable
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Query failed. {response.Error}");
         return response;
+    }
+
+    public async Task DownloadDatabaseTo(string databasePath)
+    {
+        var fileStreamUrl = UrlBuilder.GetFileStreamUrl(EndPoint);
+        var response = await _client.GetAsync(fileStreamUrl);
+        
+        if (response.StatusCode != HttpStatusCode.OK)
+            throw new ConnectionClientCommandException($"FileStream failed.");
+        
+        await using (var targetFileStream = File.Create(databasePath))
+        {
+            await response.Content.CopyToAsync(targetFileStream);
+        }        
     }
 }
