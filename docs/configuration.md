@@ -56,8 +56,6 @@ public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
 };
 ```
 
-This configuration is used in our [Dockerfile](https://github.com/RealOrko/sql-d/blob/master/Dockerfile) definition.
-
 ### With `appsettings.json`
 
 This is the default scaled out configuration of a sql-d cluster build/running `sql-d.ui`. You can add this json as an appsettings.json file. Please make sure it is always copied to the output directory. 
@@ -226,10 +224,7 @@ For specifying the registry URL over HTTP to call when a SqlD instance starts up
 	<a href="#sqld-help---configuration">[Back to Top]</a>
 </div>
 
-A service defines an actual SqlD instance with a host and a port number. If [distributed=true](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#process-model) then SqlD 
-instances are launched as separate processes guaranteeing process isolation. 
-
-The order of precedance of the SqlD instance service definitions are also important. 
+A service defines an actual SqlD instance with a host and a port number. 
 
 You need to be sure that any SqlD instance service you forward to is defined above the SqlD instance service with the `forwardingTo` dependency. Also be sure not to create cyclic dependencies
 with your `forwardingTo` SqlD instance service definitions.
