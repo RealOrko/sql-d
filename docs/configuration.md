@@ -51,6 +51,8 @@ public static SqlDConfiguration Default { get; } = new SqlDConfiguration()
         }
     }
 };
+
+Interface.Start(Default);
 ```
 
 ### With `appsettings.json`
