@@ -11,11 +11,11 @@
 		<Version>$(MajorVersion).$(MinorVersion).$(RevisionVersion)</Version>
 		<Authors>realorko</Authors>
 		<Company>cryosharp</Company>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReadmeFile>readme-nuget.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../../docs/readme.md" Pack="true" PackagePath="\"/>
+		<None Include="../../docs/readme-nuget.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 </Project>
