@@ -11,4 +11,7 @@ An HTTP persistence API powered by [Sqlite](https://sqlite.org) written in .NET 
 
  *See Also*:
 
+  - [Prerequisites](https://github.com/RealOrko/sql-d/blob/master/docs/prerequisites.md#sqld-help---prerequisites)
+  - [Building](https://github.com/RealOrko/sql-d/blob/master/docs/building.md#sqld-help---building)
+  - [Configuration](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#sqld-help---configuration)
   - [SqlD UI](https://github.com/RealOrko/sql-d/blob/master/docs/sqld-ui.md#sqld-help---sqld-ui)
