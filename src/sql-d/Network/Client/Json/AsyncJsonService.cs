@@ -13,9 +13,9 @@ namespace SqlD.Network.Client.Json;
 public class AsyncJsonService : IAsyncJsonService
 {
     private static readonly ConcurrentDictionary<string, string> Headers;
-    private readonly HttpClient client;
-    private readonly JsonSerializerSettings settings;
-    private bool successOnly;
+    private readonly HttpClient _client;
+    private readonly JsonSerializerSettings _settings;
+    private bool _successOnly;
 
     static AsyncJsonService()
     {
@@ -24,17 +24,17 @@ public class AsyncJsonService : IAsyncJsonService
 
     public AsyncJsonService(int httpClientTimeoutInMilliseconds)
     {
-        client = new HttpClient();
-        client.Timeout = TimeSpan.FromMilliseconds(httpClientTimeoutInMilliseconds);
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-        settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+        _client = new HttpClient();
+        _client.Timeout = TimeSpan.FromMilliseconds(httpClientTimeoutInMilliseconds);
+        _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        _client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+        _settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
     }
 
     public virtual async Task<T> GetAsync<T>(string uri, object data = null)
     {
         var result = await GetAsync(uri, data);
-        if (successOnly)
+        if (_successOnly)
             result.EnsureSuccessStatusCode();
         return await DeserialiseResponse<T>(result);
     }
@@ -43,15 +43,15 @@ public class AsyncJsonService : IAsyncJsonService
     {
         var fullUri = uri + data?.ToQueryString();
         var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
-        return await client.SendAsync(requestMessage);
+        return await _client.SendAsync(requestMessage);
     }
 
     public virtual async Task<string> GetStringAsync(string uri, object data = null)
     {
         var fullUri = uri + data?.ToQueryString();
         var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
-        var result = await client.SendAsync(requestMessage);
-        if (successOnly)
+        var result = await _client.SendAsync(requestMessage);
+        if (_successOnly)
             result.EnsureSuccessStatusCode();
 
         return await result.Content.ReadAsStringAsync();
@@ -60,7 +60,7 @@ public class AsyncJsonService : IAsyncJsonService
     public virtual async Task<T> PostAsync<T>(string uri, object data = null, bool dontSerialize = false)
     {
         var result = await PostAsync(uri, data, dontSerialize);
-        if (successOnly)
+        if (_successOnly)
             result.EnsureSuccessStatusCode();
         return await DeserialiseResponse<T>(result);
     }
@@ -78,13 +78,13 @@ public class AsyncJsonService : IAsyncJsonService
                 request.Content = SerializeRequest(data);
         }
 
-        return await client.SendAsync(request);
+        return await _client.SendAsync(request);
     }
 
     public virtual async Task<T> PutAsync<T>(string uri, object data = null, bool dontSerialize = false)
     {
         var result = await PutAsync(uri, data, dontSerialize);
-        if (successOnly)
+        if (_successOnly)
             result.EnsureSuccessStatusCode();
         return await DeserialiseResponse<T>(result);
     }
@@ -102,13 +102,13 @@ public class AsyncJsonService : IAsyncJsonService
                 request.Content = SerializeRequest(data);
         }
 
-        return await client.SendAsync(request);
+        return await _client.SendAsync(request);
     }
 
     public virtual async Task<T> DeleteAsync<T>(string uri)
     {
         var result = await DeleteAsync(uri);
-        if (successOnly)
+        if (_successOnly)
             result.EnsureSuccessStatusCode();
         return await DeserialiseResponse<T>(result);
     }
@@ -117,7 +117,7 @@ public class AsyncJsonService : IAsyncJsonService
     {
         var request = CreateRequest(HttpMethod.Delete, uri);
         request.Content = SerializeRequest();
-        return await client.SendAsync(request);
+        return await _client.SendAsync(request);
     }
 
     public virtual void SetHeader(string header, string value)
@@ -137,12 +137,12 @@ public class AsyncJsonService : IAsyncJsonService
 
     public virtual void EnableOnlySuccessOnlyMode(bool successOnly = true)
     {
-        this.successOnly = successOnly;
+        this._successOnly = successOnly;
     }
 
     public virtual void Dispose()
     {
-        client.Dispose();
+        _client.Dispose();
     }
 
     private HttpContent SerializeRequest(object data = null)
@@ -151,7 +151,7 @@ public class AsyncJsonService : IAsyncJsonService
         if (data == null)
             request = new StringContent(string.Empty);
         else
-            request = new StringContent(JsonConvert.SerializeObject(data, settings));
+            request = new StringContent(JsonConvert.SerializeObject(data, _settings));
         request.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         return request;
     }
@@ -181,6 +181,6 @@ public class AsyncJsonService : IAsyncJsonService
 
         if (!result.IsSuccessStatusCode) Log.Out.Error($"Error with response: {payload}");
 
-        return JsonConvert.DeserializeObject<T>(payload, settings);
+        return JsonConvert.DeserializeObject<T>(payload, _settings);
     }
 }

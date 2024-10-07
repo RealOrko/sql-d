@@ -12,44 +12,44 @@ public enum EndPointIs
 
 public class EndPointMonitor : IDisposable
 {
-    private bool isDisposed;
-    private long isRunning;
-    private long isUp;
-    private Task monitorTask;
+    private bool _isDisposed;
+    private long _isRunning;
+    private long _isUp;
+    private Task _monitorTask;
 
     public EndPointMonitor(EndPoint endPoint)
     {
-        isUp = 0;
-        isRunning = 1;
+        _isUp = 0;
+        _isRunning = 1;
         EndPoint = endPoint;
-        monitorTask = Task.Factory.StartNew(async () => await MonitorEndPoint());
+        _monitorTask = Task.Factory.StartNew(async () => await MonitorEndPoint());
     }
 
     public EndPoint EndPoint { get; }
 
     public void Dispose()
     {
-        if (isDisposed)
+        if (_isDisposed)
             return;
 
         try
         {
             OnUp = null;
             OnDown = null;
-            Interlocked.Exchange(ref isRunning, 0);
+            Interlocked.Exchange(ref _isRunning, 0);
             try
             {
-                monitorTask?.Wait();
+                _monitorTask?.Wait();
             }
             catch
             {
-                monitorTask?.Dispose();
-                monitorTask = null;
+                _monitorTask?.Dispose();
+                _monitorTask = null;
             }
         }
         finally
         {
-            isDisposed = true;
+            _isDisposed = true;
         }
     }
 
@@ -61,16 +61,16 @@ public class EndPointMonitor : IDisposable
         var stopWatch = Stopwatch.StartNew();
         try
         {
-            while (Interlocked.Read(ref isRunning) == 1)
+            while (Interlocked.Read(ref _isRunning) == 1)
                 try
                 {
-                    if (Interlocked.Read(ref isUp) == (upOrDown == EndPointIs.Up ? 1 : 0)) break;
+                    if (Interlocked.Read(ref _isUp) == (upOrDown == EndPointIs.Up ? 1 : 0)) break;
 
                     if (stopWatch.Elapsed > timeout) throw new EndPointMonitorWaitTimeoutException($"{EndPoint} failed to come up in {stopWatch.Elapsed.TotalSeconds} second(s).");
                 }
                 finally
                 {
-                    if (Interlocked.Read(ref isUp) != (upOrDown == EndPointIs.Up ? 1 : 0)) Thread.Sleep(Constants.END_POINT_MONTIOR_SLEEP_INTERVAL);
+                    if (Interlocked.Read(ref _isUp) != (upOrDown == EndPointIs.Up ? 1 : 0)) Thread.Sleep(Constants.END_POINT_MONTIOR_SLEEP_INTERVAL);
                 }
         }
         finally
@@ -81,17 +81,17 @@ public class EndPointMonitor : IDisposable
 
     private async Task MonitorEndPoint()
     {
-        while (Interlocked.Read(ref isRunning) == 1)
+        while (Interlocked.Read(ref _isRunning) == 1)
             try
             {
                 var client = new NewClientBuilder(false).ConnectedTo(EndPoint);
                 var pingResult = await client.PingAsync();
-                Interlocked.Exchange(ref isUp, pingResult ? 1 : 0);
+                Interlocked.Exchange(ref _isUp, pingResult ? 1 : 0);
                 DoEvents();
             }
             finally
             {
-                if (Interlocked.Read(ref isRunning) != 1) Thread.Sleep(Constants.END_POINT_MONTIOR_SLEEP_INTERVAL);
+                if (Interlocked.Read(ref _isRunning) != 1) Thread.Sleep(Constants.END_POINT_MONTIOR_SLEEP_INTERVAL);
             }
     }
 
@@ -107,7 +107,7 @@ public class EndPointMonitor : IDisposable
 
     public EndPointMonitor DoEvents()
     {
-        if (Interlocked.Read(ref isUp) == 1)
+        if (Interlocked.Read(ref _isUp) == 1)
             OnIsUp(new EndPointArgs(EndPoint));
         else
             OnIsDown(new EndPointArgs(EndPoint));

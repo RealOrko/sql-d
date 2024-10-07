@@ -9,17 +9,17 @@ namespace SqlD.UI.Controllers;
 
 public class ServiceController : Controller
 {
-    private readonly ServiceService services;
+    private readonly ServiceService _services;
 
     public ServiceController(ServiceService services)
     {
-        this.services = services;
+        this._services = services;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index(string q = null, string s = null)
     {
-        var registry = await services.GetRegistry();
+        var registry = await _services.GetRegistry();
         var viewModel = new ServiceViewModel(Configs.Configuration.Instance, registry.Entries);
         return View(viewModel);
     }
@@ -27,7 +27,7 @@ public class ServiceController : Controller
     [HttpGet]
     public async Task<IActionResult> Create()
     {
-        var registry = await services.GetRegistry();
+        var registry = await _services.GetRegistry();
         return View(new ServiceFormViewModel(registry.Entries));
     }
 
@@ -36,7 +36,7 @@ public class ServiceController : Controller
     {
         if (ModelState.IsValid)
         {
-            services.CreateService(formViewModel);
+            _services.CreateService(formViewModel);
             return Redirect("/Service");
         }
 
@@ -49,7 +49,7 @@ public class ServiceController : Controller
         var serviceEndPoint = new EndPoint(host, port);
         var serviceModel = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(serviceEndPoint));
         
-        var registry = await services.GetRegistry();
+        var registry = await _services.GetRegistry();
         var viewModel = new ServiceFormViewModel(serviceModel, registry.Entries);
 
         var forwardEntry = Configs.Configuration.Instance.Services.FirstOrDefault(x => x.IsEqualTo(serviceEndPoint));
@@ -87,7 +87,7 @@ public class ServiceController : Controller
     {
         if (ModelState.IsValid)
         {
-            services.UpdateService(formViewModel);
+            _services.UpdateService(formViewModel);
             return Redirect("/Service");
         }
 
@@ -97,7 +97,7 @@ public class ServiceController : Controller
     [HttpGet]
     public IActionResult Delete([FromQuery] string host, [FromQuery] int port)
     {
-        services.RemoveService(host, port);
+        _services.RemoveService(host, port);
         return Redirect("/Service");
     }
 }

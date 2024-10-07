@@ -10,7 +10,7 @@ namespace SqlD.Network.Client;
 
 public class ConnectionClient : IDisposable
 {
-    private readonly IAsyncJsonService client;
+    private readonly IAsyncJsonService _client;
 
     internal ConnectionClient(EndPoint endPoint, bool withRetries, int retryLimit, int httpClientTimeoutMilliseconds)
     {
@@ -18,9 +18,9 @@ public class ConnectionClient : IDisposable
         WithRetries = withRetries;
 
         if (withRetries)
-            client = new AsyncJsonServiceWithRetry(retryLimit, httpClientTimeoutMilliseconds);
+            _client = new AsyncJsonServiceWithRetry(retryLimit, httpClientTimeoutMilliseconds);
         else
-            client = new AsyncJsonService(httpClientTimeoutMilliseconds);
+            _client = new AsyncJsonService(httpClientTimeoutMilliseconds);
     }
 
     public EndPoint EndPoint { get; }
@@ -28,7 +28,7 @@ public class ConnectionClient : IDisposable
 
     public virtual void Dispose()
     {
-        client?.Dispose();
+        _client?.Dispose();
         Log.Out.Info($"Disposed client on {EndPoint.ToUrl()}");
     }
 
@@ -36,7 +36,7 @@ public class ConnectionClient : IDisposable
     {
         try
         {
-            var response = client.GetAsync(UrlBuilder.GetPingUrl(remoteEndPoint ?? EndPoint)).GetAwaiter().GetResult();
+            var response = _client.GetAsync(UrlBuilder.GetPingUrl(remoteEndPoint ?? EndPoint)).GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
                 return true;
         }
@@ -51,7 +51,7 @@ public class ConnectionClient : IDisposable
     {
         try
         {
-            var response = await client.GetAsync(UrlBuilder.GetPingUrl(remoteEndPoint ?? EndPoint));
+            var response = await _client.GetAsync(UrlBuilder.GetPingUrl(remoteEndPoint ?? EndPoint));
             if (response.IsSuccessStatusCode)
                 return true;
         }
@@ -228,7 +228,7 @@ public class ConnectionClient : IDisposable
     {
         Log.Out.Info($"Connection Client sending unregister to {EndPoint.ToUrl()}");
         var unregisterUrl = UrlBuilder.GetUnregisterUrl(EndPoint);
-        client.PostAsync(unregisterUrl, new UnregisterRequest
+        _client.PostAsync(unregisterUrl, new UnregisterRequest
         {
             EndPoint = EndPoint
         }).GetAwaiter().GetResult();
@@ -237,7 +237,7 @@ public class ConnectionClient : IDisposable
     public virtual async Task UnregisterAsync()
     {
         var killUrl = UrlBuilder.GetUnregisterUrl(EndPoint);
-        await client.PostAsync(killUrl, new UnregisterRequest
+        await _client.PostAsync(killUrl, new UnregisterRequest
         {
             EndPoint = EndPoint
         });
@@ -245,56 +245,56 @@ public class ConnectionClient : IDisposable
 
     public virtual TRes Get<TReq, TRes>(string resource, TReq message = default) where TReq : class
     {
-        var response = client.GetAsync<TRes>(EndPoint.ToUrl(resource), message).GetAwaiter().GetResult();
+        var response = _client.GetAsync<TRes>(EndPoint.ToUrl(resource), message).GetAwaiter().GetResult();
         return response;
     }
 
     public virtual async Task<TRes> GetAsync<TReq, TRes>(string resource, TReq message = default) where TReq : class
     {
-        var response = await client.GetAsync<TRes>(EndPoint.ToUrl(resource), message);
+        var response = await _client.GetAsync<TRes>(EndPoint.ToUrl(resource), message);
         return response;
     }
 
     public virtual TRes Post<TReq, TRes>(string resource, TReq message = default)
     {
-        var response = client.PostAsync<TRes>(EndPoint.ToUrl(resource), message).GetAwaiter().GetResult();
+        var response = _client.PostAsync<TRes>(EndPoint.ToUrl(resource), message).GetAwaiter().GetResult();
         return response;
     }
 
     public virtual async Task<TRes> PostAsync<TReq, TRes>(string resource, TReq message = default)
     {
-        var response = await client.PostAsync<TRes>(EndPoint.ToUrl(resource), message);
+        var response = await _client.PostAsync<TRes>(EndPoint.ToUrl(resource), message);
         return response;
     }
 
     public virtual TRes Put<TReq, TRes>(string resource, TReq message = default)
     {
-        var response = client.PutAsync<TRes>(EndPoint.ToUrl(resource), message).GetAwaiter().GetResult();
+        var response = _client.PutAsync<TRes>(EndPoint.ToUrl(resource), message).GetAwaiter().GetResult();
         return response;
     }
 
     public virtual async Task<TRes> PutAsync<TReq, TRes>(string resource, TReq message = default)
     {
-        var response = await client.PutAsync<TRes>(EndPoint.ToUrl(resource), message);
+        var response = await _client.PutAsync<TRes>(EndPoint.ToUrl(resource), message);
         return response;
     }
 
     public virtual TRes Delete<TRes>(string resource)
     {
-        var response = client.DeleteAsync<TRes>(EndPoint.ToUrl(resource)).GetAwaiter().GetResult();
+        var response = _client.DeleteAsync<TRes>(EndPoint.ToUrl(resource)).GetAwaiter().GetResult();
         return response;
     }
 
     public virtual async Task<TRes> DeleteAsync<TRes>(string resource)
     {
-        var response = await client.DeleteAsync<TRes>(EndPoint.ToUrl(resource));
+        var response = await _client.DeleteAsync<TRes>(EndPoint.ToUrl(resource));
         return response;
     }
 
     public virtual DescribeResponse DescribeCommand(Describe describe)
     {
         var describeUrl = UrlBuilder.GetDescribeUrl(EndPoint);
-        var response = client.PostAsync<DescribeResponse>(describeUrl, describe).GetAwaiter().GetResult();
+        var response = _client.PostAsync<DescribeResponse>(describeUrl, describe).GetAwaiter().GetResult();
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Describe failed. {response.Error}");
         return response;
@@ -303,7 +303,7 @@ public class ConnectionClient : IDisposable
     public virtual async Task<DescribeResponse> DescribeCommandAsync(Describe describe)
     {
         var describeUrl = UrlBuilder.GetDescribeUrl(EndPoint);
-        var response = await client.PostAsync<DescribeResponse>(describeUrl, describe);
+        var response = await _client.PostAsync<DescribeResponse>(describeUrl, describe);
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Describe failed. {response.Error}");
         return response;
@@ -312,7 +312,7 @@ public class ConnectionClient : IDisposable
     public virtual CommandResponse PostCommand(Command command)
     {
         var commandUrl = UrlBuilder.GetCommandUrl(EndPoint);
-        var response = client.PostAsync<CommandResponse>(commandUrl, command).GetAwaiter().GetResult();
+        var response = _client.PostAsync<CommandResponse>(commandUrl, command).GetAwaiter().GetResult();
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Command failed. {response.Error}");
         return response;
@@ -321,7 +321,7 @@ public class ConnectionClient : IDisposable
     public virtual async Task<CommandResponse> PostCommandAsync(Command command)
     {
         var commandUrl = UrlBuilder.GetCommandUrl(EndPoint);
-        var response = await client.PostAsync<CommandResponse>(commandUrl, command);
+        var response = await _client.PostAsync<CommandResponse>(commandUrl, command);
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Command failed. {response.Error}");
         return response;
@@ -330,7 +330,7 @@ public class ConnectionClient : IDisposable
     public virtual CommandResponse PostScalar(Command command)
     {
         var commandUrl = UrlBuilder.GetScalarUrl(EndPoint);
-        var response = client.PostAsync<CommandResponse>(commandUrl, command).GetAwaiter().GetResult();
+        var response = _client.PostAsync<CommandResponse>(commandUrl, command).GetAwaiter().GetResult();
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Command failed. {response.Error}");
         return response;
@@ -339,7 +339,7 @@ public class ConnectionClient : IDisposable
     public virtual async Task<CommandResponse> PostScalarAsync(Command command)
     {
         var commandUrl = UrlBuilder.GetScalarUrl(EndPoint);
-        var response = await client.PostAsync<CommandResponse>(commandUrl, command);
+        var response = await _client.PostAsync<CommandResponse>(commandUrl, command);
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Command failed. {response.Error}");
         return response;
@@ -348,7 +348,7 @@ public class ConnectionClient : IDisposable
     public virtual QueryResponse PostQuery(Query command)
     {
         var commandUrl = UrlBuilder.GetQueryUrl(EndPoint);
-        var response = client.PostAsync<QueryResponse>(commandUrl, command).GetAwaiter().GetResult();
+        var response = _client.PostAsync<QueryResponse>(commandUrl, command).GetAwaiter().GetResult();
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Query failed. {response.Error}");
         return response;
@@ -357,7 +357,7 @@ public class ConnectionClient : IDisposable
     public virtual async Task<QueryResponse> PostQueryAsync(Query command)
     {
         var commandUrl = UrlBuilder.GetQueryUrl(EndPoint);
-        var response = await client.PostAsync<QueryResponse>(commandUrl, command);
+        var response = await _client.PostAsync<QueryResponse>(commandUrl, command);
         if (response.StatusCode != StatusCode.Ok)
             throw new ConnectionClientCommandException($"Query failed. {response.Error}");
         return response;

@@ -4,47 +4,35 @@ namespace SqlD.Network.Server.Api.Db.Model;
 
 public class Command
 {
-    public List<string> Commands { get; set; } = new();
+    public List<string> Commands { get; } = new();
 
-    public Command AddInsert(object instance, bool withIdentity = false)
+    public void AddInsert(object instance, bool withIdentity = false)
     {
         Commands.Add(instance.GetInsert(withIdentity));
-        return this;
     }
 
-    public Command AddManyInserts(IEnumerable<object> instances, bool withIdentity = false)
+    public void AddManyInserts(IEnumerable<object> instances, bool withIdentity = false)
     {
         Commands.AddRange(instances.Select(x => x.GetInsert(withIdentity)));
-        return this;
     }
 
-    public Command AddUpdate(object instance)
+    public void AddUpdate(object instance)
     {
         Commands.Add(instance.GetUpdate());
-        return this;
     }
 
-    public Command AddManyUpdates(IEnumerable<object> instances)
+    public void AddManyUpdates(IEnumerable<object> instances)
     {
         Commands.AddRange(instances.Select(x => x.GetUpdate()));
-        return this;
     }
 
-    public Command AddDelete(object instance)
+    public void AddDelete(object instance)
     {
         Commands.Add(instance.GetDelete());
-        return this;
     }
 
-    public Command AddManyDeletes(IEnumerable<object> instances)
+    public void AddManyDeletes(IEnumerable<object> instances)
     {
         Commands.AddRange(instances.Select(x => x.GetDelete()));
-        return this;
-    }
-
-    public void EnsureTableExists(object instance)
-    {
-        var createTable = instance.GetType().GetCreateTable();
-        Commands.Add(createTable);
     }
 }

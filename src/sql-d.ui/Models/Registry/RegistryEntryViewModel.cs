@@ -25,7 +25,6 @@ public class RegistryEntryViewModel
         Name = entry.Name;
         Database = entry.Database;
         AuthorityUri = entry.AuthorityUri;
-        State = entry.State.ToString();
         Tags = string.Join(", ", entry.TagsAsArray);
         LastUpdated = entry.LastUpdated;
         EndPoint = EndPoint.FromUri(entry.Uri);
@@ -33,7 +32,6 @@ public class RegistryEntryViewModel
 
     public DateTime LastUpdated { get; set; }
     public string Tags { get; set; }
-
     public string Name { get; set; }
     public string State { get; set; }
     public string Database { get; set; }

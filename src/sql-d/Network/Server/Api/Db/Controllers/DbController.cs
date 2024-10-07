@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SqlD.Extensions;
+using SqlD.Extensions.Network.Server;
 using SqlD.Network.Server.Api.Db.Model;
 
 namespace SqlD.Network.Server.Api.Db.Controllers;
@@ -8,13 +9,13 @@ namespace SqlD.Network.Server.Api.Db.Controllers;
 [Route("api/db")]
 public class DbController : Controller
 {
-    private readonly EndPoint endPoint;
-    private readonly DbConnectionFactory dbConnectionFactory;
+    private readonly EndPoint _endPoint;
+    private readonly DbConnectionFactory _dbConnectionFactory;
 
     public DbController(EndPoint endPoint, DbConnectionFactory dbConnectionFactory)
     {
-        this.endPoint = endPoint;
-        this.dbConnectionFactory = dbConnectionFactory;
+        _endPoint = endPoint;
+        _dbConnectionFactory = dbConnectionFactory;
     }
 
     [HttpPost("describe")]
@@ -26,7 +27,7 @@ public class DbController : Controller
 
             try
             {
-                using (var dbConnection = dbConnectionFactory.Connect())
+                using (var dbConnection = _dbConnectionFactory.Connect())
                 using (var dbReader = dbConnection.ExecuteQuery($"pragma table_info({describe.TableName.TrimEnd(';')})"))
                 {
                     var reader = dbReader.Reader;
@@ -42,12 +43,12 @@ public class DbController : Controller
                         results.Add(rowResults);
                     }
 
-                    return Ok(DescribeResponse.Ok(endPoint, describe, results));
+                    return Ok(DescribeResponse.Ok(_endPoint, describe, results));
                 }
             }
             catch (Exception err)
             {
-                return Ok(DescribeResponse.Failed(endPoint, err.Message));
+                return Ok(DescribeResponse.Failed(_endPoint, err.Message));
             }
         });
     }
@@ -61,7 +62,7 @@ public class DbController : Controller
 
             try
             {
-                using (var dbConnection = dbConnectionFactory.Connect())
+                using (var dbConnection = _dbConnectionFactory.Connect())
                 using (var dbReader = dbConnection.ExecuteQuery(query.Select))
                 {
                     var reader = dbReader.Reader;
@@ -77,12 +78,12 @@ public class DbController : Controller
                         results.Add(rowResults);
                     }
 
-                    return Ok(QueryResponse.Ok(endPoint, query, results));
+                    return Ok(QueryResponse.Ok(_endPoint, query, results));
                 }
             }
             catch (Exception err)
             {
-                return Ok(QueryResponse.Failed(endPoint, err.Message));
+                return Ok(QueryResponse.Failed(_endPoint, err.Message));
             }
         });
     }
@@ -94,15 +95,15 @@ public class DbController : Controller
         {
             try
             {
-                using (var dbConnection = dbConnectionFactory.Connect())
+                using (var dbConnection = _dbConnectionFactory.Connect())
                 {
                     var results = dbConnection.ExecuteScalars<long>(command.Commands);
-                    return Ok(CommandResponse.Ok(endPoint, results));
+                    return Ok(CommandResponse.Ok(_endPoint, results));
                 }
             }
             catch (Exception err)
             {
-                return Ok(CommandResponse.Failed(endPoint, err.Message));
+                return Ok(CommandResponse.Failed(_endPoint, err.Message));
             }
         });
     }
@@ -114,15 +115,15 @@ public class DbController : Controller
         {
             try
             {
-                using (var dbConnection = dbConnectionFactory.Connect())
+                using (var dbConnection = _dbConnectionFactory.Connect())
                 {
                     dbConnection.ExecuteCommands(command.Commands);
-                    return Ok(CommandResponse.Ok(endPoint));
+                    return Ok(CommandResponse.Ok(_endPoint));
                 }
             }
             catch (Exception err)
             {
-                return Ok(CommandResponse.Failed(endPoint, err.Message));
+                return Ok(CommandResponse.Failed(_endPoint, err.Message));
             }
         });
     }

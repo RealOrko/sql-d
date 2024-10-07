@@ -6,9 +6,7 @@ namespace SqlD.Configs.Model;
 public class SqlDConfiguration
 {
     public bool Enabled { get; set; } = true;
-
     public string DataDirectory { get; set; } = null;
-
     public List<SqlDServiceModel> Services { get; set; } = new();
     public List<SqlDRegistryModel> Registries { get; set; } = new();
     
