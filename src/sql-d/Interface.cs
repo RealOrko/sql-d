@@ -24,7 +24,7 @@ public static class Interface
         Start(Configuration.Instance);
     }
 
-    private static void Start(SqlDConfiguration cfg)
+    public static void Start(SqlDConfiguration cfg)
     {
         if (!cfg.Enabled)
         {
