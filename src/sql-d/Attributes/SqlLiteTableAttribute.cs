@@ -1,12 +1,11 @@
-﻿namespace SqlD.Attributes
-{
-	public class SqlLiteTableAttribute : Attribute
-	{
-		public SqlLiteTableAttribute(string name)
-		{
-			Name = name;
-		}
+﻿namespace SqlD.Attributes;
 
-		public string Name { get; set; }
-	}
+public class SqlLiteTableAttribute : Attribute
+{
+    public SqlLiteTableAttribute(string name)
+    {
+        Name = name;
+    }
+
+    public string Name { get; set; }
 }

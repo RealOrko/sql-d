@@ -2,23 +2,22 @@
 
 @if (Model.CommandResult != null && string.IsNullOrEmpty(Model.CommandResult.Error))
 {
-	if (!string.IsNullOrEmpty(Model.CommandResult.Error))
-	{
-		<div class="alert alert-danger" role="alert">
-			@Model.CommandResult.Status.ToString() - @Model.CommandResult.Error
-		</div>
-	}
-	else
-	{
-		<div class="alert alert-success" role="alert">
-			@Model.CommandResult.Status.ToString()
-		</div>
-	}
+    if (!string.IsNullOrEmpty(Model.CommandResult.Error))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.CommandResult.Status.ToString() - @Model.CommandResult.Error
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success" role="alert">
+            @Model.CommandResult.Status.ToString()
+        </div>
+    }
 }
 else if (Model.DescribeResult != null)
 {
-	<div class="alert alert-danger" role="alert">
-		@Model.CommandResult.Error
-	</div>
+    <div class="alert alert-danger" role="alert">
+        @Model.CommandResult.Error
+    </div>
 }
-

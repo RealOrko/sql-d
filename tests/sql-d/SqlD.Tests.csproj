@@ -7,19 +7,19 @@
         <!--RuntimeFrameworkVersion>3.1.0</RuntimeFrameworkVersion-->
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="GenFu" Version="1.6.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
-        <PackageReference Include="Moq" Version="4.20.70" />
-        <PackageReference Include="NUnit" Version="4.2.1" />
-        <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="NSwag.Annotations" Version="14.1.0" />
-        <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
-        <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
-        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
-        <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
+        <PackageReference Include="GenFu" Version="1.6.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0"/>
+        <PackageReference Include="Moq" Version="4.20.70"/>
+        <PackageReference Include="NUnit" Version="4.2.1"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.6.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="NSwag.Annotations" Version="14.1.0"/>
+        <PackageReference Include="NSwag.AspNetCore" Version="14.1.0"/>
+        <PackageReference Include="System.Data.SQLite" Version="1.0.118"/>
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
+        <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0"/>
     </ItemGroup>
     <ItemGroup>
         <None Update="Configuration\appsettings.tests.json">
@@ -28,6 +28,6 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\src\sql-d\SqlD.csproj" />
+        <ProjectReference Include="..\..\src\sql-d\SqlD.csproj"/>
     </ItemGroup>
 </Project>

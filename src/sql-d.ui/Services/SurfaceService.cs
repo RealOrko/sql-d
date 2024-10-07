@@ -1,19 +1,18 @@
 ﻿using SqlD.Configs.Model;
 
-namespace SqlD.UI.Services
+namespace SqlD.UI.Services;
+
+public class SurfaceService
 {
-	public class SurfaceService
-	{
-		private readonly ConfigService config;
+    private readonly ConfigService config;
 
-		public SurfaceService(ConfigService configService)
-		{
-			this.config = configService;
-		}
+    public SurfaceService(ConfigService configService)
+    {
+        config = configService;
+    }
 
-		public SqlDConfiguration GetConfig()
-		{
-			return this.config.Get();
-		}
-	}
+    public SqlDConfiguration GetConfig()
+    {
+        return config.Get();
+    }
 }

@@ -1,9 +1,8 @@
-﻿namespace SqlD.Network.Server.Api.Registry.Model
+﻿namespace SqlD.Network.Server.Api.Registry.Model;
+
+public class RegistrationResponse
 {
-	public class RegistrationResponse
-	{
-		public EndPoint Authority { get; set; }
-		public Registration Registration { get; set; }
-		public List<RegistryEntry> Registry { get; set; }
-	}
+    public EndPoint Authority { get; set; }
+    public Registration Registration { get; set; }
+    public List<RegistryEntry> Registry { get; set; }
 }

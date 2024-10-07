@@ -3,78 +3,78 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SqlD.Configs.Model;
 
-namespace SqlD.Configs
+namespace SqlD.Configs;
+
+public static class Configuration
 {
-	public static class Configuration
-	{
-		private static Assembly _assembly;
-		private static string _settingsFile;
-		private static SqlDConfiguration _instance;
-		private static readonly object Synchronise = new();
-		private static string _assemblyDirectory => Path.GetDirectoryName(new Uri(_assembly.Location).LocalPath);
+    private static Assembly _assembly;
+    private static string _settingsFile;
+    private static SqlDConfiguration _instance;
+    private static readonly object Synchronise = new();
 
-		static Configuration()
-		{
-			_instance = SqlDConfiguration.Default();
-		}
-		
-		public static SqlDConfiguration Instance
-		{
-			get
-			{
-				lock (Synchronise)
-				{
-					return _instance;
-				}
-			}
-		}
+    static Configuration()
+    {
+        _instance = SqlDConfiguration.Default();
+    }
 
-		public static SqlDConfiguration Load(Assembly entryAssembly, string settingsFile = "appsettings.json")
-		{
-			lock (Synchronise)
+    private static string _assemblyDirectory => Path.GetDirectoryName(new Uri(_assembly.Location).LocalPath);
+
+    public static SqlDConfiguration Instance
+    {
+        get
+        {
+            lock (Synchronise)
             {
-	            _assembly = entryAssembly;
-	            _settingsFile = settingsFile;
-	            
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(_assemblyDirectory);
-
-                if (File.Exists(Path.Combine(_assemblyDirectory, _settingsFile)))
-                {
-                    builder.AddJsonFile(settingsFile);
-                    var configuration = builder.Build();
-                    var section = configuration.GetSection("SqlD");
-                    _instance = section.Get<SqlDConfiguration>();
-                }
-                
                 return _instance;
             }
-		}
+        }
+    }
 
-		public static void Update(Assembly entryAssembly, SqlDConfiguration config, string settingsFile = "appsettings.json")
-		{
-			lock (Synchronise)
-			{
-				_instance = config;
-				_assembly = entryAssembly;
-				_settingsFile = settingsFile;
-				var settingsFilePath = Path.Combine(_assemblyDirectory, settingsFile);
+    public static SqlDConfiguration Load(Assembly entryAssembly, string settingsFile = "appsettings.json")
+    {
+        lock (Synchronise)
+        {
+            _assembly = entryAssembly;
+            _settingsFile = settingsFile;
 
-				var json = File.ReadAllText(settingsFilePath);
-				var jsonInstance = JObject.Parse(json);
-				jsonInstance["SqlD"] = JObject.Parse(JsonConvert.SerializeObject(config));
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(_assemblyDirectory);
 
-				json = JsonConvert.SerializeObject(jsonInstance, Formatting.Indented);
-				File.WriteAllText(settingsFilePath, json);
-			}
-		}
+            if (File.Exists(Path.Combine(_assemblyDirectory, _settingsFile)))
+            {
+                builder.AddJsonFile(settingsFile);
+                var configuration = builder.Build();
+                var section = configuration.GetSection("SqlD");
+                _instance = section.Get<SqlDConfiguration>();
+            }
 
-		public static void Reset()
-		{
-			lock (Synchronise)
-			{
-				_instance = SqlDConfiguration.Default();
-			}
-		}
-	}
+            return _instance;
+        }
+    }
+
+    public static void Update(Assembly entryAssembly, SqlDConfiguration config, string settingsFile = "appsettings.json")
+    {
+        lock (Synchronise)
+        {
+            _instance = config;
+            _assembly = entryAssembly;
+            _settingsFile = settingsFile;
+            var settingsFilePath = Path.Combine(_assemblyDirectory, settingsFile);
+
+            var json = File.ReadAllText(settingsFilePath);
+            var jsonInstance = JObject.Parse(json);
+            jsonInstance["SqlD"] = JObject.Parse(JsonConvert.SerializeObject(config));
+
+            json = JsonConvert.SerializeObject(jsonInstance, Formatting.Indented);
+            File.WriteAllText(settingsFilePath, json);
+        }
+    }
+
+    public static void Reset()
+    {
+        lock (Synchronise)
+        {
+            _instance = SqlDConfiguration.Default();
+        }
+    }
 }

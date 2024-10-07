@@ -1,9 +1,8 @@
-namespace SqlD.Exceptions
+namespace SqlD.Exceptions;
+
+internal class InvalidSqlLiteIdentityMappingException : Exception
 {
-	internal class InvalidSqlLiteIdentityMappingException : Exception
-	{
-		internal InvalidSqlLiteIdentityMappingException(string message) : base(message)
-		{
-		}
-	}
+    internal InvalidSqlLiteIdentityMappingException(string message) : base(message)
+    {
+    }
 }

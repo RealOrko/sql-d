@@ -2,38 +2,38 @@
 
 @if (Model.QueryResult != null && string.IsNullOrEmpty(Model.QueryResult.Error))
 {
-	<div id="queryPanel" class="panel panel-default">
-		<div class="panel-heading">
-			Sqlite Query Results
-		</div>
-		<div class="panel-body">
-			<table class="table table-bordered">
-				<thead>
-				<tr>
-					@foreach (var column in Model.QueryResult.Columns)
-					{
-						<th scope="col">@column</th>
-					}
-				</tr>
-				</thead>
-				<tbody>
-					@foreach (var row in Model.QueryResult.Rows)
-					{
-						<tr>
-						@foreach (var rowValue in row)
-						 {
-							 <th scope="row" style="font-weight:normal">@rowValue</th>
-						 }
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div id="queryPanel" class="panel panel-default">
+        <div class="panel-heading">
+            Sqlite Query Results
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    @foreach (var column in Model.QueryResult.Columns)
+                    {
+                        <th scope="col">@column</th>
+                    }
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var row in Model.QueryResult.Rows)
+                {
+                    <tr>
+                        @foreach (var rowValue in row)
+                        {
+                            <th scope="row" style="font-weight:normal">@rowValue</th>
+                        }
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
 }
 else if (Model.QueryResult != null)
 {
-	<div class="alert alert-danger" role="alert">
-		@Model.QueryResult.Error
-	</div>
+    <div class="alert alert-danger" role="alert">
+        @Model.QueryResult.Error
+    </div>
 }

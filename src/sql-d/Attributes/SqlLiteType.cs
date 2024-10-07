@@ -1,10 +1,9 @@
-﻿namespace SqlD.Attributes
+﻿namespace SqlD.Attributes;
+
+public enum SqlLiteType
 {
-	public enum SqlLiteType
-	{
-		Integer, 
-		Real,
-		Text,
-		Blob
-	}
+    Integer,
+    Real,
+    Text,
+    Blob
 }

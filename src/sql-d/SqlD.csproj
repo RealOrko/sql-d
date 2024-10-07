@@ -1,45 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<OutputType>Library</OutputType>
-		<!--IsPackable>true</IsPackable-->
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<!--NuSpecFile>sql-d.nuspec</NuSpecFile-->
-		<!--NuSpecBasePath>bin/$(Configuration)/netcoreapp3.1/</NuSpecBasePath-->
-		<NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
-		<!--EnableDefaultContentItems>false</EnableDefaultContentItems-->
-	</PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <!--IsPackable>true</IsPackable-->
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <!--NuSpecFile>sql-d.nuspec</NuSpecFile-->
+        <!--NuSpecBasePath>bin/$(Configuration)/netcoreapp3.1/</NuSpecBasePath-->
+        <NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
+        <!--EnableDefaultContentItems>false</EnableDefaultContentItems-->
+    </PropertyGroup>
 
-	<Import Project="../../version.props" />
+    <Import Project="../../version.props"/>
 
-	<ItemGroup>
-		<None Remove="appsettings.json" />
-		<None Remove="sql-d.nuspec" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Remove="appsettings.json"/>
+        <None Remove="sql-d.nuspec"/>
+    </ItemGroup>
 
-	<!--ItemGroup>
-		<Content Include="sql-d.nuspec">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup-->
+    <!--ItemGroup>
+        <Content Include="sql-d.nuspec">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup-->
 
-	<!--ItemGroup>
-		<Content Include="appsettings.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup-->
+    <!--ItemGroup>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup-->
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="NSwag.Annotations" Version="14.1.0" />
-		<PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
-		<PackageReference Include="System.Data.SQLite" Version="1.0.118" />
-		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
-		<PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="NSwag.Annotations" Version="14.1.0"/>
+        <PackageReference Include="NSwag.AspNetCore" Version="14.1.0"/>
+        <PackageReference Include="System.Data.SQLite" Version="1.0.118"/>
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
+        <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0"/>
+    </ItemGroup>
 
 </Project>

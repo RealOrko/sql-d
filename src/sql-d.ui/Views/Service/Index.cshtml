@@ -1,66 +1,65 @@
 ﻿@model SqlD.UI.Models.Services.ServiceViewModel
 
 @{
-	ViewBag.Title = "services";
-	Layout = "_Layout";
+    ViewBag.Title = "services";
+    Layout = "_Layout";
 }
 
 <div class="row">
-	<div class="col-md-12">
-		<div id="registryList" class="panel panel-default">
-			<div class="panel-heading text-left">
-				<span style="float: right; top: -5px; position:relative">
-					<a href="/service/launch" class="btn btn-sm btn-default" title="Start/Create new service">
-						<i class="fas fa-plus-circle"></i>
-					</a>
-				</span>
-				Registered Services
-			</div>
-			<div class="panel-body">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Database</th>
-							<th>Tags</th>
-							<th>Uri</th>
-							<th>State</th>
-							<th>Authority Uri</th>
-							<th>Last Updated</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var service in Model.RegistryEntries.OrderBy(x => x.Tags))
-						{
-						<tr>
-							<td align="left">@service.Name</td>
-							<td align="left">@service.Database</td>
-							<td align="left">@service.Tags</td>
-							<td align="left">@service.GetRedirectedUri(Context.Request)</td>
-							<td align="left">@service.State</td>
-							<td align="left">@service.GetRedirectedAuthorityUri(Context.Request)</td>
-							<td align="left">@service.LastUpdated</td>
-							<td align="center">
-								@if (!service.Tags.Contains("registry") && Model.ContainsConfig(service))
-								{
-									<a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Edit a service">
-										<i class="fas fa-edit"></i>
-									</a>
-								}
-								@if (!service.Tags.Contains("registry"))
-								{
-									<a href="/service/stop/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Stop a service">
-										<i class="fas fa-minus-circle"></i>
-									</a>
-								}
-							</td>
-						</tr>
-						}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+    <div class="col-md-12">
+        <div id="registryList" class="panel panel-default">
+            <div class="panel-heading text-left">
+                <span style="float: right; top: -5px; position:relative">
+                    <a href="/service/launch" class="btn btn-sm btn-default" title="Start/Create new service">
+                        <i class="fas fa-plus-circle"></i>
+                    </a>
+                </span>
+                Registered Services
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Database</th>
+                        <th>Tags</th>
+                        <th>Uri</th>
+                        <th>State</th>
+                        <th>Authority Uri</th>
+                        <th>Last Updated</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var service in Model.RegistryEntries.OrderBy(x => x.Tags))
+                    {
+                        <tr>
+                            <td align="left">@service.Name</td>
+                            <td align="left">@service.Database</td>
+                            <td align="left">@service.Tags</td>
+                            <td align="left">@service.GetRedirectedUri(Context.Request)</td>
+                            <td align="left">@service.State</td>
+                            <td align="left">@service.GetRedirectedAuthorityUri(Context.Request)</td>
+                            <td align="left">@service.LastUpdated</td>
+                            <td align="center">
+                                @if (!service.Tags.Contains("registry") && Model.ContainsConfig(service))
+                                {
+                                    <a href="/service/edit/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Edit a service">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                }
+                                @if (!service.Tags.Contains("registry"))
+                                {
+                                    <a href="/service/stop/?host=@Html.Encode(service.Host)&port=@Html.Encode(service.Port)" class="btn btn-xs btn-default" title="Stop a service">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-

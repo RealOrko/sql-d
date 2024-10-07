@@ -1,10 +1,9 @@
-namespace SqlD.Extensions
+namespace SqlD.Extensions;
+
+public static class StringExtensions
 {
-	public static class StringExtensions
-	{
-		public static DateTime FromSqlLiteString(this string value)
-		{
-			return DateTime.Parse(value);
-		}
-	}
+    public static DateTime FromSqlLiteString(this string value)
+    {
+        return DateTime.Parse(value);
+    }
 }

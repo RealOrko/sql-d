@@ -1,7 +1,6 @@
-﻿namespace SqlD.Options
+﻿namespace SqlD.Options;
+
+public class CommandAttribute : Attribute
 {
-    public class CommandAttribute : Attribute
-    {
-        public string Command { get; set; }
-    }
+    public string Command { get; set; }
 }

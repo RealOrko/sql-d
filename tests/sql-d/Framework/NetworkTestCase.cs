@@ -1,6 +1,5 @@
 using System.IO;
 using System.Linq;
-using System.Net;
 using NUnit.Framework;
 using SqlD.Builders;
 using SqlD.Configs.Model;
@@ -11,8 +10,8 @@ namespace SqlD.Tests.Framework;
 
 public class NetworkTestCase
 {
-    const string ConfigurationFileName = "appsettings.json";
-    
+    private const string ConfigurationFileName = "appsettings.json";
+
     public SqlDConfiguration SqlDConfig { get; private set; }
 
     public SqlDServiceModel RegistryService => SqlDConfig.Services.First(serviceModel => serviceModel.Name == "sql-d-registry-1");
@@ -25,15 +24,15 @@ public class NetworkTestCase
 
     public SqlDServiceModel MasterService => SqlDConfig.Services.First(serviceModel => serviceModel.Name == "sql-d-master-1");
 
-    public ConnectionClient RegistryClient => new NewClientBuilder(withRetries: false).ConnectedTo(RegistryService.ToEndPoint());
-    
-    public ConnectionClient Slave1Client => new NewClientBuilder(withRetries: false).ConnectedTo(Slave1Service.ToEndPoint());
-    
-    public ConnectionClient Slave2Client => new NewClientBuilder(withRetries: false).ConnectedTo(Slave2Service.ToEndPoint());
-    
-    public ConnectionClient Slave3Client => new NewClientBuilder(withRetries: false).ConnectedTo(Slave3Service.ToEndPoint());
-    
-    public ConnectionClient MasterClient => new NewClientBuilder(withRetries: false).ConnectedTo(MasterService.ToEndPoint());
+    public ConnectionClient RegistryClient => new NewClientBuilder(false).ConnectedTo(RegistryService);
+
+    public ConnectionClient Slave1Client => new NewClientBuilder(false).ConnectedTo(Slave1Service);
+
+    public ConnectionClient Slave2Client => new NewClientBuilder(false).ConnectedTo(Slave2Service);
+
+    public ConnectionClient Slave3Client => new NewClientBuilder(false).ConnectedTo(Slave3Service);
+
+    public ConnectionClient MasterClient => new NewClientBuilder(false).ConnectedTo(MasterService);
 
     [SetUp]
     public void SetUp()
@@ -43,12 +42,12 @@ public class NetworkTestCase
         if (File.Exists("sql-d-slave-2.db")) File.Delete("sql-d-slave-2.db");
         if (File.Exists("sql-d-slave-3.db")) File.Delete("sql-d-slave-3.db");
         if (File.Exists("sql-d-registry-1.db")) File.Delete("sql-d-registry-1.db");
-        SqlDConfig = Interface.Start(GetType().Assembly, ConfigurationFileName);
-        EndPointMonitor.WaitUntil(RegistryService.ToEndPoint(), EndPointIs.Up);
-        EndPointMonitor.WaitUntil(Slave3Service.ToEndPoint(), EndPointIs.Up);
-        EndPointMonitor.WaitUntil(Slave2Service.ToEndPoint(), EndPointIs.Up);
-        EndPointMonitor.WaitUntil(Slave1Service.ToEndPoint(), EndPointIs.Up);
-        EndPointMonitor.WaitUntil(MasterService.ToEndPoint(), EndPointIs.Up);
+        SqlDConfig = GetType().Assembly.Start(ConfigurationFileName);
+        EndPointMonitor.WaitUntil(RegistryService, EndPointIs.Up);
+        EndPointMonitor.WaitUntil(Slave3Service, EndPointIs.Up);
+        EndPointMonitor.WaitUntil(Slave2Service, EndPointIs.Up);
+        EndPointMonitor.WaitUntil(Slave1Service, EndPointIs.Up);
+        EndPointMonitor.WaitUntil(MasterService, EndPointIs.Up);
     }
 
     [TearDown]

@@ -5,47 +5,46 @@ using SqlD.Configs.Model;
 using SqlD.Extensions;
 using SqlD.Tests.Framework.Models;
 
-namespace SqlD.Tests.Framework
+namespace SqlD.Tests.Framework;
+
+public class DatabaseTestCase<T> where T : IAmATestModel, new()
 {
-	public class DatabaseTestCase<T> where T : IAmATestModel, new()
-	{
-		protected T Instance;
-		protected DbConnection Connection;
+    protected DbConnection Connection;
+    protected T Instance;
 
-		[SetUp]
-		public virtual async Task SetUp()
-		{
-			Connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
+    [SetUp]
+    public virtual async Task SetUp()
+    {
+        Connection = new NewDbBuilder().ConnectedTo("sql-d.db", SqlDPragmaModel.Default);
 
-			var createTable = typeof(AnyTableA).GetCreateTable();
-			await Connection.ExecuteCommandAsync(createTable);
+        var createTable = typeof(AnyTableA).GetCreateTable();
+        await Connection.ExecuteCommandAsync(createTable);
 
-			createTable = typeof(AnyTableB).GetCreateTable();
-			await Connection.ExecuteCommandAsync(createTable);
+        createTable = typeof(AnyTableB).GetCreateTable();
+        await Connection.ExecuteCommandAsync(createTable);
 
-			Instance = await InsertAny<T>();
-		}
+        Instance = await InsertAny<T>();
+    }
 
-		[TearDown]
-		public virtual async Task TearDown()
-		{
-			var dropTable = typeof(AnyTableA).GetDropTable();
-			await Connection.ExecuteCommandAsync(dropTable);
+    [TearDown]
+    public virtual async Task TearDown()
+    {
+        var dropTable = typeof(AnyTableA).GetDropTable();
+        await Connection.ExecuteCommandAsync(dropTable);
 
-			dropTable = typeof(AnyTableB).GetDropTable();
-			await Connection.ExecuteCommandAsync(dropTable);
-		}
+        dropTable = typeof(AnyTableB).GetDropTable();
+        await Connection.ExecuteCommandAsync(dropTable);
+    }
 
-		protected virtual async Task<T1> InsertAny<T1>() where T1 : IAmATestModel, new()
-		{
-			var instance = GenFu.GenFu.New<T1>();
-			await Connection.InsertAsync(instance);
-			return instance;
-		}
+    protected virtual async Task<T1> InsertAny<T1>() where T1 : IAmATestModel, new()
+    {
+        var instance = GenFu.GenFu.New<T1>();
+        await Connection.InsertAsync(instance);
+        return instance;
+    }
 
-		protected virtual async Task DeleteAny<T1>(T1 instance) where T1 : IAmATestModel
-		{
-			await Connection.DeleteAsync(instance);
-		}
-	}
+    protected virtual async Task DeleteAny<T1>(T1 instance) where T1 : IAmATestModel
+    {
+        await Connection.DeleteAsync(instance);
+    }
 }

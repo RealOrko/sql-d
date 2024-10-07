@@ -1,8 +1,7 @@
-﻿namespace SqlD.Network.Server.Api.Db.Model
+﻿namespace SqlD.Network.Server.Api.Db.Model;
+
+public enum StatusCode
 {
-	public enum StatusCode
-	{
-		Ok,
-		Failed
-	}
+    Ok,
+    Failed
 }

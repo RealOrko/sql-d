@@ -1,8 +1,7 @@
-namespace SqlD.Network.Server.Api.Registry.Model
+namespace SqlD.Network.Server.Api.Registry.Model;
+
+public enum ServiceStateType
 {
-	public enum ServiceStateType
-	{
-		Up,
-		Down
-	}
+    Up,
+    Down
 }

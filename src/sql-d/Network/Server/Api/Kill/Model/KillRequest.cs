@@ -1,7 +1,6 @@
-﻿namespace SqlD.Network.Server.Api.Kill.Model
+﻿namespace SqlD.Network.Server.Api.Kill.Model;
+
+public class KillRequest
 {
-	public class KillRequest
-	{
-		public EndPoint EndPoint { get; set; }
-	}
+    public EndPoint EndPoint { get; set; }
 }

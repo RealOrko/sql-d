@@ -1,8 +1,7 @@
-﻿namespace SqlD.Attributes
+﻿namespace SqlD.Attributes;
+
+public enum SqlLiteIndexType
 {
-	public enum SqlLiteIndexType
-	{
-		Unique, 
-		NonUnique
-	}
+    Unique,
+    NonUnique
 }

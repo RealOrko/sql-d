@@ -2,22 +2,21 @@
 using SqlD.UI.Models.Surface;
 using SqlD.UI.Services;
 
-namespace SqlD.UI.Controllers
+namespace SqlD.UI.Controllers;
+
+public class SurfaceController : Controller
 {
-    public class SurfaceController : Controller
+    private readonly SurfaceService surface;
+
+    public SurfaceController(SurfaceService surface)
     {
-	    private readonly SurfaceService surface;
+        this.surface = surface;
+    }
 
-	    public SurfaceController(SurfaceService surface)
-	    {
-		    this.surface = surface;
-	    }
-
-	    public IActionResult Index()
-        {
-	        var config = this.surface.GetConfig();
-	        var viewModel = new SurfaceViewModel(config);
-	        return View(viewModel);
-        }
-	}
+    public IActionResult Index()
+    {
+        var config = surface.GetConfig();
+        var viewModel = new SurfaceViewModel(config);
+        return View(viewModel);
+    }
 }

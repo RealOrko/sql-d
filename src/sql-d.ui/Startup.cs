@@ -7,64 +7,63 @@ using SqlD.UI.Services;
 using SqlD.UI.Services.Client;
 using SqlD.UI.Services.Query;
 
-namespace SqlD.UI
+namespace SqlD.UI;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+        services.AddResponseCompression();
+
+        services.AddSingleton<ConfigService>();
+        services.AddSingleton<QueryService>();
+        services.AddSingleton<RegistryService>();
+        services.AddSingleton<ServiceService>();
+        services.AddSingleton<SurfaceService>();
+        services.AddSingleton<ClientFactory>();
+        services.AddSingleton<UnknownAction>();
+        services.AddSingleton<DescribeAction>();
+        services.AddSingleton<CommandAction>();
+        services.AddSingleton<QueryAction>();
+
+        services.AddOpenApiDocument(settings =>
         {
-            Configuration = configuration;
+            settings.DocumentName = "v1";
+            settings.Title = "[ sql-d/ui ]";
+            settings.Version = "1.0.0";
+        });
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
         }
 
-        public IConfiguration Configuration { get; }
-
-        public void ConfigureServices(IServiceCollection services)
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseEndpoints(opts =>
         {
-            services.AddControllersWithViews(c => c.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
-            services.AddResponseCompression();
+            opts.MapControllerRoute(
+                "default",
+                "{controller=Home}/{action=Index}/{id?}");
+        });
 
-            services.AddSingleton<ConfigService>();
-            services.AddSingleton<QueryService>();
-            services.AddSingleton<RegistryService>();
-            services.AddSingleton<ServiceService>();
-            services.AddSingleton<SurfaceService>();
-            services.AddSingleton<ClientFactory>();
-            services.AddSingleton<UnknownAction>();
-            services.AddSingleton<DescribeAction>();
-            services.AddSingleton<CommandAction>();
-            services.AddSingleton<QueryAction>();
-            
-            services.AddOpenApiDocument(settings =>
-            {
-                settings.DocumentName = "v1";
-                settings.Title = "[ sql-d/ui ]";
-                settings.Version = "1.0.0";
-            });
-        }
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
-            app.UseStaticFiles();
-            app.UseRouting();
-            app.UseEndpoints(opts =>
-            {
-                opts.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseOpenApi();
-            app.UseSwaggerUi();
-        }
+        app.UseOpenApi();
+        app.UseSwaggerUi();
     }
 }

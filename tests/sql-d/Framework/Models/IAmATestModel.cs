@@ -1,4 +1,5 @@
-namespace SqlD.Tests.Framework.Models
+namespace SqlD.Tests.Framework.Models;
+
+public interface IAmATestModel
 {
-	public interface IAmATestModel { }
 }

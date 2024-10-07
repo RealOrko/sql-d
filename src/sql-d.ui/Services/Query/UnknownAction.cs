@@ -6,8 +6,8 @@ namespace SqlD.UI.Services.Query;
 
 public class UnknownAction : IQueryAction
 {
-	public async Task<object> Go(string query, ConnectionClient client)
-	{
-		return await Task.FromResult(new UnknownResultViewModel(query));
-	}
+    public async Task<object> Go(string query, ConnectionClient client)
+    {
+        return await Task.FromResult(new UnknownResultViewModel(query));
+    }
 }

@@ -1,9 +1,8 @@
-﻿namespace SqlD.Exceptions
+﻿namespace SqlD.Exceptions;
+
+public class ProcessStartFailedException : Exception
 {
-	public class ProcessStartFailedException : Exception
-	{
-		public ProcessStartFailedException(string message) : base(message)
-		{
-		}
-	}
+    public ProcessStartFailedException(string message) : base(message)
+    {
+    }
 }

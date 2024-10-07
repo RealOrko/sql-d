@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
 using SqlD.Tests.Framework;
 
-namespace SqlD.Tests.Configs
+namespace SqlD.Tests.Configs;
+
+[TestFixture]
+public class ConfigurationTests : NetworkTestCase
 {
-	[TestFixture]
-	public class ConfigurationTests : NetworkTestCase
-	{
-		[Test]
-		public void ShouldBeAbleToStartASqlDConfiguration()
-		{
-        }
+    [Test]
+    public void ShouldBeAbleToStartASqlDConfiguration()
+    {
     }
 }
