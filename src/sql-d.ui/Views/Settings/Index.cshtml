@@ -23,7 +23,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<input id="saveSettings" class="btn btn-primary" value="Save Settings"/>
+				<input id="saveSettings" class="btn btn-primary" type="submit" value="Save Settings" />
 			</div>			
 		</div>
 	</div>
@@ -32,6 +32,8 @@
 <form id="SettingsForm" Method="post" action="/settings/save" enctype="multipart/form-data">
 	<input id="Data" name="Data" type="hidden" value="" />
 </form>
+
+<div id="result"></div>
 
 <script>
 
@@ -44,12 +46,9 @@
 
 	// Save settings
 	$('#saveSettings').on('click', (e) => {
-		console.log('Save settings clicked!');
 		$('#Data').val(editor.getValue());
 		$.post('/settings/save', $('#SettingsForm').serialize(), (r) => {
-			// TODO: Acknowledge or Error
-			console.log('Posted!');
-			console.log(r);
+			$('#result').html(r);
 		});
 	});
 

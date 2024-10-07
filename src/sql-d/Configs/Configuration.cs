@@ -90,7 +90,22 @@ public static class Configuration
             jsonInstance["SqlD"] = JObject.Parse(JsonSerialiser.Serialise(config));
 
             json = JsonSerialiser.Serialise(jsonInstance);
+            if (File.Exists($"{settingsFilePath}.backup"))
+                File.Delete($"{settingsFilePath}.backup");
+            File.Copy(settingsFilePath, $"{settingsFilePath}.backup");
             File.WriteAllText(settingsFilePath, json);
+        }
+    }
+
+    public static void Revert()
+    {
+        lock (Synchronise)
+        {
+            _instance = null;
+            var settingsFilePath = Path.Combine(_assemblyDirectory, _settingsFile);
+            if (File.Exists(settingsFilePath))
+                File.Delete(settingsFilePath);
+            File.Copy($"{settingsFilePath}.backup", settingsFilePath);
         }
     }
 
