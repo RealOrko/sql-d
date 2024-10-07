@@ -20,7 +20,7 @@
                 Services
             </div>
             <div class="panel-body">
-                <table class="table table-condensed table-bordered">
+                <table class="table table-condensed table-bordered" style="margin-bottom: 0">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -29,7 +29,7 @@
                         <th>Uri</th>
                         <th>Authority Uri</th>
                         <th>Last Updated</th>
-                        <th></th>
+                        <th width="134px"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,7 +42,7 @@
                             <td align="left">@service.GetRedirectedUri(Context.Request)</td>
                             <td align="left">@service.GetRedirectedAuthorityUri(Context.Request)</td>
                             <td align="left">@service.LastUpdated</td>
-                            <td align="center">
+                            <td align="right">
                                 <a target="_service_id_" href="@service.GetRedirectedUri(Context.Request)api/id" class="btn btn-xs btn-default" title="Service ID for @service.GetRedirectedUri(Context.Request)">
                                     <i class="far fa-id-card"></i>
                                 </a>
@@ -79,7 +79,7 @@
                                                     <th>Name</th>
                                                     <th>Database</th>
                                                     <th>Uri</th>
-                                                    <th width="80px"></th>
+                                                    <th width="128px"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -90,7 +90,7 @@
                                                         <td>@forwardServiceModel.Name</td>
                                                         <td>@forwardServiceModel.Database</td>
                                                         <td>@forwardServiceModel.ToUrl()</td>
-                                                        <td align="center">
+                                                        <td align="right">
                                                             <a href="/service/forward/delete?thisHost=@Html.Encode(forwardServiceModel.Host)&thisPort=@Html.Encode(forwardServiceModel.Port)&fromHost=@Html.Encode(serviceModel.Host)&fromPort=@Html.Encode(serviceModel.Port)" class="btn btn-xs btn-danger" title="Delete this forward">
                                                                 <i class="fas fa-minus-circle"></i>
                                                             </a>
