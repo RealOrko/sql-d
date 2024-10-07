@@ -12,9 +12,6 @@ echo ''
 echo '[SQL-D]:BUILD/'
 echo ''
 
-rm -rf $PWD/tests/sql-d/bin
-rm -rf $PWD/tests/sql-d/obj
-
 dotnet restore $PWD/tests/sql-d/SqlD.Tests.csproj
 dotnet build $PWD/tests/sql-d/SqlD.Tests.csproj
 dotnet test $PWD/tests/sql-d/SqlD.Tests.csproj
