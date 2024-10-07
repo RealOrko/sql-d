@@ -45,3 +45,4 @@ find $PWD/src -name '*.rpm' -exec cp "{}" $PWD/packages/  \;
 find $PWD/src -name '*.deb' -exec cp "{}" $PWD/packages/  \;
 
 ls -la $PWD/packages/
+
