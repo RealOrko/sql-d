@@ -1,6 +1,13 @@
 name: .NET Core
 
-on: [push]
+on: 
+  push:
+    paths:
+      - 'LICENSE'
+      - 'src/**'
+      - 'tests/**'
+      - '!docs/**'
+      - '!README.md'
 
 jobs:
   build-linux-x64:
