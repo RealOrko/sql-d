@@ -61,7 +61,7 @@ namespace SqlD.UI
             });
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi();
         }
     }
 }
