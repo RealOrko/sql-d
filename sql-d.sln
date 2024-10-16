@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EFEA
 		scripts\publish.sh = scripts\publish.sh
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlD.CLI", "src\SqlD.CLI\SqlD.CLI.csproj", "{5956D5E2-4288-4699-9D05-FFC5522D5DC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{20B97568-FCD5-46B1-8DD8-07FABB84BE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20B97568-FCD5-46B1-8DD8-07FABB84BE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20B97568-FCD5-46B1-8DD8-07FABB84BE30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5956D5E2-4288-4699-9D05-FFC5522D5DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5956D5E2-4288-4699-9D05-FFC5522D5DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5956D5E2-4288-4699-9D05-FFC5522D5DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5956D5E2-4288-4699-9D05-FFC5522D5DC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{D8040485-866E-44E6-84FF-952BE982891E} = {DB96BEEA-88F7-4F28-84CB-08F22F658EAC}
 		{2AFF609C-37FE-4C8D-87A7-6D9E11D3FDF5} = {D8040485-866E-44E6-84FF-952BE982891E}
 		{EFEA11FF-147B-425A-8A51-2A5850F2EAAC} = {DB96BEEA-88F7-4F28-84CB-08F22F658EAC}
+		{5956D5E2-4288-4699-9D05-FFC5522D5DC1} = {243695E0-61E0-4CB5-B032-54167EB126A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A6FCA73-005F-41E0-A9A4-74F58DA42160}
