@@ -30,17 +30,17 @@ export SQLD_VERSION=$(echo "$GITHUB_RUN_NUMBER-$GITHUB_BRANCH_NAME" | sed 's/\-$
 
 git clean -x -f -d
 
-dotnet restore $PWD/src/sql-d/SqlD.csproj
-dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:Build /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION 
-dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateZip /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
-dotnet msbuild $PWD/src/sql-d/SqlD.csproj /t:CreateTarball /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
+dotnet restore $PWD/src/sqld/SqlD.csproj
+dotnet msbuild $PWD/src/sqld/SqlD.csproj /t:Build /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION 
+dotnet msbuild $PWD/src/sqld/SqlD.csproj /t:CreateZip /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
+dotnet msbuild $PWD/src/sqld/SqlD.csproj /t:CreateTarball /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
 
-dotnet restore $PWD/src/sql-d.ui/SqlD.UI.csproj
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:Build /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION 
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateZip /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateTarball /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateRpm /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
+dotnet restore $PWD/src/sqld.ui/SqlD.UI.csproj
+dotnet msbuild $PWD/src/sqld.ui/SqlD.UI.csproj /t:Build /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION 
+dotnet msbuild $PWD/src/sqld.ui/SqlD.UI.csproj /t:CreateZip /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
+dotnet msbuild $PWD/src/sqld.ui/SqlD.UI.csproj /t:CreateTarball /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
+dotnet msbuild $PWD/src/sqld.ui/SqlD.UI.csproj /t:CreateRpm /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
+dotnet msbuild $PWD/src/sqld.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
 
 mkdir -p $PWD/packages/
 
