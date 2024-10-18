@@ -24,10 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\sql-d\SqlD.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Surface\Index.cshtml" />
     </ItemGroup>
 
@@ -35,6 +31,10 @@
         <Content Include="sqld.ui.service" CopyToPublishDirectory="PreserveNewest" LinuxFileMode="1755">
             <LinuxPath>/etc/systemd/system/sqld.ui.service</LinuxPath>
         </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\sqld\SqlD.csproj" />
     </ItemGroup>
 
 </Project>

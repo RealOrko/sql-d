@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\sql-d\SqlD.csproj" />
+    <ProjectReference Include="..\sqld\SqlD.csproj" />
   </ItemGroup>
 
   <ItemGroup>
