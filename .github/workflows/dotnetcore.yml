@@ -45,15 +45,15 @@ jobs:
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
-      - name: Upload sql-d.nupkg
+      - name: Upload sqld.nupkg
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./packages/sql-d.${{ steps.version.outputs.version }}.nupkg
-          asset_name: sql-d.${{ steps.version.outputs.version }}.nupkg
+          asset_path: ./packages/sqld.${{ steps.version.outputs.version }}.nupkg
+          asset_name: sqld.${{ steps.version.outputs.version }}.nupkg
           asset_content_type: application/gzip
       - name: Upload SqlD.tar.gz
         if: github.ref == 'refs/heads/master'
@@ -118,7 +118,7 @@ jobs:
       - name: Publish NuGet package
         if: github.ref == 'refs/heads/master'
         run: |
-          dotnet nuget push ./packages/sql-d.${{ steps.version.outputs.version }}.nupkg --api-key "${{ secrets.NUGET }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push ./packages/sqld.${{ steps.version.outputs.version }}.nupkg --api-key "${{ secrets.NUGET }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
 # This is hot garbage, will look at this later ... :/
 #  build-win-x64:
