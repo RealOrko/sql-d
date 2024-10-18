@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using SqlD;
+
+Interface.Setup(typeof(Program).Assembly, "appsettings.json");
+Interface.Start();
+Interface.Wait();
