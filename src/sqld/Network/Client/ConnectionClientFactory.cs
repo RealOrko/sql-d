@@ -31,7 +31,7 @@ internal class ConnectionClientFactory
         Clients.Clear();
     }
 
-    public static void DisposeNotInConfig(EndPoint[] optionalEndPoints)
+    internal static void DisposeNotInConfig(EndPoint[] optionalEndPoints)
     {
         foreach (var client in Clients.Values.ToList())
         {

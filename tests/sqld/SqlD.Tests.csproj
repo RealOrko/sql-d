@@ -29,14 +29,14 @@
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\src\sql-d\SqlD.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
       <Content Update="appsettings-linux-x64.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Update="appsettings-win-x64.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\sqld\SqlD.csproj" />
     </ItemGroup>
 </Project>

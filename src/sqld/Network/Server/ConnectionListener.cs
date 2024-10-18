@@ -66,4 +66,9 @@ public class ConnectionListener : IDisposable
 
         Log.Out.Info($"Disposed connection listener on {ServiceModel.ToUrl()}");
     }
+
+    public void Wait()
+    {
+        _host.WaitForShutdown();
+    }
 }

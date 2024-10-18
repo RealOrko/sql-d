@@ -33,7 +33,7 @@ internal class ConnectionListenerFactory
         Listeners.Clear();
     }
 
-    public static void DisposeNotInConfig(EndPoint[] optionalEndPoints)
+    internal static void DisposeNotInConfig(EndPoint[] optionalEndPoints)
     {
         foreach (var listener in Listeners.Values.ToList())
         {
@@ -51,6 +51,14 @@ internal class ConnectionListenerFactory
                 }
             }
 
+        }
+    }
+
+    public static void WaitAll()
+    {
+        foreach (var listener in Listeners.Values.ToList())
+        {
+            listener.Wait();
         }
     }
 }

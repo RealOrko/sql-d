@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <IsPackable>true</IsPackable>
-        <PackageId>sql-d</PackageId>
+        <PackageId>sqld</PackageId>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
