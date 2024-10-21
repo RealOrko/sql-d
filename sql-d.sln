@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EFEA
 		scripts\install.sh = scripts\install.sh
 		scripts\package.sh = scripts\package.sh
 		scripts\version.sh = scripts\version.sh
+		scripts\docker-build.sh = scripts\docker-build.sh
+		scripts\docker-run.sh = scripts\docker-run.sh
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlD.CLI", "src\sql-d.cli\SqlD.CLI.csproj", "{EDC29C5D-E5D6-4A66-8673-4B5A2ED438BA}"
