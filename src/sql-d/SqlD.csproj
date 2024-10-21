@@ -16,7 +16,6 @@
 
     <ItemGroup>
         <None Remove="appsettings.json" />
-        <None Remove="sql-d.nuspec" />
     </ItemGroup>
 
     <ItemGroup>
