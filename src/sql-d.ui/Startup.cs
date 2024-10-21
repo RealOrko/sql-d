@@ -51,7 +51,7 @@ public class Startup
         services.AddOpenApiDocument(settings =>
         {
             settings.DocumentName = "v1";
-            settings.Title = "[ sqld/ui ]";
+            settings.Title = "[ sql-d/ui ]";
             settings.Version = "1.0.0";
         });
     }
