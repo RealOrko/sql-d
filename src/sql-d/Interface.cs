@@ -98,9 +98,4 @@ public static class Interface
         All,
         NotFoundInConfig
     }
-
-    public static void Wait()
-    {
-        ConnectionListenerFactory.WaitAll();
-    }
 }
