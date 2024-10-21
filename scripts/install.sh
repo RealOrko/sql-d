@@ -12,8 +12,10 @@ echo ''
 echo '[SQL-D]:INSTALL/'
 echo ''
 
-sudo dpkg --purge sqld.ui || true
-sudo dpkg -i $PWD/packages/SqlD.UI.1.0.0-kubernetes.deb
+export PACKAGE_VERSION=$($PWD/scripts/version.sh)
+
+sudo $PWD/scripts/uninstall.sh || true
+sudo dpkg -i "$PWD/packages/SqlD.UI.$PACKAGE_VERSION.deb"
 sudo systemctl enable sqld.ui
 sudo systemctl start sqld.ui
 sudo systemctl status sqld.ui

@@ -8,18 +8,8 @@ if [ ! -f "$DOTNETPATH" ]; then
 	exit 1
 fi
 
-set +u
-
-if [ -z "$GITHUB_RUN_NUMBER" ]; then
-	export GITHUB_RUN_NUMBER=0
-fi 
-
-set -u
-
 echo ''
 echo '[SQL-D]:BUILD/'
-echo ''
-echo "Current Run Number: $GITHUB_RUN_NUMBER"
 echo ''
 
 dotnet tool install --global dotnet-zip
