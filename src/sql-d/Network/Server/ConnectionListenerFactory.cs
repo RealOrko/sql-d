@@ -18,6 +18,14 @@ internal class ConnectionListenerFactory
             return connectionListener;
         });
     }
+    
+    public static void WaitAll()
+    {
+        foreach (var listener in Listeners.Values.ToList())
+        {
+            listener.Wait();
+        }
+    }
 
     internal static void Dispose(ConnectionListener listener)
     {

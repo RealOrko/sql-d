@@ -92,6 +92,11 @@ public static class Interface
             ConnectionListenerFactory.DisposeNotInConfig(OptionalEndPoints);
         }
     }
+    
+    public static void Wait()
+    {
+        ConnectionListenerFactory.WaitAll();
+    }
 
     public enum InterfaceStopKind
     {

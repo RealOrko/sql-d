@@ -59,6 +59,11 @@ public class ConnectionListener : IDisposable
         }
     }
     
+    public void Wait()
+    {
+        _host.WaitForShutdown();
+    }
+    
     public virtual void Dispose()
     {
         _host.StopAsync().Wait();
