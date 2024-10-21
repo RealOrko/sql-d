@@ -30,4 +30,3 @@ dotnet tool install --global dotnet-deb
 dotnet restore $PWD/tests/sql-d/SqlD.Tests.csproj
 dotnet build $PWD/tests/sql-d/SqlD.Tests.csproj
 dotnet test $PWD/tests/sql-d/SqlD.Tests.csproj --logger "trx;LogFileName=test-results.trx"
-
