@@ -29,7 +29,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EFEA
 	ProjectSection(SolutionItems) = preProject
 		scripts\build.bat = scripts\build.bat
 		scripts\build.sh = scripts\build.sh
-		scripts\publish.sh = scripts\publish.sh
+		scripts\install.sh = scripts\install.sh
+		scripts\package.sh = scripts\package.sh
+		scripts\version.sh = scripts\version.sh
 	EndProjectSection
 EndProject
 Global
