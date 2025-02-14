@@ -32,6 +32,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EFEA
 		scripts\install.sh = scripts\install.sh
 		scripts\package.sh = scripts\package.sh
 		scripts\version.sh = scripts\version.sh
+		scripts\docker-build.sh = scripts\docker-build.sh
+		scripts\docker-run.sh = scripts\docker-run.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{CD2CD2AD-130C-4821-8830-BBAFBAE8B3C1}"
+	ProjectSection(SolutionItems) = preProject
+		docker\appsettings.json = docker\appsettings.json
+		docker\Dockerfile = docker\Dockerfile
 	EndProjectSection
 EndProject
 Global
@@ -63,6 +71,7 @@ Global
 		{D8040485-866E-44E6-84FF-952BE982891E} = {DB96BEEA-88F7-4F28-84CB-08F22F658EAC}
 		{2AFF609C-37FE-4C8D-87A7-6D9E11D3FDF5} = {D8040485-866E-44E6-84FF-952BE982891E}
 		{EFEA11FF-147B-425A-8A51-2A5850F2EAAC} = {DB96BEEA-88F7-4F28-84CB-08F22F658EAC}
+		{CD2CD2AD-130C-4821-8830-BBAFBAE8B3C1} = {DB96BEEA-88F7-4F28-84CB-08F22F658EAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A6FCA73-005F-41E0-A9A4-74F58DA42160}
