@@ -39,17 +39,19 @@ public static class Configuration
         if (_assembly != null)
             throw new InvalidOperationException("The configuration assembly has already been set.");
         _assembly = assembly;
-        // This causes null refs
-        //Log.Out.Info($"Setting start assembly to {assembly.FullName}");
     }
 
     public static void SetSettingsFile(string settingsFile)
     {
         if (_settingsFile != null)
             throw new InvalidOperationException("The configuration settings file has already been set.");
+        
+        if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SQLD_CONFIGURATION_FILE")))
+            settingsFile = Environment.GetEnvironmentVariable("SQLD_CONFIGURATION_FILE");
+
         _settingsFile = settingsFile;
-        // This causes null refs
-        //Log.Out.Info($"Setting start settings file to {_settingsFile}");
+
+        Log.Out.Info($"Settings loaded from {_settingsFile}");
     } 
     
     private static void LoadInstance()
@@ -61,7 +63,12 @@ public static class Configuration
             var builder = new ConfigurationBuilder()
                 .SetBasePath(_assemblyDirectory);
 
-            var fullSettingsFilePath = Path.Combine(_assemblyDirectory, _settingsFile);
+            var fullSettingsFilePath = _settingsFile;
+            if (!File.Exists(fullSettingsFilePath))
+            {
+                fullSettingsFilePath = Path.Combine(_assemblyDirectory, _settingsFile);
+            }
+            
             if (File.Exists(fullSettingsFilePath))
             {
                 // This causes stack overflows
