@@ -12,6 +12,7 @@ RUN chown app:app /var/lib/sql-d/
 EXPOSE 5000 50095 50100
 ENV ASPNETCORE_URLS=http://+:5000
 ENV SQLD_CONFIGURATION_FILE=/etc/sql-d/appsettings.json
+ENV SQLD_DATA_DIRECTORY=/var/lib/sql-d
 RUN mkdir -p /etc/sql-d/
 COPY docker/appsettings.json /etc/sql-d/appsettings.json
 WORKDIR /app

@@ -16,6 +16,9 @@ public class SqlDConfiguration
     {
         if (!string.IsNullOrWhiteSpace(dataDirectory) && string.IsNullOrEmpty(DataDirectory))
         {
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SQLD_DATA_DIRECTORY")))
+                dataDirectory = Environment.GetEnvironmentVariable("SQLD_DATA_DIRECTORY");
+            
             Log.Out.Info($"Setting data directory to {dataDirectory}");
             DataDirectory = dataDirectory;
         }
