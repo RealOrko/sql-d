@@ -430,7 +430,7 @@ autoscaling:
   annotations: 
     # key: value
 # minReplicas sets the minimum number of replicas
-  minReplicas: 1
+  minReplicas: 2
 # maxReplicas sets the maximum number of replicas
   maxReplicas: 10
 # metrics is the list of metrics used for hpa
