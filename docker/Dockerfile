@@ -9,10 +9,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS run
 RUN mkdir -p /var/lib/sql-d/
 RUN chown app:app /var/lib/sql-d/
 #USER app
-EXPOSE 5000 50095 50100
+EXPOSE 5000 50095 50100 50101
 ENV ASPNETCORE_URLS=http://+:5000
 ENV SQLD_CONFIGURATION_FILE=/etc/sql-d/appsettings.json
-ENV SQLD_DATA_DIRECTORY=/var/lib/sql-d
+ENV SQLD_DATA_DIRECTORY=/tmp
 RUN mkdir -p /etc/sql-d/
 COPY docker/appsettings.json /etc/sql-d/appsettings.json
 WORKDIR /app

@@ -8,6 +8,6 @@ docker run -it \
   -p 8000:5000 \
   -p 8001:50100 \
   -p 8002:50095 \
-  -v $PWD/.var:/var/lib/sql-d sql-d \
+  -v $PWD/.var:/tmp sql-d \
   --network=host \
   --name=sql-d
