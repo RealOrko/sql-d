@@ -133,7 +133,7 @@ deployment:
   # Readiness and Liveness probes
   readinessProbe:
     failureThreshold: 3
-    periodSeconds: 5
+    periodSeconds: 3
     successThreshold: 1
     timeoutSeconds: 1
     initialDelaySeconds: 10
@@ -142,7 +142,7 @@ deployment:
       port: 5000
   livenessProbe:
     failureThreshold: 3
-    periodSeconds: 5
+    periodSeconds: 3
     successThreshold: 1
     timeoutSeconds: 1
     initialDelaySeconds: 30
