@@ -120,7 +120,7 @@ deployment:
   # Image of the app container
   image: 
     repository: realorko/sql-d
-    tag: 1.0.277
+    tag: 1.0.279
     pullPolicy: IfNotPresent
 
   containerSecurityContext:
