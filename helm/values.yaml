@@ -71,7 +71,7 @@ deployment:
   - name: SQLD_CONFIGURATION_FILE
     value: /etc/sql-d/appsettings.json
   - name: SQLD_DATA_DIRECTORY
-    value: /var/lib/sql-d
+    value: /tmp
   
   # Volumes to be added to the pod
   volumes:
@@ -153,11 +153,11 @@ deployment:
   # Resources to be defined for pod
   resources:
     limits:
-      memory: 4096Mi
-      cpu: 2
+      memory: 1024Mi
+      cpu: 1
     requests:
-      memory: 4096Mi
-      cpu: 2
+      memory: 128Mi
+      cpu: 1
 
   # Add additional containers besides init and app containers
   additionalContainers:
@@ -188,7 +188,7 @@ deployment:
 persistence:
   enabled: true
   mountPVC: true
-  mountPath: "/var/lib/sql-d"
+  mountPath: "/tmp"
   accessMode: ReadWriteOnce
   ## If defined, storageClass: <storageClass>
   ## If set to "-", storageClass: "", which disables dynamic provisioning
