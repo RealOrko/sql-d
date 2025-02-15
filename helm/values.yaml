@@ -136,7 +136,7 @@ deployment:
     periodSeconds: 3
     successThreshold: 1
     timeoutSeconds: 1
-    initialDelaySeconds: 10
+    initialDelaySeconds: 20
     httpGet:
       path: /swagger/index.html
       port: 5000
@@ -145,7 +145,7 @@ deployment:
     periodSeconds: 3
     successThreshold: 1
     timeoutSeconds: 1
-    initialDelaySeconds: 30
+    initialDelaySeconds: 20
     httpGet:
       path: /swagger/index.html
       port: 5000
@@ -157,7 +157,7 @@ deployment:
       cpu: 2
     requests:
       memory: 128Mi
-      cpu: 0.5
+      cpu: 0.2
 
   # Add additional containers besides init and app containers
   additionalContainers:
