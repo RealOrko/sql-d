@@ -44,9 +44,10 @@ public class ForwardingMiddleware(ConnectionListener listener)
         {
             await next.Invoke();
         }
-        catch (Exception)
+        catch (Exception err)
         {
-            Log.Out.Warn("The middleware target could be disposed ... ");            
+            Log.Out.Warn("The middleware target could be disposed ... here is the exception ... ");
+            Log.Out.Warn(err.ToString());
         }
 
         if (Configuration.Instance.Settings.Forwarding.Allowed && forwardingStrategy == SqlDSettingsForwarding.PRIMARY_STRATEGY)
