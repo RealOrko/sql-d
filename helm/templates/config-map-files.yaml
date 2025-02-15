@@ -1,0 +1,29 @@
+{{- if .Values.configMapFiles }}
+{{- if .Values.configMapFiles.enabled }}
+{{- $files := .Files }}
+{{- range $v := .Values.configMapFiles.files }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+{{ include "application.labels" $ | indent 4 }}
+{{ include "application.labels.chart" $ | indent 4 }}
+{{- if $.Values.configMapFiles.additionalLabels }}
+{{ toYaml $.Values.configMapFiles.additionalLabels | indent 4 }}
+{{- end }}
+{{- if $.Values.configMapFiles.annotations }}
+  annotations:
+{{ toYaml $.Values.configMapFiles.annotations | indent 4 }}
+{{- end }}
+  {{- if eq $v.nameSuffix ""  }}
+  name: {{ template "application.name" $ }}
+  {{- else }}
+  name: {{ template "application.name" $ }}-{{ $v.nameSuffix }}
+  {{- end }}
+data:
+  {{ $v.nameSuffix }}: |-
+{{ $files.Get $v.dataSource | indent 4}}
+---
+{{- end }}
+{{- end }}
+{{- end }}

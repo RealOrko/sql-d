@@ -1,0 +1,23 @@
+{{- if .Values.application -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.application.metadata.name }}
+  # this namespace may need to be updated or removed
+  namespace: control
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.namespace.name }}
+  project: default
+  source:
+    path: {{ .Values.application.environment }}/{{ .Values.namespace.name}}/{{ .Values.application.metadata.name }}
+    repoURL: "git@github.com:realorko/{{ .Values.application.metadata.repoName }}.git"
+    targetRevision: main
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+{{- end -}}

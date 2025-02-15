@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sqld-helm
+description: A helm chart for deploying sql-d
+version: 1.0.0

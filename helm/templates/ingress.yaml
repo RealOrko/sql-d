@@ -1,0 +1,49 @@
+{{- if .Values.ingress -}}
+{{- if .Values.ingress.enabled -}}
+{{- $servicePort := .Values.ingress.servicePort -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "application.name" . }}
+  labels:
+{{ include "application.labels" . | indent 4 }}
+{{ include "application.labels.chart" . | indent 4 }}
+{{- if .Values.ingress.additionalLabels }}
+{{ toYaml .Values.ingress.additionalLabels | indent 4 }}
+{{- end }}
+{{- if .Values.ingress.annotations }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- end }}
+spec:
+  {{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress.hosts }}
+    {{- $serviceName := include "application.name" $ -}}
+    {{- if .customService -}}
+    {{- $serviceName = .customService -}}
+    {{- end }}
+    {{- if .customPort -}}
+    {{- $servicePort = .customPort -}}
+    {{- end }}
+    - host: {{ tpl .host $ }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ . }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $serviceName }}
+                port:
+                  name: {{ $servicePort }}
+          {{- end }}
+    {{- end -}}
+  {{- if .Values.ingress.tls }}
+  tls:
+{{ tpl (.Values.ingress.tls | toYaml) . | indent 4 }}
+  {{- end -}}
+{{- end -}}
+{{- end -}}

@@ -1,0 +1,13 @@
+{{- if .Values.poddisruptionbudget }}
+{{- if .Values.poddisruptionbudget.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "application.name" . }}
+spec:
+  minAvailable: {{ .Values.poddisruptionbudget.minAvailable }}
+  selector:
+    matchLabels:
+{{ include "application.labels.selector" . | indent 6 }}
+{{- end }}
+{{- end }}
