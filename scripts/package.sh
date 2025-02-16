@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -euox pipefail
 
 . $PWD/scripts/includes/retries.sh
 
@@ -42,7 +42,7 @@ dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:Build /p:Configuration=Releas
 dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateZip /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
 dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateTarball /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
 retry dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateRpm /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
-dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
+retry dotnet msbuild $PWD/src/sql-d.ui/SqlD.UI.csproj /t:CreateDeb /p:Configuration=Release /p:RevisionVersion=$SQLD_VERSION
 
 mkdir -p $PWD/packages/
 
