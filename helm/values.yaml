@@ -120,12 +120,12 @@ deployment:
   # Image of the app container
   image: 
     # TODO: Uncomment
-    #repository: realorko/sql-d
-    #tag: 1.0.279
-    #pullPolicy: IfNotPresent
-    repository: sql-d
-    tag: latest
-    pullPolicy: Never
+    repository: realorko/sql-d
+    tag: 1.0.286
+    pullPolicy: IfNotPresent
+    # repository: sql-d
+    # tag: latest
+    # pullPolicy: Never
 
   containerSecurityContext:
     allowPrivilegeEscalation: false
@@ -379,7 +379,7 @@ secret:
 
 # Service Monitor to collect Prometheus metrices
 serviceMonitor:
-  enabled: true # if prometheus
+  enabled: false # if prometheus
   
   # Additional labels
   additionalLabels:
