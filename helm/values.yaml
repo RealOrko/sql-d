@@ -121,7 +121,7 @@ deployment:
   image: 
     # TODO: Uncomment
     repository: realorko/sql-d
-    tag: 1.0.285
+    tag: 1.1.285
     pullPolicy: IfNotPresent
     # repository: sql-d
     # tag: latest
