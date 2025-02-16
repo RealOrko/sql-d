@@ -3,7 +3,7 @@
 set -euo pipefail
 
 echo ''
-echo '[SQL-D]:INSTALL/DEBIAN/SYSTEMD'
+echo '[SQL-D]:INSTALL/SQLD/DEBIAN/SYSTEMD'
 echo ''
 
 sudo dpkg --purge sqld.ui || true

@@ -9,7 +9,7 @@ if [ ! -f "$DOTNETPATH" ]; then
 fi
 
 echo ''
-echo '[SQL-D]:INSTALL/'
+echo '[SQL-D]:BUILD/SQLD/DOTNET'
 echo ''
 
 set +u

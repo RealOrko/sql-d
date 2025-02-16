@@ -3,7 +3,7 @@
 set -euo pipefail
 
 echo ''
-echo '[SQL-D]:BUILD/DOCKER'
+echo '[SQL-D]:BUILD/SQLD/DOCKER'
 echo ''
 
 docker build -f $PWD/docker/Dockerfile -t sql-d $PWD/

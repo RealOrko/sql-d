@@ -1,7 +1,7 @@
 @ECHO off
 
 ECHO.
-ECHO [SQL-D]:BUILD/WINDOWS
+ECHO [SQL-D]:BUILD/SQLD/WINDOWS
 ECHO.
 
 dotnet restore .\tests\sql-d\SqlD.Tests.csproj
