@@ -27,13 +27,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EFEA11FF-147B-425A-8A51-2A5850F2EAAC}"
 	ProjectSection(SolutionItems) = preProject
-		scripts\build.bat = scripts\build.bat
-		scripts\build.sh = scripts\build.sh
+		scripts\build-dotnet.bat = scripts\build-dotnet.bat
+		scripts\build-dotnet.sh = scripts\build-dotnet.sh
 		scripts\install.sh = scripts\install.sh
 		scripts\package.sh = scripts\package.sh
 		scripts\version.sh = scripts\version.sh
-		scripts\docker-build.sh = scripts\docker-build.sh
-		scripts\docker-run.sh = scripts\docker-run.sh
+		scripts\build-docker.sh = scripts\build-docker.sh
+		scripts\run-docker.sh = scripts\run-docker.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{CD2CD2AD-130C-4821-8830-BBAFBAE8B3C1}"

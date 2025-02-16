@@ -18,7 +18,7 @@ Builds are currently only supported on linux-x64 platforms. If you have Windows 
 
 *Ubuntu 24.04*:
 ```
-./scripts/build.sh
+./scripts/build-dotnet.sh
 ```
 
 *See Also*:
