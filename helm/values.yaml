@@ -210,9 +210,11 @@ persistence:
 # Service object for servicing pods
 service:
   additionalLabels:
-    # expose: "true"
 
   annotations:
+    # prometheus.io/port: "http-primary"
+    # prometheus.io/scrape: "true"
+  
   applicationPort: 8000
   ports:
   - port: 8000
@@ -220,7 +222,7 @@ service:
     protocol: TCP
     targetPort: 5000
   - port: 8001
-    name: http-master
+    name: http-primary
     protocol: TCP
     targetPort: 50100
   - port: 8002
@@ -377,11 +379,11 @@ secret:
 
 # Service Monitor to collect Prometheus metrices
 serviceMonitor:
-  enabled: false
+  enabled: true # if prometheus
   
   # Additional labels
   additionalLabels:
-    # key: value
+    release: prometheus # if using prometheus-community/kube-prometheus-stack
 
   # Additional annotations
   annotations:
@@ -389,9 +391,21 @@ serviceMonitor:
 
   # List of the endpoints of service from which prometheus will scrape data
   endpoints:
-  - interval: 10s
-    path: /actuator/prometheus
-    port: http
+  - honorLabels: true
+    scheme: http
+    scrapeTimeout: 5s
+    path: /metrics
+    port: http-primary
+  - honorLabels: true
+    scheme: http
+    scrapeTimeout: 5s
+    path: /metrics
+    port: http-readonly
+  - honorLabels: true
+    scheme: http
+    scrapeTimeout: 5s
+    path: /metrics
+    port: http-registry
 
 logging:
   enabled: false
