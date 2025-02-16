@@ -28,6 +28,6 @@ dotnet tool install --global dotnet-rpm
 dotnet tool install --global dotnet-deb
 
 dotnet restore $PWD/tests/sql-d/SqlD.Tests.csproj
-dotnet build $PWD/tests/sql-d/SqlD.Tests.csproj
-dotnet test $PWD/tests/sql-d/SqlD.Tests.csproj --logger "trx;LogFileName=test-results.trx"
+dotnet build $PWD/tests/sql-d/SqlD.Tests.csproj --no-restore -c Release
+dotnet test $PWD/tests/sql-d/SqlD.Tests.csproj --no-build --no-restore -c Release --logger "trx;LogFileName=test-results.trx"
 
