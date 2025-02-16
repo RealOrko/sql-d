@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-. $PWD/scripts/includes/retries.sh
+. $PWD/scripts/includes/lib-retry.sh
 
 DOTNETPATH=$(which dotnet)
 if [ ! -f "$DOTNETPATH" ]; then
