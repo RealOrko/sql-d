@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+echo ''
+echo '[SQL-D]:RUN/SQLD/DOCKER'
+echo ''
+
 mkdir -p $PWD/.var
 
 docker run -it \

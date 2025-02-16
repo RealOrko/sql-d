@@ -11,7 +11,7 @@ if [ ! -f "$DOTNETPATH" ]; then
 fi
 
 echo ''
-echo '[SQL-D]:PACKAGE/'
+echo '[SQL-D]:PACKAGE'
 echo ''
 
 set +u

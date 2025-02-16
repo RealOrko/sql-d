@@ -8,6 +8,10 @@ if [ ! -f "$DOTNETPATH" ]; then
 	exit 1
 fi
 
+echo ''
+echo '[SQL-D]:INSTALL/'
+echo ''
+
 set +u
 
 if [ -z "$GITHUB_RUN_NUMBER" ]; then

@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+echo ''
+echo '[SQL-D]:INSTALL/HELM/PROMETHEUS'
+echo ''
+
 kubectl -n default apply -f $PWD/scripts/dashboards/aspnetcore.yaml
 kubectl -n default apply -f $PWD/scripts/dashboards/aspnetcore-endpoints.yaml
 

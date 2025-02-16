@@ -2,11 +2,9 @@
 
 set -euo pipefail
 
-DOTNETPATH=$(which dotnet)
-if [ ! -f "$DOTNETPATH" ]; then
-	echo "Please install Microsoft/dotnetcore from: https://www.microsoft.com/net/core"
-	exit 1
-fi
+echo ''
+echo '[SQL-D]:VERSION/SQLD'
+echo ''
 
 set +u
 

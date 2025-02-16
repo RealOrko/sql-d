@@ -2,14 +2,8 @@
 
 set -euo pipefail
 
-DOTNETPATH=$(which dotnet)
-if [ ! -f "$DOTNETPATH" ]; then
-	echo "Please install Microsoft/dotnetcore from: https://www.microsoft.com/net/core"
-	exit 1
-fi
-
 echo ''
-echo '[SQL-D]:INSTALL/'
+echo '[SQL-D]:INSTALL/DEBIAN/SYSTEMD'
 echo ''
 
 sudo dpkg --purge sqld.ui || true
