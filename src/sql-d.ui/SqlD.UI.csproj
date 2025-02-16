@@ -40,4 +40,10 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot/**">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

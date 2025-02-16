@@ -119,9 +119,13 @@ deployment:
 
   # Image of the app container
   image: 
-    repository: realorko/sql-d
-    tag: 1.0.279
-    pullPolicy: IfNotPresent
+    # TODO: Uncomment
+    #repository: realorko/sql-d
+    #tag: 1.0.279
+    #pullPolicy: IfNotPresent
+    repository: sql-d
+    tag: latest
+    pullPolicy: Never
 
   containerSecurityContext:
     allowPrivilegeEscalation: false
@@ -220,6 +224,10 @@ service:
     protocol: TCP
     targetPort: 50100
   - port: 8002
+    name: http-readonly
+    protocol: TCP
+    targetPort: 50101
+  - port: 8003
     name: http-registry
     protocol: TCP
     targetPort: 50095

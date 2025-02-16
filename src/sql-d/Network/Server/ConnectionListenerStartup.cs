@@ -57,6 +57,7 @@ internal class ConnectionListenerStartup
 
     public void Configure(IApplicationBuilder app)
     {
+        app.UseOpenTelemetryPrometheusScrapingEndpoint();
         app.UseStaticFiles();
 
         var middleware = new ForwardingMiddleware(Listener);
@@ -69,6 +70,5 @@ internal class ConnectionListenerStartup
 
         app.UseOpenApi();
         app.UseSwaggerUi();
-        app.UseOpenTelemetryPrometheusScrapingEndpoint();
     }
 }
