@@ -23,7 +23,7 @@ jobs:
         id: version
         run: echo "version=$($PWD/scripts/version.sh)" >> $GITHUB_OUTPUT
       - name: Build
-        run: $PWD/scripts/build-dotnet.sh
+        run: scripts/build-dotnet.sh
       - name: Tests
         uses: dorny/test-reporter@v1
         if: always()
@@ -33,7 +33,7 @@ jobs:
           reporter: dotnet-trx
           fail-on-error: true
       - name: Package
-        run: $PWD/scripts/package.sh
+        run: scripts/package.sh
       - name: Release
         if: github.ref == 'refs/heads/master'
         uses: actions/create-release@v1
@@ -53,7 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: $PWD/packages/sql-d.${{ steps.version.outputs.version }}.nupkg
+          asset_path: packages/sql-d.${{ steps.version.outputs.version }}.nupkg
           asset_name: sql-d.${{ steps.version.outputs.version }}.nupkg
           asset_content_type: application/gzip
       - name: Upload SqlD.tar.gz
@@ -63,7 +63,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: $PWD/packages/SqlD.${{ steps.version.outputs.version }}.tar.gz
+          asset_path: packages/SqlD.${{ steps.version.outputs.version }}.tar.gz
           asset_name: SqlD.${{ steps.version.outputs.version }}.tar.gz
           asset_content_type: application/gzip
       - name: Upload SqlD.zip
@@ -73,7 +73,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: $PWD/packages/SqlD.${{ steps.version.outputs.version }}.zip
+          asset_path: packages/SqlD.${{ steps.version.outputs.version }}.zip
           asset_name: SqlD.${{ steps.version.outputs.version }}.zip
           asset_content_type: application/gzip
       - name: Upload SqlD.UI.deb
@@ -83,7 +83,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: $PWD/packages/SqlD.UI.${{ steps.version.outputs.version }}.deb
+          asset_path: packages/SqlD.UI.${{ steps.version.outputs.version }}.deb
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.deb
           asset_content_type: application/gzip
       - name: Upload SqlD.UI.rpm
@@ -93,7 +93,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: $PWD/packages/SqlD.UI.${{ steps.version.outputs.version }}.rpm
+          asset_path: packages/SqlD.UI.${{ steps.version.outputs.version }}.rpm
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.rpm
           asset_content_type: application/gzip
       - name: Upload SqlD.UI.tar.gz
@@ -103,7 +103,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: $PWD/packages/SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
+          asset_path: packages/SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
           asset_content_type: application/gzip
       - name: Upload SqlD.UI.zip
@@ -113,13 +113,13 @@ jobs:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: $PWD/packages/SqlD.UI.${{ steps.version.outputs.version }}.zip
+          asset_path: packages/SqlD.UI.${{ steps.version.outputs.version }}.zip
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.zip
           asset_content_type: application/gzip
       - name: Publish NuGet package
         if: github.ref == 'refs/heads/master'
         run: |
-          dotnet nuget push $PWD/packages/sql-d.${{ steps.version.outputs.version }}.nupkg --api-key "${{ secrets.NUGET }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push packages/sql-d.${{ steps.version.outputs.version }}.nupkg --api-key "${{ secrets.NUGET }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
       - name: DockerHub Login
         if: github.ref == 'refs/heads/master'
         uses: docker/login-action@v3
@@ -157,4 +157,4 @@ jobs:
   #       with:
   #         dotnet-version: 8.0.401
   #     - name: Build with osx-x64
-  #       run: $PWD/scripts/build-dotnet.sh
+  #       run: scripts/build-dotnet.sh
