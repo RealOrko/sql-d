@@ -56,7 +56,7 @@ jobs:
           asset_path: packages/sql-d.${{ steps.version.outputs.version }}.nupkg
           asset_name: sql-d.${{ steps.version.outputs.version }}.nupkg
           asset_content_type: application/gzip
-      - name: Upload SqlD.tar.gz
+      - name: Upload SqlD.UI.tar.gz
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1
         env:
@@ -64,9 +64,9 @@ jobs:
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: packages/SqlD.${{ steps.version.outputs.version }}.tar.gz
-          asset_name: SqlD.${{ steps.version.outputs.version }}.tar.gz
+          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
           asset_content_type: application/gzip
-      - name: Upload SqlD.zip
+      - name: Upload SqlD.UI.zip
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1
         env:
@@ -74,7 +74,7 @@ jobs:
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: packages/SqlD.${{ steps.version.outputs.version }}.zip
-          asset_name: SqlD.${{ steps.version.outputs.version }}.zip
+          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.zip
           asset_content_type: application/gzip
       - name: Upload SqlD.UI.deb
         if: github.ref == 'refs/heads/master'
