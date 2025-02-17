@@ -96,26 +96,6 @@ jobs:
           asset_path: packages/SqlD.UI.${{ steps.version.outputs.version }}.rpm
           asset_name: SqlD.UI.${{ steps.version.outputs.version }}.rpm
           asset_content_type: application/gzip
-      - name: Upload SqlD.UI.tar.gz
-        if: github.ref == 'refs/heads/master'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.TOKEN }}
-        with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: packages/SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
-          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.tar.gz
-          asset_content_type: application/gzip
-      - name: Upload SqlD.UI.zip
-        if: github.ref == 'refs/heads/master'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.TOKEN }}
-        with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: packages/SqlD.UI.${{ steps.version.outputs.version }}.zip
-          asset_name: SqlD.UI.${{ steps.version.outputs.version }}.zip
-          asset_content_type: application/gzip
       - name: Publish NuGet package
         if: github.ref == 'refs/heads/master'
         run: |
