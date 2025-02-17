@@ -11,7 +11,6 @@ public class ConnectionListener : IDisposable
 
     static ConnectionListener()
     {
-        ServicePointManager.UseNagleAlgorithm = true;
     }
 
     internal ConnectionListener()
@@ -55,7 +54,7 @@ public class ConnectionListener : IDisposable
         catch (Exception err)
         {
             Log.Out.Error($"Failed to listen on {ServiceModel.ToUrl()}, {err}");
-            throw err;
+            Environment.Exit(1);
         }
     }
     

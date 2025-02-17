@@ -25,13 +25,13 @@ public class ConsoleLogger : ILogProvider
     public void Error(string message)
     {
         if (IsLogLevel(LogLevel.Error))
-            Console.WriteLine($"{Header} Error: {message}");
+            Console.Error.WriteLine($"{Header} Error: {message}");
     }
 
     public void Fatal(string message)
     {
         if (IsLogLevel(LogLevel.Fatal))
-            Console.WriteLine($"{Header} Fatal: {message}");
+            Console.Error.WriteLine($"{Header} Fatal: {message}");
     }
 
     private bool IsLogLevel(LogLevel logLevel)

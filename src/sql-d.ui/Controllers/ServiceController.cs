@@ -118,11 +118,11 @@ public class ServiceController : Controller
     }
 
     [HttpGet("Service/Forward/Delete")]
-    public async Task<IActionResult> ForwardDelete([FromQuery] string thisHost, [FromQuery] int thisPort, [FromQuery] string fromHost, [FromQuery] int fromPort)
+    public IActionResult ForwardDelete([FromQuery] string thisHost, [FromQuery] int thisPort, [FromQuery] string fromHost, [FromQuery] int fromPort)
     {
         var thisEndPoint = new EndPoint(thisHost, thisPort);
         var fromEndPoint = new EndPoint(fromHost, fromPort);
-        await _services.RemoveForward(thisEndPoint, fromEndPoint);
+        _services.RemoveForward(thisEndPoint, fromEndPoint);
         return Redirect("/Service");
     }
 }

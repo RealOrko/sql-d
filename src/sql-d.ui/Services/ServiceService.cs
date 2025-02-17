@@ -142,7 +142,7 @@ public class ServiceService
         await new NewClientBuilder(true).ConnectedTo(thisEndPoint).SynchroniseWith(fromEndPoint);
     }
     
-    public async Task RemoveForward(EndPoint thisEndPoint, EndPoint fromEndPoint)
+    public void RemoveForward(EndPoint thisEndPoint, EndPoint fromEndPoint)
     {
         var serviceModel = Configs.Configuration.Instance.Services.First(x => x.IsEqualTo(fromEndPoint));
         serviceModel.ForwardingTo = serviceModel.ForwardingTo.Where(x => !x.IsEqualTo(thisEndPoint)).ToList();
