@@ -2,10 +2,6 @@
 
 set -euo pipefail
 
-echo ''
-echo '[SQL-D]:VERSION/SQLD'
-echo ''
-
 set +u
 
 if [ -z "$GITHUB_RUN_NUMBER" ]; then 
