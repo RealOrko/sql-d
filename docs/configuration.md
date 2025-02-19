@@ -5,7 +5,6 @@
 </div>
 
   * [Defaults](#defaults)
-  * [Authority](#authority)
   * [Registries](#registries)
   * [Services](#services)
     * [Example](#services--example)
@@ -64,126 +63,155 @@ You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appset
 
 ```json
 "SqlD": {
-	"enabled": true,
-	"authority": "localhost",
-	"registries": [{
-		"host": "localhost",
-		"port": 50095
-	}],
-	"services": [{
-		"name": "sql-d-registry-1",
-		"database": "sql-d-registry-1.db",
-		"host": "localhost",
-		"port": 50095,
-		"tags": ["registry"],
-		"pragma": {
-			"journalMode": "OFF",
-			"synchronous": "OFF",
-			"tempStore": "OFF",
-			"lockingMode": "OFF",	
-			"countChanges": "OFF",
-			"pageSize": "65536",
-			"cacheSize": "10000", 
-			"queryOnly": "OFF"
-		}
-	}, {
-		"name": "sql-d-slave-1",
-		"database": "sql-d-slave-1.db",
-		"host": "localhost",
-		"port": 50101,
-		"tags": ["slave 1"],
-		"pragma": {
-			"journalMode": "OFF",
-			"synchronous": "OFF",
-			"tempStore": "OFF",
-			"lockingMode": "OFF",
-			"countChanges": "OFF",
-			"pageSize": "65536",
-			"cacheSize": "10000",
-			"queryOnly": "OFF"
-		}
-	}, {
-		"name": "sql-d-slave-2",
-		"database": "sql-d-slave-2.db",
-		"host": "localhost",
-		"port": 50102,
-		"tags": ["slave 2"],
-		"pragma": {
-			"journalMode": "OFF",
-			"synchronous": "OFF",
-			"tempStore": "OFF",
-			"lockingMode": "OFF",
-			"countChanges": "OFF",
-			"pageSize": "65536",
-			"cacheSize": "10000",
-			"queryOnly": "OFF"
-		}
-	}, {
-		"name": "sql-d-slave-3",
-		"database": "sql-d-slave-3.db",
-		"host": "localhost",
-		"port": 50103,
-		"tags": ["slave 3"],
-		"pragma": {
-			"journalMode": "OFF",
-			"synchronous": "OFF",
-			"tempStore": "OFF",
-			"lockingMode": "OFF",
-			"countChanges": "OFF",
-			"pageSize": "65536",
-			"cacheSize": "10000",
-			"queryOnly": "OFF"
-		}
-	}, {
-		"name": "sql-d-master-1",
-		"database": "sql-d-master-1.db",
-		"host": "localhost",
-		"port": 50100,
-		"tags": ["master"],
-		"pragma": {
-			"journalMode": "OFF",
-			"synchronous": "OFF",
-			"tempStore": "OFF",
-			"lockingMode": "OFF",
-			"countChanges": "OFF",
-			"pageSize": "65536",
-			"cacheSize": "10000",
-			"queryOnly": "OFF"
-		},
-		"forwardingTo": [{
-			"host": "localhost",
-			"port": 50101
-		}, {
-			"host": "localhost",
-			"port": 50102
-		}, {
-			"host": "localhost",
-			"port": 50103
-		}]
-	}]
-}
-```
-
- *See Also*:
-
-  - [No appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#no-appsettingsjson)
-  - [With appsettings.json](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#with-appsettingsjson)
-  - [Services](https://github.com/RealOrko/sql-d/blob/master/docs/configuration.md#services)
-
-## Authority
-
-<div align="right">
-	<a href="#sqld-help---configuration">[Back to Top]</a>
-</div>
-<br/>
-
-For setting the authority for SqlD instance send registration commands when they start up. This is useful for authorities backed on to public DNS entries.
-
-```json
-"SqlD": {
-	"authority": "localhost"
-}
-```
+    "loglevel": "info",
+    "enabled": true,
+    "settings": {
+      "connections": {
+        "strategy": "singleton"
+      },
+      "forwarding": {
+        "allowed": true,
+        "strategy": "primary"
+      },
+      "replication": {
+        "allowed": true,
+        "interval": 5,
+        "delay": 30
+      }
+    },
+    "registries": [
+      {
+        "host": "localhost",
+        "port": 50095
+      }
+    ],
+    "services": [
+      {
+        "name": "registry-1",
+        "database": "registry-1.db",
+        "host": "localhost",
+        "port": 50095,
+        "tags": [
+          "registry"
+        ],
+        "pragma": {
+          "journalMode": "OFF",
+          "synchronous": "OFF",
+          "tempStore": "OFF",
+          "lockingMode": "OFF",
+          "countChanges": "OFF",
+          "pageSize": "65536",
+          "cacheSize": "10000",
+          "queryOnly": "OFF",
+          "autoVacuum": "INCREMENTAL",
+          "autoVacuumPages": "64"
+        }
+      },
+      {
+        "name": "slave-1",
+        "database": "slave-1.db",
+        "host": "localhost",
+        "port": 50101,
+        "tags": [
+          "slave 1"
+        ],
+        "pragma": {
+          "journalMode": "OFF",
+          "synchronous": "OFF",
+          "tempStore": "OFF",
+          "lockingMode": "OFF",
+          "countChanges": "OFF",
+          "pageSize": "65536",
+          "cacheSize": "10000",
+          "queryOnly": "OFF",
+          "autoVacuum": "INCREMENTAL",
+          "autoVacuumPages": "64"
+        },
+        "forwardingTo": [
+          {
+            "host": "localhost",
+            "port": 50102
+          }
+        ]
+      },
+      {
+        "name": "slave-2",
+        "database": "slave-2.db",
+        "host": "localhost",
+        "port": 50102,
+        "tags": [
+          "slave 2"
+        ],
+        "pragma": {
+          "journalMode": "OFF",
+          "synchronous": "OFF",
+          "tempStore": "OFF",
+          "lockingMode": "OFF",
+          "countChanges": "OFF",
+          "pageSize": "65536",
+          "cacheSize": "10000",
+          "queryOnly": "OFF",
+          "autoVacuum": "INCREMENTAL",
+          "autoVacuumPages": "64"
+        },
+        "forwardingTo": [
+          {
+            "host": "localhost",
+            "port": 50103
+          }
+        ]
+      },
+      {
+        "name": "slave-3",
+        "database": "slave-3.db",
+        "host": "localhost",
+        "port": 50103,
+        "tags": [
+          "slave 3"
+        ],
+        "pragma": {
+          "journalMode": "OFF",
+          "synchronous": "OFF",
+          "tempStore": "OFF",
+          "lockingMode": "OFF",
+          "countChanges": "OFF",
+          "pageSize": "65536",
+          "cacheSize": "10000",
+          "queryOnly": "OFF",
+          "autoVacuum": "INCREMENTAL",
+          "autoVacuumPages": "64"
+        }
+      },
+      {
+        "name": "master-1",
+        "database": "master-1.db",
+        "host": "localhost",
+        "port": 50100,
+        "tags": [
+          "master"
+        ],
+        "pragma": {
+          "journalMode": "OFF",
+          "synchronous": "OFF",
+          "tempStore": "OFF",
+          "lockingMode": "OFF",
+          "countChanges": "OFF",
+          "pageSize": "65536",
+          "cacheSize": "10000",
+          "queryOnly": "OFF",
+          "autoVacuum": "INCREMENTAL",
+          "autoVacuumPages": "64"
+        },
+        "forwardingTo": [
+          {
+            "host": "localhost",
+            "port": 50101
+          }
+        ]
+      }
+    ]
+  }
+	```
 
  *See Also*:
 
