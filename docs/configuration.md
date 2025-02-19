@@ -211,7 +211,7 @@ You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appset
       }
     ]
   }
-	```
+```
 
  *See Also*:
 
