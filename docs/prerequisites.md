@@ -1,18 +1,18 @@
-﻿# SqlD Help - Prerequisites
+﻿# ✅ SqlD Help - Prerequisites
 
 <div align="right">
-	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
+	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">⬆️ [Back to Contents]</a>
 </div>
 
-## Dotnet Core
+## 🔧 Dotnet Core
 
 Please make sure you have the latest [dotnet core SDK](https://dotnet.microsoft.com/download).
 
- *See Also*:
+ 💡 *See Also*:
 
   - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
  
-## Current Multi-OS Support
+## 💻 Current Multi-OS Support
 
 At the moment due to restrictions on windows with file locking, this project does not support windows builds. You are better off building this in WSL. 
 

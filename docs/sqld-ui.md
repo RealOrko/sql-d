@@ -1,20 +1,20 @@
-﻿# SqlD Help - SqlD UI
+﻿# 🖥️ SqlD Help - SqlD UI
 
 <div align="right">
-	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
+	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">⬆️ [Back to Contents]</a>
 </div>
 
-  * [Registered Servers](#registered-servers)
-  * [Discovering Tables](#discovering-tables)
-  * [Creating a Table](#creating-a-table)
-  * [Inserting Rows](#inserting-rows)
-  * [Querying a Table](#querying-a-table)
-  * [Dropping a Table](#dropping-a-table)
+  * 🌐 [Registered Servers](#registered-servers)
+  * 🔍 [Discovering Tables](#discovering-tables)
+  * ➕ [Creating a Table](#creating-a-table)
+  * ✏️ [Inserting Rows](#inserting-rows)
+  * 🔎 [Querying a Table](#querying-a-table)
+  * 🗑️ [Dropping a Table](#dropping-a-table)
 
-## Registered Servers
+## 🌐 Registered Servers
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
@@ -29,16 +29,16 @@ each individual instance of SqlD. The default configuration has 5 instances runn
 
 ![Query](https://github.com/RealOrko/sql-d/blob/master/docs/images/sqld.ui/home-page.png)
 
- *See Also*:
+ 💡 *See Also*:
 
   - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
   - [Prerequisites](https://github.com/RealOrko/sql-d/blob/master/docs/prerequisites.md)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
-## Discovering Tables
+## 🔍 Discovering Tables
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
@@ -47,16 +47,16 @@ You can query `sqlite_master` to find out which tables have been created on curr
 
 ![Query - Master Query](https://github.com/RealOrko/sql-d/blob/master/docs/images/sqld.ui/home-page-query.png)
 
- *See Also*:
+ 💡 *See Also*:
 
   - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
   - [Prerequisites](https://github.com/RealOrko/sql-d/blob/master/docs/prerequisites.md)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
-## Creating a Table
+## ➕ Creating a Table
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
@@ -65,16 +65,16 @@ The example below shows you how to create a table called `newtable1` with column
 
 ![Query - Create Table](https://github.com/RealOrko/sql-d/blob/master/docs/images/sqld.ui/home-page-create-table.png)
 
- *See Also*:
+ 💡 *See Also*:
 
   - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
   - [Prerequisites](https://github.com/RealOrko/sql-d/blob/master/docs/prerequisites.md)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
-## Inserting Rows
+## ✏️ Inserting Rows
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
@@ -82,16 +82,16 @@ The example below shows you how to insert 5 rows into `newtable1`.
 
 ![Query - Insert Rows](https://github.com/RealOrko/sql-d/blob/master/docs/images/sqld.ui/home-page-insert-rows.png)
 
- *See Also*:
+ 💡 *See Also*:
 
   - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
   - [Prerequisites](https://github.com/RealOrko/sql-d/blob/master/docs/prerequisites.md)
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#executing-sqldui)
 
-## Querying a Table
+## 🔎 Querying a Table
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui">⬆️ [Back to Top]</a>
 </div>
 <br/>
 

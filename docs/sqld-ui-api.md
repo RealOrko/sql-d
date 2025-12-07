@@ -1,18 +1,18 @@
-﻿# SqlD Help - SqlD UI API
+﻿# 🔌 SqlD Help - SqlD UI API
 
 <div align="right">
-	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
+	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">⬆️ [Back to Contents]</a>
 </div>
 
-  * [Discover API](#discover-api)
-  * [Describe Table API](#describe-table-api)
-  * [Query Table API](#query-table-api)
+  * 🔍 [Discover API](#discover-api)
+  * 📋 [Describe Table API](#describe-table-api)
+  * 🔎 [Query Table API](#query-table-api)
   
 
-## Discover API
+## 🔍 Discover API
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui-api">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui-api">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
@@ -30,16 +30,16 @@ You can discover the API. This exposes links which allow you to discover all the
 
  - http://localhost:5000/api
 
- *See Also*:
+ 💡 *See Also*:
 
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#sqldui)
 
 ![API - Root](https://github.com/RealOrko/sql-d/blob/master/docs/images/sqld.ui/api/api-root.png)
 
-## Describe Table API
+## 📋 Describe Table API
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui-api">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui-api">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
@@ -59,16 +59,16 @@ An example for describing `master`.`newtable1`.
 
  - http://localhost:5000/api/query/describe%20newtable1/http%3A%2F%2Flocalhost%3A50100%2F
 
- *See Also*:
+ 💡 *See Also*:
 
   - [Executing SqlD.UI](https://github.com/RealOrko/sql-d/blob/master/docs/executing.md#sqldui)
 
 ![API - Query](https://github.com/RealOrko/sql-d/blob/master/docs/images/sqld.ui/api/api-query.png)
 
-## Query Table API
+## 🔎 Query Table API
 
 <div align="right">
-	<a href="#sqld-help---sqld-ui-api">[Back to Top]</a>
+	<a href="#sqld-help---sqld-ui-api">⬆️ [Back to Top]</a>
 </div>
 <br/>
 

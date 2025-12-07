@@ -1,14 +1,14 @@
-﻿# SqlD Help - SqlD
+﻿# 🗄️ SqlD Help - SqlD
 
 <div align="right">
-	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
+	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">⬆️ [Back to Contents]</a>
 </div>
 
-  * [NuGet](#nuget)
-  * [Swagger](#swagger)
-  * [Clients](#clients)
+  * 📦 [NuGet](#nuget)
+  * 📡 [Swagger](#swagger)
+  * 🔌 [Clients](#clients)
 
-## NuGet
+## 📦 NuGet
 
 You can install SqlD from NuGet and reference it in a dotnet project. 
 
@@ -77,14 +77,14 @@ namespace New_SqlD_Client
 }
 ```
 
- *See Also*:
+ 💡 *See Also*:
 
   - [Clients](#clients)
 
-## Swagger
+## 📡 Swagger
 
 <div align="right">
-	<a href="#sqld-help---sqld">[Back to Top]</a>
+	<a href="#sqld-help---sqld">⬆️ [Back to Top]</a>
 </div>
 <br/>
 

@@ -1,16 +1,16 @@
-﻿# SqlD Help - Building
+﻿# 🔨 SqlD Help - Building
 
 <div align="right">
-	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
+	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">⬆️ [Back to Contents]</a>
 </div>
 
-  * [Building](#building)
-  * [Packaging](#packaging)
+  * 🏗️ [Building](#building)
+  * 📦 [Packaging](#packaging)
 
-## Building
+## 🏗️ Building
 
 <div align="right">
-	<a href="#sqld-help---building">[Back to Top]</a>
+	<a href="#sqld-help---building">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
@@ -21,15 +21,15 @@ Builds are currently only supported on linux-x64 platforms. If you have Windows 
 ./scripts/build-dotnet.sh
 ```
 
-*See Also*:
+💡 *See Also*:
 
   - [About](https://github.com/RealOrko/sql-d/blob/master/docs/about.md)
   - [Prerequisites](https://github.com/RealOrko/sql-d/blob/master/docs/prerequisites.md)
 
-## Packaging
+## 📦 Packaging
 
 <div align="right">
-	<a href="#sqld-help---building">[Back to Top]</a>
+	<a href="#sqld-help---building">⬆️ [Back to Top]</a>
 </div>
 <br/>
 

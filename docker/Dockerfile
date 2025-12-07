@@ -1,11 +1,11 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 
 WORKDIR /code
 ADD . .
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
   dotnet publish -c Release -o /output /code/src/sql-d.ui/SqlD.UI.csproj /p:GeneratePackageOnBuild=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS run
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview AS run
 RUN mkdir -p /var/lib/sql-d/
 RUN chown app:app /var/lib/sql-d/
 #USER app

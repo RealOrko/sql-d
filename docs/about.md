@@ -1,11 +1,11 @@
-﻿# SqlD Help - About
+﻿# 📖 SqlD Help - About
 
 <div align="right">
-	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
+	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">⬆️ [Back to Contents]</a>
 </div>
 <br/>
 
-An HTTP persistence API powered by [Sqlite](https://sqlite.org) written in .NET core. Its chief design goal is to be a low ceremony ephemeral storage mechanism that you can call using your favourite HTTP client with basic fault tolerant forwarding but can also deal with volume based writes using write node/reader node replication. 
+An HTTP persistence API powered by [Sqlite](https://sqlite.org) 🔗 written in .NET core. Its chief design goal is to be a low ceremony ephemeral storage mechanism that you can call using your favourite HTTP client with basic fault tolerant forwarding but can also deal with volume based writes using write node/reader node replication. 
 
 ![Query](https://github.com/RealOrko/sql-d/blob/master/docs/images/sqld.ui/home-page-query.png)
 

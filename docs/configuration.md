@@ -1,12 +1,12 @@
-﻿# SqlD Help - Configuration
+﻿# ⚙️ SqlD Help - Configuration
 
 <div align="right">
-	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">[Back to Contents]</a>
+	<a href="https://github.com/RealOrko/sql-d/blob/master/docs/_.md#sqld-help---contents">⬆️ [Back to Contents]</a>
 </div>
 
-  * [Defaults](#defaults)
-  * [Registries](#registries)
-  * [Services](#services)
+  * 🎯 [Defaults](#defaults)
+  * 🗂️ [Registries](#registries)
+  * 🛠️ [Services](#services)
     * [Example](#services--example)
     * [Database](#services--database)
     * [Host/Port](#services--host--port)
@@ -14,10 +14,10 @@
     * [Pragma](#services--pragma)
     * [Forwarding](#services--forwarding)
 
-## Defaults
+## 🎯 Defaults
 
 <div align="right">
-	<a href="#sqld-help---configuration">[Back to Top]</a>
+	<a href="#sqld-help---configuration">⬆️ [Back to Top]</a>
 </div>
 <br/>
 
