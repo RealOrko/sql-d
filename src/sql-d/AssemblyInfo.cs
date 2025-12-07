@@ -2,3 +2,4 @@
 
 [assembly: InternalsVisibleTo("SqlD.UI")]
 [assembly: InternalsVisibleTo("SqlD.Tests")]
+
