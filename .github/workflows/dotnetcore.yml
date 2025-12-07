@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'LICENSE'
+      - 'docker/**'
       - 'src/**'
       - 'tests/**'
       - '!docs/**'
