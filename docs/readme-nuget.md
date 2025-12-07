@@ -1,4 +1,4 @@
-# SqlD 
+# 📦 SqlD 
 
 HTTP persistence using [Sqlite](https://sqlite.org). 
 
