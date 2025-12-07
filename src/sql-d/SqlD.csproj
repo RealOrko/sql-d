@@ -4,10 +4,10 @@
         <OutputType>Library</OutputType>
         <IsPackable>true</IsPackable>
         <PackageId>sql-d</PackageId>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100</NoWarn>
+        <NoWarn>$(NoWarn);MSB4011;NU1603;NU5125;NU5100;NU5104;NETSDK1206;CS0618</NoWarn>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     </PropertyGroup>
@@ -20,15 +20,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="NSwag.Annotations" Version="14.6.3" />
         <PackageReference Include="NSwag.AspNetCore" Version="14.6.3" />
         <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.11.0-beta.1" />
         <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0" />
-        <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
         <PackageReference Update="Packaging.Targets">
           <Version>0.1.232</Version>

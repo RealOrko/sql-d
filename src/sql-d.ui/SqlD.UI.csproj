@@ -4,9 +4,9 @@
         <OutputType>Exe</OutputType>
         <IsPackable>false</IsPackable>
         <PackageId>sql-d.ui</PackageId>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <StartupObject>SqlD.UI.Program</StartupObject>
-        <NoWarn>$(NoWarn);NU1603;NU5125;NU5100;CS0618</NoWarn>
+        <NoWarn>$(NoWarn);NU1603;NU5125;NU5100;CS0618;NETSDK1206</NoWarn>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     </PropertyGroup>
@@ -14,12 +14,10 @@
     <Import Project="../../version.props" />
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="NSwag.Annotations" Version="14.6.3" />
         <PackageReference Include="NSwag.AspNetCore" Version="14.6.3" />
-        <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
         <PackageReference Update="Packaging.Targets">
           <Version>0.1.232</Version>
