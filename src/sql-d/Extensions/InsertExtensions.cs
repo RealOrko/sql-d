@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 using SqlD.Extensions.Discovery;
 
@@ -57,9 +57,9 @@ internal static class InsertExtensions
         return result.ToString();
     }
 
-    internal static SQLiteCommand GetInsertPrepared(this object instance, SQLiteConnection connection, bool withIdentity = false)
+    internal static SqliteCommand GetInsertPrepared(this object instance, SqliteConnection connection, bool withIdentity = false)
     {
-        var command = new SQLiteCommand(connection);
+        var command = connection.CreateCommand();
 
         var result = new StringBuilder();
 
@@ -87,14 +87,16 @@ internal static class InsertExtensions
         result.AppendLine("(");
 
         var values = new List<string>();
+        var paramIndex = 0;
 
         foreach (var property in properties)
         {
             if (property.Name == idProperty.Name && !withIdentity) continue;
-            values.Add("?");
+            var paramName = $"@p{paramIndex++}";
+            values.Add(paramName);
             var instanceValue = property.GetValue(instance);
 
-            var sqlParameter = new SQLiteParameter(instanceValue.GetType().ToDbType(), instanceValue);
+            var sqlParameter = new SqliteParameter(paramName, instanceValue);
             command.Parameters.Add(sqlParameter);
         }
 

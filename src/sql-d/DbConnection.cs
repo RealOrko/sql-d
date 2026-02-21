@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Security.Cryptography;
 using System.Text;
 using SqlD.Configs.Model;
@@ -15,7 +15,7 @@ public class DbConnection : IDisposable
     public string Name { get; private set; }
     public string DatabaseName { get; private set; }
     public string ConnectionString { get; private set; }
-    public SQLiteConnection Connection { get; private set; }
+    public SqliteConnection Connection { get; private set; }
     public SqlDPragmaModel PragmaOptions { get; private set; }
 
     public virtual void Dispose()
@@ -41,7 +41,7 @@ public class DbConnection : IDisposable
     {
         Log.Out.Debug($"Start of creating connection string {databaseName} ... ");
         
-        var builder = new SQLiteConnectionStringBuilder();
+        var builder = new SqliteConnectionStringBuilder { Cache = SqliteCacheMode.Shared };
         if (databaseName == ":memory:")
         {
             builder.DataSource = databaseName;
@@ -55,8 +55,7 @@ public class DbConnection : IDisposable
                 
                 if (!File.Exists(databaseName))
                 {
-                    Log.Out.Debug($"File does not exist, creating '{databaseName}' ... ");
-                    SQLiteConnection.CreateFile(databaseName);
+                    Log.Out.Debug($"File does not exist, will be created on open '{databaseName}' ... ");
                 }
             }
             else
@@ -67,8 +66,7 @@ public class DbConnection : IDisposable
 
                 if (!File.Exists(databasePath))
                 {
-                    Log.Out.Debug($"File does not exist, creating '{databasePath}' ... ");
-                    SQLiteConnection.CreateFile(databasePath);
+                    Log.Out.Debug($"File does not exist, will be created on open '{databasePath}' ... ");
                 }
             }
         }
@@ -78,13 +76,13 @@ public class DbConnection : IDisposable
             builder.DataSource = databaseName;
         }
         
-        Log.Out.Debug($"ConnectionString='{builder};cache=shared'");
-        return $"{builder};cache=shared";
+        Log.Out.Debug($"ConnectionString='{builder}'");
+        return builder.ToString();
     }
     
-    internal SQLiteConnection CreateConnection(string databaseName)
+    internal SqliteConnection CreateConnection(string databaseName)
     {
-        var connection = new SQLiteConnection(ConnectionString);
+        var connection = new SqliteConnection(ConnectionString);
 
         try
         {

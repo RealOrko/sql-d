@@ -14,11 +14,11 @@
     <Import Project="../../version.props" />
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.3" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="NSwag.Annotations" Version="14.6.3" />
         <PackageReference Include="NSwag.AspNetCore" Version="14.6.3" />
-        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.3" />
         <PackageReference Update="Packaging.Targets">
           <Version>0.1.232</Version>
         </PackageReference>

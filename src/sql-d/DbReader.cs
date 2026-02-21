@@ -1,18 +1,18 @@
 ﻿using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace SqlD;
 
 public class DbReader : IDisposable
 {
-    public DbReader(SQLiteConnection connection)
+    public DbReader(SqliteConnection connection)
     {
         Connection = connection;
         Command = connection.CreateCommand();
     }
 
-    public SQLiteCommand Command { get; }
-    public SQLiteConnection Connection { get; }
+    public SqliteCommand Command { get; }
+    public SqliteConnection Connection { get; }
     public DbDataReader Reader { get; private set; }
 
     public void Dispose()

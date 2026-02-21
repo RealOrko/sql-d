@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 using SqlD.Extensions.Discovery;
 
@@ -38,9 +38,9 @@ internal static class UpdateExtensions
         return result.ToString();
     }
 
-    internal static SQLiteCommand GetUpdatePrepared(this object instance, SQLiteConnection connection)
+    internal static SqliteCommand GetUpdatePrepared(this object instance, SqliteConnection connection)
     {
-        var command = new SQLiteCommand(connection);
+        var command = connection.CreateCommand();
 
         var result = new StringBuilder();
 
@@ -53,16 +53,18 @@ internal static class UpdateExtensions
         var columns = new List<string>();
 
         var properties = PropertyDiscovery.GetProperties(type);
+        var paramIndex = 0;
 
         var idProperty = PropertyDiscovery.GetProperty("Id", type);
         foreach (var property in properties)
         {
             if (property.Name == idProperty.Name) continue;
             var columnName = AttributeDiscovery.GetColumnName(property);
-            columns.Add($"{columnName} = ?");
+            var paramName = $"@p{paramIndex++}";
+            columns.Add($"{columnName} = {paramName}");
 
             var columnValue = ValueDiscovery.GetValue(instance, property);
-            var sqlParameter = new SQLiteParameter(columnValue.GetType().ToDbType(), columnValue);
+            var sqlParameter = new SqliteParameter(paramName, columnValue);
             command.Parameters.Add(sqlParameter);
         }
 
@@ -71,9 +73,10 @@ internal static class UpdateExtensions
         result.AppendLine("WHERE");
 
         var idValue = ValueDiscovery.GetValue(instance, idProperty);
-        result.AppendLine("Id = ?");
+        var idParamName = $"@p{paramIndex}";
+        result.AppendLine($"Id = {idParamName}");
 
-        var idSqlParameter = new SQLiteParameter(idValue.GetType().ToDbType(), idValue);
+        var idSqlParameter = new SqliteParameter(idParamName, idValue);
         command.Parameters.Add(idSqlParameter);
 
         command.CommandText = result.ToString();

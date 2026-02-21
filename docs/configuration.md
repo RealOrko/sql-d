@@ -67,7 +67,7 @@ You can activate it using the `Interface.Setup(typeof(Program).Assembly, "appset
     "enabled": true,
     "settings": {
       "connections": {
-        "strategy": "singleton"
+        "strategy": "factory"
       },
       "forwarding": {
         "allowed": true,
